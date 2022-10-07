@@ -27,7 +27,7 @@ export const Section = styled.section`
 export const SectionContainer = styled.div`
     max-width: 1340px;
     margin: 0px auto;
-    padding: 40px 0px;
+    padding: 40px 20px;
     .sec-row {
         display: flex;
         justify-content: space-between;
