@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
     position: fixed;
     top: 0px;
     left: 0px;
+    z-index: 99999999;
     filter: drop-shadow(0px 4px 8px rgba(137, 139, 141, 0.1));
 `;
 export const Container = styled.div`
