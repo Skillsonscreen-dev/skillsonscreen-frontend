@@ -3,16 +3,17 @@ import { Container, Wrapper } from './styles'
 import { TbSearch } from 'react-icons/tb'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { VscMenu } from 'react-icons/vsc'
+import { Link } from 'react-router-dom'
 
 const Header: React.FC = () => {
 
     return (
         <Wrapper>
             <Container>
-                <a className='site-logo' href="#">
+                <Link className='site-logo' to="/">
                     <img className='logo-image' src="/assets/img/logo.png" alt="" />
                     <img className='icon-image' src="/assets/img/icon.png" alt="" />
-                </a>
+                </Link>
                 <div className="first-nav-sec">
                     <a className='categories' href="#">Categories</a>
                     <div className="search-wrapper">
@@ -34,8 +35,8 @@ const Header: React.FC = () => {
                     </nav>
                     <div className="auth-nav">
                         <ul>
-                            <li><a href="#">Log In</a></li>
-                            <li><a href="#">Join for Free</a></li>
+                            <li><Link to="/signin">Log In</Link></li>
+                            <li><Link to="/signup">Join for Free</Link></li>
                         </ul>
                     </div>
                 </div>
