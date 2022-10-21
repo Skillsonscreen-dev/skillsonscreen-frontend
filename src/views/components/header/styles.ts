@@ -109,56 +109,6 @@ export const Container = styled.div`
         }
     }
 
-    .nav-wrapper {
-        display: none;
-        nav {
-            ul {
-                display: flex;
-                flex-direction: column;
-
-                li {
-                    a {
-                        display: block;
-                        color: #1C1D1F;
-                        font-size: 14px;
-                        font-weight: 400;
-                        font-family: 'Lato', sans-serif;
-                    }
-                }
-            }
-        }
-
-        .auth-nav {
-            ul {
-                display: flex;
-                flex-direction: column;
-
-                li {
-                    a {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 40px;
-                        padding: 0px 20px;
-                        border-radius: 4px;
-                        color: #fff;
-                        letter-spacing: 0.1px;
-                        font-weight: 600;
-                        font-family: 'Lato', sans-serif;
-                        background: ${props => props.theme.primaryColor};
-                    }
-
-                    :first-child {
-                        a {
-                            color: ${props => props.theme.primaryColor};
-                            background: #fff;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     @media screen and (min-width: 880px) {
         .site-logo {
             height: 40px;
@@ -175,29 +125,79 @@ export const Container = styled.div`
         .toggle-menu {
             display: none;
         }
+    }
+`;
 
-        .nav-wrapper {
+export const NavWrapper = styled.nav`
+    display: none;
+    nav {
+        ul {
             display: flex;
-            align-items: center;
-            nav {
-                margin-right: 20px;
-                ul {
-                    flex-direction: row;
+            flex-direction: column;
 
-                    li a {
-                        margin-left: 20px;
+            li {
+                a {
+                    display: block;
+                    color: #1C1D1F;
+                    font-size: 14px;
+                    font-weight: 400;
+                    font-family: 'Lato', sans-serif;
+                }
+            }
+        }
+    }
+
+    .auth-nav {
+        ul {
+            display: flex;
+            flex-direction: column;
+
+            li {
+                a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 40px;
+                    padding: 0px 20px;
+                    border-radius: 4px;
+                    color: #fff;
+                    letter-spacing: 0.1px;
+                    font-weight: 600;
+                    font-family: 'Lato', sans-serif;
+                    background: ${props => props.theme.primaryColor};
+                }
+
+                :first-child {
+                    a {
+                        color: ${props => props.theme.primaryColor};
+                        background: #fff;
                     }
                 }
             }
+        }
+    }
 
-            .auth-nav {
-                ul {
-                    flex-direction: row;
+    @media screen and (min-width: 880px) {
+        display: flex;
+        align-items: center;
+        nav {
+            margin-right: 20px;
+            ul {
+                flex-direction: row;
 
-                    li {
-                        :last-child {
-                            margin-left: 20px;
-                        }
+                li a {
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        .auth-nav {
+            ul {
+                flex-direction: row;
+
+                li {
+                    :last-child {
+                        margin-left: 20px;
                     }
                 }
             }

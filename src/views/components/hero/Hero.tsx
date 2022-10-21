@@ -1,4 +1,5 @@
 import react from 'react'
+import { Link } from 'react-router-dom'
 import Header from '../../components/header/Header'
 import { Container, ImageContent, TextContent, Wrapper } from './styles'
 
@@ -11,7 +12,7 @@ const Hero: React.FC = () => {
                     <h6>Learn your desired vocational skill in the most convinient way possible. With over 50 skills and over 200 courses to choose from.</h6>
 
                     <div className="link-sec">
-                        <a href="#">Create an account</a>
+                        <Link to="/signup">Create an account</Link>
                         <a href="#">Learn More</a>
                     </div>
                 </TextContent>

@@ -1,5 +1,5 @@
 import react from 'react'
-import { Container, Wrapper } from './styles'
+import { Container, NavWrapper, Wrapper } from './styles'
 import { TbSearch } from 'react-icons/tb'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { VscMenu } from 'react-icons/vsc'
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
                     <HiOutlineShoppingCart />
                     <span>1</span>
                 </div>
-                <div className="nav-wrapper">
+                <NavWrapper>
                     <nav>
                         <ul>
                             <li><a href="#">Become a Tutor</a></li>
@@ -39,10 +39,10 @@ const Header: React.FC = () => {
                             <li><Link to="/signup">Join for Free</Link></li>
                         </ul>
                     </div>
+                </NavWrapper>
+                <div className="toggle-menu">
+                    <VscMenu />
                 </div>
-                    <div className="toggle-menu">
-                        <VscMenu />
-                    </div>
             </Container>
         </Wrapper>
     )
