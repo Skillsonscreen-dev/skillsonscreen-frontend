@@ -323,7 +323,7 @@ export const CategoryCard = styled.div`
         width: calc(25% - 20px);
 
         .img-wrapper {
-            width: 200px;
+            height: 200px;
         }
     }
 `;
