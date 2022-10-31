@@ -157,7 +157,7 @@ export const NavWrapper = styled.nav<{navigationState: boolean}>`
         z-index: 999;
 
         @media screen and (min-width: 990px) {
-            background-color: transparent;
+            background-color: transparent ;
             width: 240px;
             height: unset;
         }
