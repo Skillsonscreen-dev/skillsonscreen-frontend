@@ -158,7 +158,7 @@ export const NavWrapper = styled.nav<{navigationState: boolean}>`
 
         @media screen and (min-width: 990px) {
             background-color: transparent;
-            width: 240px;
+            width: 0px;
             height: unset;
         }
     }

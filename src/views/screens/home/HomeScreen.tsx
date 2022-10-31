@@ -174,7 +174,7 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Explore Categories</h3>
 
                             <CategoryCardWrapper>
-                                {[1,2,3,4,5,6].map((item, index) => {
+                                {[1,2,3,4,5,6,7,8].map((item, index) => {
                                     return <CategoryCard key={index}>
                                     <div className="img-wrapper">
                                         <img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" alt="category image" />
