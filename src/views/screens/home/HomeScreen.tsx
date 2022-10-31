@@ -7,6 +7,7 @@ import { CategoryCard, CategoryCardWrapper, Container, CourseCard, CourseWrapper
 import Footer from '../../components/footer/Footer'
 
 const HomeScreen: React.FC = () => {
+
     return (
         <Wrapper>
             <Header />

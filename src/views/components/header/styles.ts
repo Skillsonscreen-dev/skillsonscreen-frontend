@@ -90,7 +90,7 @@ export const Container = styled.div`
     
     .categories {
         display: none;
-        margin: 0px 10px 0px 40px;
+        margin: 0px 10px 0px 20px;
         color: #1C1D1F;
         font-size: 14px;
         font-weight: 400;
@@ -109,7 +109,15 @@ export const Container = styled.div`
         }
     }
 
-    @media screen and (min-width: 880px) {
+    @media screen and (min-width: 990px) {
+        .categories {
+            display: block;
+        }
+        .toggle-menu {
+            display: none;
+        }
+    }
+    @media screen and (min-width: 1240px) {
         .site-logo {
             height: 40px;
             .logo-image {
@@ -119,85 +127,171 @@ export const Container = styled.div`
                 display: none;
             }
         }
+
         .categories {
-            display: block;
-        }
-        .toggle-menu {
-            display: none;
+            margin: 0px 10px 0px 40px;
         }
     }
 `;
 
-export const NavWrapper = styled.nav`
-    display: none;
-    nav {
-        ul {
-            display: flex;
-            flex-direction: column;
+export const NavWrapper = styled.nav<{navigationState: boolean}>`
+    display: block;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    /* background: #0006; */
+    /* height: 100vh;
+    width: 100%; */
 
-            li {
-                a {
-                    display: block;
-                    color: #1C1D1F;
-                    font-size: 14px;
-                    font-weight: 400;
-                    font-family: 'Lato', sans-serif;
-                }
-            }
+    ::before {
+        content: "";
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        display: ${props => props.navigationState ? "block" : "none"};
+        height: 100vh;
+        width: 100%;
+        background-color: ${props => props.navigationState ? "#0006" : "transparent"};
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        z-index: 999;
+
+        @media screen and (min-width: 990px) {
+            background-color: transparent;
+            width: 240px;
+            height: unset;
         }
     }
 
-    .auth-nav {
-        ul {
-            display: flex;
-            flex-direction: column;
+    .nav-wrapper {
+        width: 240px;
+        height: 100vh;
+        background: #fff;
+        padding: 20px 0px;
+        position: relative;
+        z-index: 9999;
+        left: ${props => props.navigationState ? "0px" : "-240px"};
+        top: 0px;
+        transition: all 0.2s ease-in-out;
 
-            li {
-                a {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 40px;
-                    padding: 0px 20px;
-                    border-radius: 4px;
-                    color: #fff;
-                    letter-spacing: 0.1px;
-                    font-weight: 600;
-                    font-family: 'Lato', sans-serif;
-                    background: ${props => props.theme.primaryColor};
-                }
+        .nav-logo {
+            margin-bottom: 10px;
+            padding: 0px 20px 20px 20px;
+            border-bottom: 1px solid #ccc;
 
-                :first-child {
+            img {
+                width: 160px;
+                margin: 0px auto;
+            }
+        }
+
+        nav {
+            ul {
+                display: flex;
+                flex-direction: column;
+
+                li {
                     a {
-                        color: ${props => props.theme.primaryColor};
-                        background: #fff;
+                        display: block;
+                        padding: 10px 20px;
+                        color: #1C1D1F;
+                        white-space: nowrap;
+                        font-size: 14px;
+                        font-weight: 400;
+                        font-family: 'Lato', sans-serif;
+                    }
+                }
+            }
+        }
+
+        .auth-nav {
+            padding: 0px 20px;
+            ul {
+                display: flex;
+                flex-direction: column;
+
+                li {
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 50px;
+                        padding: 0px 20px;
+                        border-radius: 4px;
+                        color: #fff;
+                        letter-spacing: 0.1px;
+                        font-weight: 600;
+                        font-family: 'Lato', sans-serif;
+                        white-space: nowrap;
+                        background: ${props => props.theme.primaryColor};
+
+
+                        border: 1px solid ${props => props.theme.primaryColor};
+
+                        margin-top: 20px;
+                    }
+
+                    :first-child {
+                        a {
+                            color: ${props => props.theme.primaryColor};
+                            background: #fff;
+                        }
                     }
                 }
             }
         }
     }
 
-    @media screen and (min-width: 880px) {
+    @media screen and (min-width: 990px) {
         display: flex;
         align-items: center;
-        nav {
-            margin-right: 20px;
-            ul {
-                flex-direction: row;
+        justify-content: flex-end;
+        position: unset;
+        top: 0px;
+        left: 0px;
+        background: unset;
+        height: unset;
+        width: auto;
 
-                li a {
-                    margin-left: 20px;
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            position: unset;
+            width: unset;
+            height: unset;
+            background: unset;
+            padding: 0px;
+
+            .nav-logo {
+                display: none;
+            }
+
+            nav {
+                margin-right: 20px;
+                ul {
+                    flex-direction: row;
+
+                    li a {
+                        margin-left: 20px;
+                        padding: 0px;
+                    }
                 }
             }
-        }
 
-        .auth-nav {
-            ul {
-                flex-direction: row;
+            .auth-nav {
+                padding: 0px;
+                ul {
+                    flex-direction: row;
 
-                li {
-                    :last-child {
-                        margin-left: 20px;
+                    li {
+                        a {
+                            height: 40px;
+                            margin-top: 0px;
+                            border: none;
+                        }
+                        :last-child {
+                            margin-left: 20px;
+                        }
                     }
                 }
             }

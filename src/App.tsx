@@ -7,16 +7,20 @@ import { lightTheme } from './views/styles/theme';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import SigninScreen from './views/screens/auth/signin/SigninScreen';
 import SignupScreen from './views/screens/auth/signup/SignupScreen';
+import { Provider } from "react-redux";
+import { store } from './config/store';
 
 function App() {
   return (
     <Router>
       <ThemeProvider theme={lightTheme}>
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/signin" element={<SigninScreen />} />
-          <Route path="/signup" element={<SignupScreen />} />
-        </Routes>
+        <Provider store={store}>
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/signup" element={<SignupScreen />} />
+            </Routes>
+        </Provider>
       </ThemeProvider>
     </Router>
 );
