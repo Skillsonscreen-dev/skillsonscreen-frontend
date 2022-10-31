@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     const sidebarRef = useRef(null)
 
     const closeMenu = (e: { target: any }) => {
-        if (e.target == sidebarRef.current) {
+        if (e.target === sidebarRef.current) {
             dispatch(setNavigation(false));
         }
     }

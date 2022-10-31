@@ -135,7 +135,7 @@ export const Container = styled.div`
 `;
 
 export const NavWrapper = styled.nav<{navigationState: boolean}>`
-    display: block;
+    visibility: ${props => props.navigationState ? "visible" : "hidden"};
     position: fixed;
     top: 0px;
     left: 0px;
@@ -244,6 +244,7 @@ export const NavWrapper = styled.nav<{navigationState: boolean}>`
 
     @media screen and (min-width: 990px) {
         display: flex;
+        visibility: visible;
         align-items: center;
         justify-content: flex-end;
         position: unset;
