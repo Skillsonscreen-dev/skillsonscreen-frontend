@@ -319,6 +319,6 @@ export const CategoryCard = styled.div`
         width: calc(50% - 10px);
     }
     @media screen and (min-width: 1080px) {
-        width: calc(33.33% - 15px);
+        width: calc(25% - 15px);
     }
 `;
