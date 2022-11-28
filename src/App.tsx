@@ -9,6 +9,7 @@ import SigninScreen from './views/screens/auth/signin/SigninScreen';
 import SignupScreen from './views/screens/auth/signup/SignupScreen';
 import { Provider } from "react-redux";
 import { store } from './config/store';
+import StudentHome from './views/screens/student/Home/StudentHome';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
               <Route path="/" element={<HomeScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
+
+              {/* Student protected Routes */}
+              <Route path="/home" element={<StudentHome />} />
             </Routes>
         </Provider>
       </ThemeProvider>

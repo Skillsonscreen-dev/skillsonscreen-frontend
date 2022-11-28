@@ -1,13 +1,14 @@
 import { Button, Container, Form, FormMeta, InputSec, MainSection, PasswordInput, Wrapper } from './styles'
 import Header from '../../../components/header/Header'
 import Footer from '../../../components/footer/Footer'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { useState } from 'react'
 
 
 const SigninScreen: React.FC = () => {
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <Wrapper>
@@ -35,7 +36,7 @@ const SigninScreen: React.FC = () => {
                         <FormMeta>
                             <a href="#">Forgot Password?</a>
                         </FormMeta>
-                        <Button>Sign In</Button>
+                        <Button onClick={() => navigate('/home')}>Sign In</Button>
                     </Form>
                 </MainSection>
             </Container>
