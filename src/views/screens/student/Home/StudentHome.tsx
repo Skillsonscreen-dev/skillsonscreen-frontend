@@ -5,6 +5,7 @@ import Header from '../../../components/header/Header';
 import Hero from '../../../components/student/hero/Hero';
 import Footer from '../../../components/footer/Footer';
 import ContinueSection from '../../../components/student/continueSection/ContinueSection';
+import RecommendSection from '../../../components/student/recommendSection/RecommendSection';
 
 const StudentHome: React.FC = () => {
     const HeroAction = (
@@ -26,7 +27,9 @@ const StudentHome: React.FC = () => {
                 />
                 <MainSection>
                     <ContinueSection />
-                
+
+                    <RecommendSection />
+                    
                     <SectionContainer>
                         <h3 className="sec-title">Pick from a wide variety</h3>
                         <div className="sec-row">
