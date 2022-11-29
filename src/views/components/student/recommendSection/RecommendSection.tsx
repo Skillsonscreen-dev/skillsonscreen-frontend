@@ -25,7 +25,7 @@ const RecommendSection: React.FC = () => {
                             </div>
                             <div className="stats-col">
                                 <span className='students'>
-                                    <img src="/assets/img/users.svg" alt="" />
+                                    <img src="/assets/icons/users.svg" alt="" />
                                     (10,000 enrolled)
                                 </span>
                                 <div className="rat-sec">
