@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import formatNumber from '../../../../utils/numberFormatter';
 import { CategoryCardItem } from './styles';
 
 interface CategoryCardProps {
@@ -21,7 +22,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
                             <p>
                                 <span>{props.courses} Courses</span>
                                 <span className='seperator'>|</span>
-                                <span>{props.students} Students</span>
+                                <span>{formatNumber(props.students)} Students</span>
                             </p>
                         </div>
                     </div>
