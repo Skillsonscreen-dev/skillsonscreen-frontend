@@ -4,6 +4,7 @@ import { Container, Wrapper } from './styles';
 import TeacherDashboardHeader from '../../../components/Teacher/dashboardHeader';
 import PerformanceGraph  from '../../../components/Teacher/performanceGraph';
 import { BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
+import { TbCurrencyNaira } from 'react-icons/tb';
 const FinanceScreen: React.FC = () => {
     return ( 
         <Wrapper>
@@ -11,37 +12,31 @@ const FinanceScreen: React.FC = () => {
             
                 <Container>
                 <TeacherDashboardHeader/>
-                <div className="performance">
+                <div className="finance">
                     <h4>Finance and courses</h4>
-                    <div className="performance-cards">
+                    <div className="cards">
+                        <div className="balance-card">
+                            <p>Account Balance</p>
+                            <span><TbCurrencyNaira/><h2>800k</h2></span>
+                            <button className='withdrawal'>
+                            Process Withdrawal
+                            </button>                      
+                        </div>
                         <div className="card">
-                            <p>Total students</p>
-                            <h2>1,234</h2>
+                            <p>Total revenue</p>
+                            <div className='money'><TbCurrencyNaira/><h2>2.2m</h2></div>
                             <span>
-                            <p className="small"><b>24</b> this month</p>
+                            <p className="small"><b>N120K</b> this month</p>
                             <button className='good-perfomance'>
                             <BsArrowUpCircle /> 25%
                             </button>                      
                             </span>
                         </div>
                         <div className="card">
-                            <p>Currently enrolled</p>
-                            <h2>910</h2>
+                            <p>Total withdrawal</p>
+                            <div className='money'><TbCurrencyNaira/><h2>1.4m</h2></div>
                             <span>
-                            <p className="small"><b>17</b> this month</p>
-                            <button className='good-perfomance'>
-                            <BsArrowUpCircle /> 45%
-                            </button>                      
-                            </span>
-                        </div>
-                        <div className="card">
-                            <p>Certified students</p>
-                            <h2>322</h2>
-                            <span>
-                            <p className="small"><b>5</b> this month</p>
-                            <button className='bad-perfomance'>
-                            <BsArrowDownCircle /> 25%
-                            </button>                      
+                            <p className="small"><b>N500K</b> this month</p>                     
                             </span>
                         </div>
                     </div>

@@ -1,20 +1,57 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-    .performance{
+    .finance{
         margin-top: 1rem;
         margin-left: 1rem;
         h4 {
             font-size: 20px;
         }
     }
-    .performance-cards{
+    .cards{
         margin-top: 1rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
         /* gap: 20px; */
+
+        .balance-card{
+            background: #3186C6;
+            border: 1px solid #D1D7DC;
+            border-radius: 8px;
+            width: 31%;
+            height: 168px;
+            padding: 1.5rem 1rem;
+            color: #ffffff;
+            p{
+                font-weight: 400;
+            }
+            .withdrawal{
+                background: #FFFFFF;
+                border: 1px solid #ffffff;
+                border-radius: 8px;
+                color: #3186C6;
+                padding: 0.5rem 1rem;
+            }
+            h2{
+                font-weight: 900;
+                font-size: 40px;
+                margin-left: -6px;
+            }
+            span{
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                margin: 0.2rem 0;
+                svg{
+                    font-weight: 900;
+                    color: #07BEF7;
+                    margin-left: -10px;
+                    font-size: 54px;
+                }
+            }
+        }
 
         .card{
             background: #F7F9FA;
@@ -24,7 +61,7 @@ export const Wrapper = styled.div`
             height: 168px;
             padding: 1.5rem 1rem;
             p{
-                font-weight: 300;
+                font-weight: 400;
             }
             .good-perfomance{
                 background: rgba(35, 172, 0, 0.05);
@@ -41,11 +78,22 @@ export const Wrapper = styled.div`
                 padding: 0.5rem;
             }
             h2{
-                /* font-family: 'Raleway'; */
                 color: #1C1D1F;
                 font-weight: 900;
-                padding: 0.5rem 0;
                 font-size: 40px;
+                margin-left: -6px;
+            }
+            .money{
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                margin: 0.2rem 0;
+                svg{
+                    font-weight: 900;
+                    color: #1C1D1F;
+                    margin-left: -10px;
+                    font-size: 54px;
+                }
             }
             span{
                 display: flex;
@@ -96,12 +144,15 @@ export const Wrapper = styled.div`
             }
         }
     @media screen and (max-width: 780px) {
-        .performance-cards{
+        .cards{
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
         .card{
+            width: 100% !important;
+        }
+        .balance-card{
             width: 100% !important;
         }
         .title{
