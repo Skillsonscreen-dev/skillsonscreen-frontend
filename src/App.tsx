@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { store } from './config/store';
 import StudentHome from './views/screens/student/Home/StudentHome';
 import Category from './views/screens/student/Category/Category';
+import Skills from './views/screens/student/Skills/Skills';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               {/* Student protected Routes */}
               <Route path="/home" element={<StudentHome />} />
               <Route path="/categories" element={<Category />} />
+              <Route path="/categories/:category/skills" element={<Skills />} />
             </Routes>
         </Provider>
       </ThemeProvider>

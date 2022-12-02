@@ -1,18 +1,41 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import CategoryCard from "../../../components/student/categoryCard/CategoryCard";
+import SkillCard from "../../../components/student/skillCard/SkillCard";
 import Button from "../../../components/ui/button/Button";
 import Jumbotron from "../../../components/ui/jumbotron/Jumbotron";
 import Select, { Option } from "../../../components/ui/select/Select";
-import { CategoryContent, Container, FilterContent, Wrapper } from "./styles";
+import { SkillsContent, Container, Wrapper, PopularContent, FilterContent } from "./styles";
 
-const Category: React.FC = () => {
+const Skills: React.FC = () => {
+    const { category } = useParams();
+    const [popularTopics, setPopularTopics] = useState<string[]>([]);
+    useEffect(() => {
+        setPopularTopics([
+            'cakes', 'pie', 'baking equipment', 'kitchen safety', 'vagan pastries'
+        ]);
+    });
     return (
         <Wrapper>
             <Header />
-            <Jumbotron title="Explore Categories" image="/assets/img/category-jumbotron.png" />
+            <Jumbotron title={category || 'Skills'} />
 
             <Container>
+                <PopularContent>
+                    <h4>Popular topics</h4>
+                    <div className="topics">
+                        {
+                            popularTopics.map((topic) => (
+                                <Button variant="outline" color="primary" size="md" br={4}>
+                                    {topic.toUpperCase()}
+                                </Button>
+                            ))
+                        }
+                    </div>
+                </PopularContent>
+                <br /><br />
                 <FilterContent>
                     <div className="filter">
                         <Select title="Filter">
@@ -35,27 +58,29 @@ const Category: React.FC = () => {
                         </div>
                     </div>
                 </FilterContent>
-            </Container>
-            <Container>
-                <CategoryContent>
+                <SkillsContent>
                     {
 
                         [1,2,3,4,5,6,7,8,9,10].map((num: number) => (
-                            <CategoryCard
-                                key={num}
-                                image={"https://media.istockphoto.com/id/1186345105/photo/female-hairdresser-is-cutting-woman-hair-close-up.jpg?s=612x612&w=0&k=20&c=QnMkLcnuLXt31kGtk9oEVxoKp3GA6VMzmtmFOo0wc5M="} 
-                                title={"Hair Styling"}
-                                courses={50}
-                                students={10000}
-                            />
+                            <SkillCard key={num} />
                         ))   
                     }
                     
-                </CategoryContent>
+                </SkillsContent>
+                <h4>Featured courses</h4>
+                <SkillsContent>
+                    {
+
+                        [1,2,].map((num: number) => (
+                            <SkillCard key={num} />
+                        ))   
+                    }
+                    
+                </SkillsContent>
             </Container>         
             <Footer />
         </Wrapper>
     )
 }
 
-export default Category;
+export default Skills;
