@@ -10,17 +10,14 @@ export const MainSection = styled.main`
     .sec-title {
         font-size: 25px;
         font-weight: 600;
-        color: ${props => props.theme.primaryColor};
         margin-bottom: 5px;
+        font-family: Raleway;
     }
     .sec-sub-title {
         font-size: 14px;
         font-weight: 400;
         color: #5C5C5C;
     }
-`;
-export const Section = styled.section`
-    background-color: #f9f9f9;
 `;
 export const SectionContainer = styled.div`
     max-width: 1340px;
@@ -214,47 +211,7 @@ export const TrustSectionContainer = styled.div`
         }
     }
 `;
-export const TrustItemWrapper = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    gap: 20px;
-    overflow-x: auto;
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    -ms-overflow-style: none;  /* 
-    IE and Edge */
-    scrollbar-width: none; 
-    ::-webkit-scrollbar {
-        display: none;
-    }
-    @media screen and (min-width: 720px) {
-        justify-content: space-between;
-    }
-`;
-export const TrustItem = styled.div`
-    width: 100%;
-    min-width: 80px;
-    max-width: 120px;
-    margin-top: 20px;
-    img {
-        width: 100%;
-    }
-    @media screen and (min-width: 720px) {
-        min-width: unset;
-    }
-`;
 
-
-export const ExploreSection = styled.section`
-    background-color: #f9f9f9;
-`;
-export const ExploreSectionContainer = styled.div`
-    max-width: 1340px;
-    margin: 0px auto;
-    padding: 40px 20px;
-
-`;
 export const CategoryCardWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -324,6 +281,60 @@ export const CategoryCard = styled.div`
 
         .img-wrapper {
             height: 200px;
+        }
+    }
+`;
+
+export const InfoWrapper = styled.div`
+    display: flex;
+    gap: 50px;
+    flex-direction: column-reverse;
+    @media screen and (min-width: 901px) {
+        flex-direction: row;
+        gap: 10%
+    }
+`;
+
+export const InfoCard = styled.div`
+    display: flex;
+    gap: 20px;
+    .info-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        order: 2;
+        @media screen and (min-width: 901px) {
+            order: 1;
+        }
+        .action-col {
+            margin-top: 20px;
+            a {
+                max-width: 120px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 40px;
+                border-radius: 5px;
+                color: #fff;
+                padding: 0px 20px;
+                background-color: ${props => props.theme.primaryColor};
+            }
+        }
+    }
+    .img-wrapper {
+        order: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 250px;
+        min-width: 130px;
+        position: relative;
+        overflow: hidden;
+        @media screen and (min-width: 901px) {
+            order: 2;
+        }
+        img {
+            object-fit: cover;
         }
     }
 `;
