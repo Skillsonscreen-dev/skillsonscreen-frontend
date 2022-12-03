@@ -4,7 +4,14 @@ import { Container, Wrapper } from './styles';
 import TeacherDashboardHeader from '../../../components/Teacher/dashboardHeader';
 import { BsFillStarFill, BsStarHalf } from 'react-icons/bs';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import StudentModal from '../../../components/Teacher/student-modal';
+import { useState } from 'react';
 const StudentScreen: React.FC = () => {
+    const [showModal, setshowModal] = useState(false)
+    const openModal = () => {
+        
+        setshowModal(true)
+    }
     return ( 
         <Wrapper>
             <Header />
@@ -66,7 +73,7 @@ const StudentScreen: React.FC = () => {
                     </div>
                     </td>
                     <td>
-                        <button className='view-detail'>
+                        <button className='view-detail' onClick={openModal}>
                             View Details
                         </button>
                     </td>
@@ -206,6 +213,11 @@ const StudentScreen: React.FC = () => {
                 </div>
                 </div>
                 </Container>
+                <div className={showModal ? 'show' : 'view-modal'}>
+                    <StudentModal close={() => {
+                        setshowModal(false)
+                    }} />
+                </div>
             <Footer />
         </Wrapper>
      );

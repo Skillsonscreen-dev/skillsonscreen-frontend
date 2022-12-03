@@ -2,13 +2,18 @@
 import { BsFillStarFill, BsStarHalf } from 'react-icons/bs';
 import { Wrapper, ModalContainer } from './styles';
 import {FiEdit} from 'react-icons/fi'
+import { MdOutlineCancel } from 'react-icons/md'
 import { BiCommentDetail } from 'react-icons/bi';
 import {RiDeleteBin5Line} from 'react-icons/ri'
 const Modal: React.FC<{close: any}> = (props) => {
     return ( 
         <Wrapper>
             <ModalContainer onClick={() => props.close()}>
+            <div className="close-btn" onClick={() => props.close()}>
+                    <MdOutlineCancel />
+                </div>
                 <div className="">
+                
                     <div className="modal">
                         <div className="course-title">
                             <div className="img-wrapper">

@@ -113,6 +113,13 @@ export const Wrapper = styled.div`
             }
     }
     }
+    .view-modal{
+        display: none;
+        position: relative;
+    }
+    .show{
+        display: block;
+    }
     .pagination{
         margin-top: 2.5rem;
         display: flex;

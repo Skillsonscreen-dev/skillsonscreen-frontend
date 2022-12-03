@@ -5,7 +5,7 @@ import TeacherDashboardHeader from '../../../components/Teacher/dashboardHeader'
 import { TbSearch } from 'react-icons/tb';
 import { BsFillStarFill, BsStarHalf } from 'react-icons/bs';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import Modal from '../../../components/Teacher/modal';
+import Modal from '../../../components/Teacher/course-modal';
 import { useState } from 'react';
 const CoursesScreen: React.FC = () => {
     const [showModal, setshowModal] = useState(false)
