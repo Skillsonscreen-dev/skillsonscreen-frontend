@@ -132,6 +132,13 @@ export const Wrapper = styled.div`
                 }
             }
     }
+    .view-modal{
+        display: none;
+        position: relative;
+    }
+    .show{
+        display: block;
+    }
     .pagination{
         margin-top: 2.5rem;
         display: flex;
@@ -165,4 +172,5 @@ export const Wrapper = styled.div`
 export const Container = styled.div`
     margin-top: 90px;
     padding: 32px 6%;
+    /* position: relative; */
 `;

@@ -5,9 +5,22 @@ import TeacherDashboardHeader from '../../../components/Teacher/dashboardHeader'
 import { TbSearch } from 'react-icons/tb';
 import { BsFillStarFill, BsStarHalf } from 'react-icons/bs';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import Modal from '../../../components/Teacher/modal';
+import { useState } from 'react';
 const CoursesScreen: React.FC = () => {
+    const [showModal, setshowModal] = useState(false)
+    const openModal = () => {
+        
+        setshowModal(true)
+    }
+    
     return ( 
         <Wrapper>
+            <div className={showModal ? 'show' : 'view-modal'}>
+                    <Modal close={() => {
+                        setshowModal(false)
+                    }} />
+                </div>
             <Header />
             
                 <Container>
@@ -43,7 +56,7 @@ const CoursesScreen: React.FC = () => {
                     <td>
                         <div className="course">
                             <div className="img-wrapper">
-                            <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course Image" />
+                            <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course" />
                             </div>
                             <div className="course-details">
                                 <h3>Introduction to Baking</h3>
@@ -67,7 +80,7 @@ const CoursesScreen: React.FC = () => {
                     </div>
                     </td>
                     <td>
-                        <button className='view-course'>
+                        <button onClick={openModal} className='view-course'>
                             View Course
                         </button>
                     </td>
@@ -76,7 +89,7 @@ const CoursesScreen: React.FC = () => {
                     <td>
                         <div className="course">
                             <div className="img-wrapper">
-                            <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course Image" />
+                            <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course" />
                             </div>
                             <div className="course-details">
                                 <h3>Introduction to Baking</h3>
@@ -108,7 +121,7 @@ const CoursesScreen: React.FC = () => {
                     <td>
                         <div className="course">
                             <div className="img-wrapper">
-                            <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course Image" />
+                            <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course" />
                             </div>
                             <div className="course-details">
                                 <h3>Introduction to Baking</h3>
@@ -146,7 +159,9 @@ const CoursesScreen: React.FC = () => {
                     <span>3</span>
                     <FaAngleRight />
                 </div>
+                
                 </Container>
+               
             <Footer />
         </Wrapper>
      );
