@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const ButtonBordered = styled.button<{color?: string; size?: string; br?: number}>`
     cursor: pointer;
     font-family: 'Lato';
+    white-space: nowrap;
     ${
         props => props.br? 'border-radius: ' + props.br + 'px;': ''
     }
@@ -34,6 +35,7 @@ export const ButtonBordered = styled.button<{color?: string; size?: string; br?:
 export const ButtonFilled = styled.button<{color?: string; size?: string; br?: number}>`
     cursor: pointer;
     font-family: 'Lato';
+    white-space: nowrap;
     ${
         props => props.br? 'border-radius: ' + props.br + 'px;': ''
     }

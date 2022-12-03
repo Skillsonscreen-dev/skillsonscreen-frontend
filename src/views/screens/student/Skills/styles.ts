@@ -17,6 +17,7 @@ export const Container = styled.div`
 
 export const PopularContent = styled.div`
     overflow: auto;
+    scrollbar-width: none;
     .topics {
         display: flex;
         gap: 13px;
@@ -54,11 +55,19 @@ export const FilterContent = styled.div`
     }
 `
 
-export const SkillsContent = styled.div`
-    display: flex;
+export const SkillsContent = styled.div<{nowrap?: boolean}>`    
     gap: 35px;
-    flex-wrap: wrap;
+    display: flex;
+    ${
+        props => props.nowrap? 
+        `            
+            overflow-x: auto;
+            scrollbar-width: none;
+        `:
+        `
+            flex-wrap: wrap;
+        `
+    }    
     margin-top: 40px;
     margin-bottom: 60px;
-    overflow: auto;
 `

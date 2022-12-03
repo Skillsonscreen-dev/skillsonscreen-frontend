@@ -1,27 +1,47 @@
 import styled from 'styled-components';
 
-export const SkillCardItem = styled.div`
-    width: 100%;
-    min-width: 320px;
-    @media screen and (min-width: 540px) {
-        display: flex;
-        gap: 40px;;
+export const SkillCardItem = styled.div<{featured: boolean}>`    
+    ${
+        props => props.featured?
+        `
+            min-width: 759px;
+            display: flex;
+            gap: 40px;
+            height: 160px;
+        `:
+        `
+            width: 100%;
+            @media screen and (min-width: 540px) {
+                display: flex;
+                gap: 40px;
+            }
+            @media screen and (min-width: 880px) {
+                width: calc(50% - 20px);
+            }
+        `
     }
-    @media screen and (min-width: 880px) {
-        width: calc(50% - 20px);
-    }
+    
     .img-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        height: 200px;
         position: relative;
         overflow: hidden;
-        @media screen and (min-width: 540px) {
-            width: 50%;
-            height: 100%;
+        ${
+            props => props.featured?
+            `
+                width: 40%;
+            `:
+            `
+                height: 200px;
+                width: 100%;
+                @media screen and (min-width: 540px) {
+                    width: 50%;
+                    height: 100%;
+                }
+            `
         }
+        
         img {
             object-fit: cover;
             min-height: 100%;
@@ -54,10 +74,11 @@ export const SkillCardItem = styled.div`
         }
 
         h3 {
-            font-size: 16px;
+            font-size: 18px;
             color: #1C1D1F;
-            font-weight: 400;
+            font-weight: 700;
             margin-bottom: 4px;
+            font-family: 'Raleway';
         }
         p {
             font-size: 12px;
@@ -66,6 +87,14 @@ export const SkillCardItem = styled.div`
         .foot-col {
             margin-top: 20px;
             margin-bottom: 20px;
+            ${
+                props => props.featured? 
+                `   
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                `:''
+            }
 
             .stats-col {
                 .rat-sec {
@@ -100,8 +129,8 @@ export const SkillCardItem = styled.div`
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 30px;
-                    height: 30px;
+                    width: 35px;
+                    height: 35px;
                     cursor: pointer;
                 }
 
@@ -113,7 +142,7 @@ export const SkillCardItem = styled.div`
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    height: 30px;
+                    height: 35px;
                     border-radius: 5px;
                     color: #fff;
                     padding: 0px 16px;

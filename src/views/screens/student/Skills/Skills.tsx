@@ -4,6 +4,7 @@ import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import CategoryCard from "../../../components/student/categoryCard/CategoryCard";
 import SkillCard from "../../../components/student/skillCard/SkillCard";
+import TutorCard from "../../../components/student/tutorCard/TutorCard";
 import Button from "../../../components/ui/button/Button";
 import Jumbotron from "../../../components/ui/jumbotron/Jumbotron";
 import Select, { Option } from "../../../components/ui/select/Select";
@@ -23,8 +24,8 @@ const Skills: React.FC = () => {
             <Jumbotron title={category || 'Skills'} />
 
             <Container>
+                <h4>Popular topics</h4>
                 <PopularContent>
-                    <h4>Popular topics</h4>
                     <div className="topics">
                         {
                             popularTopics.map((topic) => (
@@ -67,12 +68,22 @@ const Skills: React.FC = () => {
                     }
                     
                 </SkillsContent>
-                <h4>Featured courses</h4>
-                <SkillsContent>
-                    {
 
-                        [1,2,].map((num: number) => (
-                            <SkillCard key={num} />
+                <h4>Featured courses</h4>
+                <SkillsContent nowrap>
+                    {
+                        [1,2].map((num: number) => (
+                            <SkillCard key={num} featured />
+                        ))   
+                    }
+                    
+                </SkillsContent>
+
+                <h4>Top Tutors</h4>
+                <SkillsContent nowrap>
+                    {
+                        [1,2,3,4,5].map((num: number) => (
+                            <TutorCard key={num} featured />
                         ))   
                     }
                     
