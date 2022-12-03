@@ -27,7 +27,7 @@ const Header: React.FC = () => {
                     <img className='icon-image' src="/assets/img/icon.png" alt="" />
                 </Link>
                 <div className="first-nav-sec">
-                    <a className='categories' href="#">Categories</a>
+                    <Link className='categories' to="/categories">Categories</Link>
                     <div className="search-wrapper">
                         <TbSearch />
                         <input type="text" placeholder='Search for a skill' />

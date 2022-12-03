@@ -9,7 +9,7 @@ const Footer: React.FC = () => (
         <Container>
             <TopSection>
                 <Logo>
-                        <img src="assets/img/logo-alt.png" />
+                        <img src="/assets/img/logo-alt.png" />
                     </Logo>
                     <Nav>
                         <ul>
