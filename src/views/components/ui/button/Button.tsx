@@ -3,7 +3,7 @@ import { ButtonBordered, ButtonFilled } from "./styles";
 
 interface ButtonProps {
     className?: string;
-    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light';
+    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light' | 'white';
     variant?: 'outline' | 'filled';
     size?: 'sm' | 'md' | 'lg';
     children?: ReactNode;

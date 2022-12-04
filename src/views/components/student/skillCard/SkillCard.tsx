@@ -2,6 +2,7 @@ import React from "react"
 import { BiBadgeCheck, BiHeart, BiHeartCircle } from "react-icons/bi"
 import { BsFillHeartFill, BsFillStarFill, BsHeartFill, BsStarHalf } from "react-icons/bs"
 import { TbHeart } from "react-icons/tb"
+import { Link } from "react-router-dom"
 import { SkillCardItem } from "./style"
 
 const SkillCard: React.FC<{ featured?: boolean }> = (props) => {
@@ -15,7 +16,12 @@ const SkillCard: React.FC<{ featured?: boolean }> = (props) => {
                     <span>Carpentry</span>
                     <span>N25,000</span>
                 </div>
-                <h3>Baking topic</h3>
+                
+                <h3>
+                    <Link to={"/skills/" + 'baking topic'}>
+                        Baking topic
+                    </Link>                    
+                </h3>
                 <p>Cindy Coker</p>
 
                 <div className="foot-col">

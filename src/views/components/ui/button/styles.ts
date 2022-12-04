@@ -11,6 +11,7 @@ export const ButtonBordered = styled.button<{color?: string; size?: string; br?:
     border: 0.8px solid ${
         props => props.color === 'info'? '#3186C6':
         props => props.color === 'light'? '#D1D7DC':
+        props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
@@ -18,6 +19,7 @@ export const ButtonBordered = styled.button<{color?: string; size?: string; br?:
     color: ${
         props => props.color === 'info'? '#3186C6':
         props => props.color === 'light'? '#5C5C5C':
+        props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
@@ -42,6 +44,7 @@ export const ButtonFilled = styled.button<{color?: string; size?: string; br?: n
     background: ${
         props => props.color === 'info'? '#D1D7DC':
         props => props.color === 'light'? '#D1D7DC':
+        props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
@@ -49,11 +52,16 @@ export const ButtonFilled = styled.button<{color?: string; size?: string; br?: n
     border: 0.8px solid ${
         props => props.color === 'info'? '#D1D7DC':
         props => props.color === 'light'? '#D1D7DC':
+        props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
     };
-    color: #FFF;
+
+    color: ${
+        props => props.color === 'white'? props.theme.primaryColor:
+        '#FFF'
+    };
     padding: ${
         props => props.size === 'md'? '12px 20px':
         props.size === 'lg'? '18px 24px':

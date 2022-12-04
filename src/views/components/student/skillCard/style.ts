@@ -74,11 +74,16 @@ export const SkillCardItem = styled.div<{featured: boolean}>`
         }
 
         h3 {
-            font-size: 18px;
-            color: #1C1D1F;
-            font-weight: 700;
-            margin-bottom: 4px;
-            font-family: 'Raleway';
+            a {
+                font-size: 18px;            
+                font-weight: 700;
+                margin-bottom: 4px;
+                font-family: 'Raleway';
+                color: #1C1D1F;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
         }
         p {
             font-size: 12px;

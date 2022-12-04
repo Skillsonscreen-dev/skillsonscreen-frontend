@@ -12,6 +12,7 @@ import { store } from './config/store';
 import StudentHome from './views/screens/student/Home/StudentHome';
 import Category from './views/screens/student/Category/Category';
 import Skills from './views/screens/student/Skills/Skills';
+import Skill from './views/screens/student/Skill/Skill';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
               <Route path="/home" element={<StudentHome />} />
               <Route path="/categories" element={<Category />} />
               <Route path="/categories/:category/skills" element={<Skills />} />
+
+              <Route path="/skills" element={<Skills />} />
+              <Route path="/skills/:skill" element={<Skill />} />
             </Routes>
         </Provider>
       </ThemeProvider>
