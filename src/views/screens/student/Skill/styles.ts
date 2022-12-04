@@ -10,6 +10,11 @@ export const Container = styled.div`
     padding: 40px 20px;
 `;
 
+export const Mb = styled.div`
+    margin-bottom: 40px;
+`;
+
+
 export const Banner = styled.div`
     background: ${props => props.theme.primaryColor};
     .banner-content {

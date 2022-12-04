@@ -1,11 +1,13 @@
 import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import CategoryCard from "../../../components/student/categoryCard/CategoryCard";
+import CourseAboutSection from "../../../components/student/courseDetials/about/CourseInfo";
+import CourseInfo from "../../../components/student/courseDetials/courseInfo/CourseInfo";
 import SkillJumboContent from "../../../components/student/skillJumboContent/SkillJumboContent";
 import Button from "../../../components/ui/button/Button";
 import Jumbotron from "../../../components/ui/jumbotron/Jumbotron";
 import Select, { Option } from "../../../components/ui/select/Select";
-import { Banner, Container, Wrapper } from "./styles";
+import { Banner, Container, Mb, Wrapper } from "./styles";
 
 const Skill: React.FC = () => {
     return (
@@ -30,7 +32,18 @@ const Skill: React.FC = () => {
                         <span>Instructor: <strong>Rowan Atkinson</strong></span>
                     </div>
                 </div>
-            </Banner>        
+            </Banner>
+            
+            <Container>
+                <Mb>
+                    <CourseInfo />
+                </Mb>
+
+                <Mb>
+                    <CourseAboutSection />
+                </Mb>  
+            </Container>
+
             <Footer />
         </Wrapper>
     )
