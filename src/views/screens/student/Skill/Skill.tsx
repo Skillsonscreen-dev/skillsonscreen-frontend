@@ -2,12 +2,15 @@ import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import CategoryCard from "../../../components/student/categoryCard/CategoryCard";
 import CourseAboutSection from "../../../components/student/courseDetials/about/CourseInfo";
+import CourseFor from "../../../components/student/courseDetials/courseFor/CourseFor";
 import CourseInfo from "../../../components/student/courseDetials/courseInfo/CourseInfo";
+import CourseWhat from "../../../components/student/courseDetials/courseWhat/CourseWhat";
+import Requirements from "../../../components/student/courseDetials/requirements/Requirements";
 import SkillJumboContent from "../../../components/student/skillJumboContent/SkillJumboContent";
 import Button from "../../../components/ui/button/Button";
 import Jumbotron from "../../../components/ui/jumbotron/Jumbotron";
 import Select, { Option } from "../../../components/ui/select/Select";
-import { Banner, Container, Mb, Wrapper } from "./styles";
+import { Banner, Container, Grid, Mb, Wrapper } from "./styles";
 
 const Skill: React.FC = () => {
     return (
@@ -35,13 +38,15 @@ const Skill: React.FC = () => {
             </Banner>
             
             <Container>
+                <Mb><CourseInfo /></Mb>
+                <Mb><CourseAboutSection /></Mb>
+                <Mb><CourseFor /></Mb>  
                 <Mb>
-                    <CourseInfo />
+                    <Grid>
+                        <CourseWhat />
+                        <Requirements />
+                    </Grid>                    
                 </Mb>
-
-                <Mb>
-                    <CourseAboutSection />
-                </Mb>  
             </Container>
 
             <Footer />

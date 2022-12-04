@@ -66,3 +66,18 @@ export const Banner = styled.div`
         }
     }
 `;
+
+export const Grid = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    > * {
+        width: 100%;
+    }
+    @media screen and (min-width: 880px) {
+        flex-direction: row;
+        > * {
+            width: 50%;
+        }
+    }
+`;
