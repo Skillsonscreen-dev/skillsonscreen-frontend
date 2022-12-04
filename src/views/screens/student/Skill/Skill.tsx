@@ -2,6 +2,7 @@ import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import CategoryCard from "../../../components/student/categoryCard/CategoryCard";
 import CourseAboutSection from "../../../components/student/courseDetials/about/CourseInfo";
+import CourseContent from "../../../components/student/courseDetials/courseContent/CourseContent";
 import CourseFor from "../../../components/student/courseDetials/courseFor/CourseFor";
 import CourseInfo from "../../../components/student/courseDetials/courseInfo/CourseInfo";
 import CourseWhat from "../../../components/student/courseDetials/courseWhat/CourseWhat";
@@ -47,6 +48,7 @@ const Skill: React.FC = () => {
                         <Requirements />
                     </Grid>                    
                 </Mb>
+                <Mb><CourseContent /></Mb>
             </Container>
 
             <Footer />
