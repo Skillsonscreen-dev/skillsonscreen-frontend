@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { BsDot } from 'react-icons/bs';
 import formatNumber from '../../../../../utils/numberFormatter';
 import Button from '../../../ui/button/Button';
-import InfoPill from '../../../ui/infoPill/InfoPill';
 import { Chapter as Wrapper, Content, ContentItem, Header } from './styles';
 
 interface ChapterProps {

@@ -1,4 +1,3 @@
-import Button from '../../../ui/button/Button';
 import InfoPill from '../../../ui/infoPill/InfoPill';
 import Chapter from './Chapter';
 import { Chapters, Header, Wrapper } from './styles';

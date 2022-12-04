@@ -5,6 +5,7 @@ import CourseAboutSection from "../../../components/student/courseDetials/about/
 import CourseContent from "../../../components/student/courseDetials/courseContent/CourseContent";
 import CourseFor from "../../../components/student/courseDetials/courseFor/CourseFor";
 import CourseInfo from "../../../components/student/courseDetials/courseInfo/CourseInfo";
+import CourseRating from "../../../components/student/courseDetials/courseRating/CourseRating";
 import CourseWhat from "../../../components/student/courseDetials/courseWhat/CourseWhat";
 import Requirements from "../../../components/student/courseDetials/requirements/Requirements";
 import SkillJumboContent from "../../../components/student/skillJumboContent/SkillJumboContent";
@@ -49,6 +50,7 @@ const Skill: React.FC = () => {
                     </Grid>                    
                 </Mb>
                 <Mb><CourseContent /></Mb>
+                <Mb><CourseRating /></Mb>
             </Container>
 
             <Footer />

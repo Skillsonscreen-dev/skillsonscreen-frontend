@@ -12,6 +12,9 @@ export const Container = styled.div`
 
 export const Mb = styled.div`
     margin-bottom: 40px;
+    @media screen and (min-width: 720px) {
+        margin-bottom: 80px;
+    }
 `;
 
 
