@@ -12,6 +12,10 @@ import { store } from './config/store';
 import StudentHome from './views/screens/student/Home/StudentHome';
 import Category from './views/screens/student/Category/Category';
 import Skills from './views/screens/student/Skills/Skills';
+import CoursesScreen from './views/screens/teacher/courses/CoursesScreen';
+import PerformanceScreen from './views/screens/teacher/performance/performanceScreen';
+import StudentScreen from './views/screens/teacher/students/StudentScreen';
+import FinanceScreen from './views/screens/teacher/finance/financeScreen';
 
 function App() {
   return (
@@ -27,6 +31,10 @@ function App() {
               <Route path="/home" element={<StudentHome />} />
               <Route path="/categories" element={<Category />} />
               <Route path="/categories/:category/skills" element={<Skills />} />
+              <Route path="/teacher/" element={<CoursesScreen />} />
+              <Route path="/teacher/performance" element={<PerformanceScreen />} />
+              <Route path="/teacher/students" element={<StudentScreen />} />
+              <Route path="/teacher/finance" element={<FinanceScreen />} />
             </Routes>
         </Provider>
       </ThemeProvider>
