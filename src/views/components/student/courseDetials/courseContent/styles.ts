@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-    padding: 40px 20px;
     h3 {
         font-family: 'Raleway';
         font-weight: 700;
