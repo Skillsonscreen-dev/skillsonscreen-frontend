@@ -5,12 +5,12 @@ export const Wrapper = styled.div`
 `;
 
 export const Summary = styled.div`
+    margin: auto;
     margin-bottom: 40px;
     @media screen and (min-width: 720px) {
         margin-bottom: 80px;
     }
     display: flex;
-    margin: auto;
     align-items: center;
     justify-content: space-around;
     gap: 20px;

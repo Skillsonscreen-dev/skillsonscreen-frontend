@@ -7,12 +7,16 @@ import CourseFor from "../../../components/student/courseDetials/courseFor/Cours
 import CourseInfo from "../../../components/student/courseDetials/courseInfo/CourseInfo";
 import CourseRating from "../../../components/student/courseDetials/courseRating/CourseRating";
 import CourseWhat from "../../../components/student/courseDetials/courseWhat/CourseWhat";
+import CourseInstructor from "../../../components/student/courseDetials/courseInstructor/CourseInstructor";
 import Requirements from "../../../components/student/courseDetials/requirements/Requirements";
 import SkillJumboContent from "../../../components/student/skillJumboContent/SkillJumboContent";
 import Button from "../../../components/ui/button/Button";
 import Jumbotron from "../../../components/ui/jumbotron/Jumbotron";
 import Select, { Option } from "../../../components/ui/select/Select";
 import { Banner, Container, Grid, Mb, Wrapper } from "./styles";
+import CourseOffer from "../../../components/student/courseDetials/courseOffer/CourseOffer";
+import { SkillsContent } from "../Skills/styles";
+import SkillCard from "../../../components/student/skillCard/SkillCard";
 
 const Skill: React.FC = () => {
     return (
@@ -51,8 +55,22 @@ const Skill: React.FC = () => {
                 </Mb>
                 <Mb><CourseContent /></Mb>
                 <Mb><CourseRating /></Mb>
+                <CourseInstructor />
             </Container>
 
+            <CourseOffer />
+            <Container>
+                <h3>More courses like this</h3>
+                <SkillsContent>
+                    {
+
+                        [1,2,3,4].map((num: number) => (
+                            <SkillCard key={num} />
+                        ))   
+                    }
+                    
+                </SkillsContent>
+            </Container>
             <Footer />
         </Wrapper>
     )

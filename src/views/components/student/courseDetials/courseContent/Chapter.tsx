@@ -61,10 +61,10 @@ const Chapter: React.FC<ChapterProps> = (props) => {
                         ): (
                             <>
                                 <Button size='md' br={4} className='complete-button big'>
-                                    Continue
+                                    Resume
                                 </Button>
                                 <Button size='sm' br={4} className='complete-button small'>
-                                    Continue
+                                    Resume
                                 </Button>
                             </>
                         )

@@ -8,6 +8,13 @@ export const Container = styled.div`
     max-width: 1340px;
     margin: 0px auto;
     padding: 40px 20px;
+    h3 {
+        font-family: 'Raleway';
+        font-weight: 700;
+        font-size: 20px;
+        color: #000000;
+        margin-bottom: 30px;
+    }
 `;
 
 export const Mb = styled.div`
