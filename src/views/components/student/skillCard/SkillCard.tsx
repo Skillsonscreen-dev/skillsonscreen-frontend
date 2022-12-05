@@ -17,12 +17,15 @@ const SkillCard: React.FC<{ featured?: boolean }> = (props) => {
                     <span>N25,000</span>
                 </div>
                 
-                <h3>
-                    <Link to={"/skills/" + 'baking topic'}>
-                        Baking topic
-                    </Link>                    
-                </h3>
-                <p>Cindy Coker</p>
+                <div>
+                    <h3>
+                        <Link to={"/skills/" + 'baking topic'}>
+                            Baking topic
+                        </Link>                    
+                    </h3>
+                    <p>Cindy Coker</p>
+                </div>
+                
 
                 <div className="foot-col">
                     <div className="stats-col">

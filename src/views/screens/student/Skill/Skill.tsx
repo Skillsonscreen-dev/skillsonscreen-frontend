@@ -61,7 +61,7 @@ const Skill: React.FC = () => {
             <CourseOffer />
             <Container>
                 <h3>More courses like this</h3>
-                <SkillsContent>
+                <SkillsContent style={{ marginBottom: '0' }}>
                     {
 
                         [1,2,3,4].map((num: number) => (
