@@ -12,6 +12,7 @@ export const SkillCardItem = styled.div<{featured: boolean}>`
         `
             width: 100%;
             @media screen and (min-width: 540px) {
+                height: 160px;
                 display: flex;
                 gap: 40px;
             }
@@ -20,8 +21,8 @@ export const SkillCardItem = styled.div<{featured: boolean}>`
             }
         `
     }
-    
     .img-wrapper {
+        height: 160px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -31,9 +32,9 @@ export const SkillCardItem = styled.div<{featured: boolean}>`
             props => props.featured?
             `
                 width: 40%;
+                min-width: 40%;
             `:
             `
-                height: 200px;
                 width: 100%;
                 @media screen and (min-width: 540px) {
                     width: 50%;
@@ -49,7 +50,16 @@ export const SkillCardItem = styled.div<{featured: boolean}>`
     }
 
     .content {
+        height: 160px;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: ${
+            props => props.featured?
+            `16px 0`:
+            `11px 0`
+        };
         @media screen and (min-width: 540px) {
             width: 50%;
         }
@@ -57,36 +67,38 @@ export const SkillCardItem = styled.div<{featured: boolean}>`
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0px;
 
             span {
                 :first-child {
                     color: #5C5C5C;
-                    font-size: 12px;
+                    font-size: 10px;
                     font-weight: 400;
                 }
                 :last-child {
                     font-family: 'Lato';
-                    font-weight: 600;
+                    font-weight: 800;
                     font-size: 16px;
                 }
             }
         }
 
         h3 {
-            font-size: 18px;
-            color: #1C1D1F;
-            font-weight: 700;
             margin-bottom: 4px;
-            font-family: 'Raleway';
+            a {
+                font-size: 18px;            
+                font-weight: 600;
+                font-family: 'Raleway';
+                color: #1C1D1F;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
         }
         p {
             font-size: 12px;
             color: #5C5C5C;
         }
         .foot-col {
-            margin-top: 20px;
-            margin-bottom: 20px;
             ${
                 props => props.featured? 
                 `   

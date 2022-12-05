@@ -22,7 +22,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
                             <p>
                                 <span>{props.courses} Courses</span>
                                 <span className='seperator'>|</span>
-                                <span>{formatNumber(props.students)} Students</span>
+                                <span>{formatNumber(props.students).toPrice()} Students</span>
                             </p>
                         </div>
                     </div>
