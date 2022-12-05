@@ -28,7 +28,7 @@ const TutorCard: React.FC<{ featured?: boolean }> = (props) => {
                         <span className='students'>
                             <strong>50</strong> Courses &nbsp; 
                             | &nbsp;
-                            <strong>{formatNumber(5000)}</strong> Students
+                            <strong>{formatNumber(5000).toPrice()}</strong> Students
                         </span>
                     </div>
                 </div>

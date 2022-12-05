@@ -1,38 +1,38 @@
 import { ReactNode } from "react";
-import { ButtonBordered, ButtonFilled } from "./styles";
+import { InfoPillBordered, InfoPillFilled } from "./styles";
 
-interface ButtonProps {
+interface InfoPillProps {
     className?: string;
-    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light' | 'white' | 'black';
+    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light' | 'white';
     variant?: 'outline' | 'filled';
     size?: 'sm' | 'md' | 'lg';
     children?: ReactNode;
     br?: number;
 }
 
-const Button: React.FC<ButtonProps> = (props) => {
+const InfoPill: React.FC<InfoPillProps> = (props) => {
     return (
         props.variant === 'outline'? (
-            <ButtonBordered
+            <InfoPillBordered
                 className={props.className}
                 color={props.color}
                 size={props.size}
                 br={props.br}
             >
                 { props.children }
-            </ButtonBordered>
+            </InfoPillBordered>
         ):
         (
-            <ButtonFilled
+            <InfoPillFilled
                 className={props.className}
                 color={props.color}
                 size={props.size}
                 br={props.br}
             >
                 { props.children }
-            </ButtonFilled>
+            </InfoPillFilled>
         )        
     )
 }
 
-export default Button;
+export default InfoPill;

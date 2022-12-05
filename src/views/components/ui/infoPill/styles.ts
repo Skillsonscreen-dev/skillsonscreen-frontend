@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ButtonBordered = styled.button<{color?: string; size?: string; br?: number}>`
+export const InfoPillBordered = styled.span<{color?: string; size?: string; br?: number}>`
     cursor: pointer;
     font-family: 'Lato';
     white-space: nowrap;
@@ -13,7 +13,6 @@ export const ButtonBordered = styled.button<{color?: string; size?: string; br?:
         props => props.color === 'light'? '#D1D7DC':
         props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
-        props => props.color === 'black'? '#1C1D1F':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
     };
@@ -22,7 +21,6 @@ export const ButtonBordered = styled.button<{color?: string; size?: string; br?:
         props => props.color === 'light'? '#5C5C5C':
         props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
-        props => props.color === 'black'? '#FFFFFF':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
     };
@@ -36,7 +34,7 @@ export const ButtonBordered = styled.button<{color?: string; size?: string; br?:
     appearance:none;
 `;
 
-export const ButtonFilled = styled.button<{color?: string; size?: string; br?: number}>`
+export const InfoPillFilled = styled.span<{color?: string; size?: string; br?: number}>`
     cursor: pointer;
     font-family: 'Lato';
     white-space: nowrap;
@@ -48,7 +46,6 @@ export const ButtonFilled = styled.button<{color?: string; size?: string; br?: n
         props => props.color === 'light'? '#D1D7DC':
         props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
-        props => props.color === 'black'? '#1C1D1F':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
     };
@@ -57,7 +54,6 @@ export const ButtonFilled = styled.button<{color?: string; size?: string; br?: n
         props => props.color === 'light'? '#D1D7DC':
         props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
-        props => props.color === 'black'? '#1C1D1F':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
     };
