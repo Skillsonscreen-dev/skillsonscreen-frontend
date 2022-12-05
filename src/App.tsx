@@ -13,6 +13,10 @@ import StudentHome from './views/screens/student/Home/StudentHome';
 import Category from './views/screens/student/Category/Category';
 import Skills from './views/screens/student/Skills/Skills';
 import Skill from './views/screens/student/Skill/Skill';
+import CoursesScreen from './views/screens/teacher/courses/CoursesScreen';
+import PerformanceScreen from './views/screens/teacher/performance/performanceScreen';
+import StudentScreen from './views/screens/teacher/students/StudentScreen';
+import FinanceScreen from './views/screens/teacher/finance/financeScreen';
 
 function App() {
   return (
@@ -31,6 +35,12 @@ function App() {
 
               <Route path="/skills" element={<Skills />} />
               <Route path="/skills/:skill" element={<Skill />} />
+
+              {/* Teacher protected Routes */}
+              <Route path="/teacher/" element={<CoursesScreen />} />
+              <Route path="/teacher/performance" element={<PerformanceScreen />} />
+              <Route path="/teacher/students" element={<StudentScreen />} />
+              <Route path="/teacher/finance" element={<FinanceScreen />} />
             </Routes>
         </Provider>
       </ThemeProvider>
