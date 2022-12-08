@@ -1,4 +1,4 @@
-import Header from '../../../components/header/Header'
+import  THeader from '../../../components/header/Header'
 import Footer from '../../../components/footer/Footer';
 import { Container, Wrapper } from './styles';
 import TeacherDashboardHeader from '../../../components/Teacher/dashboardHeader';
@@ -7,7 +7,7 @@ import { BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
 const PerformanceScreen: React.FC = () => {
     return ( 
         <Wrapper>
-            <Header />
+            <THeader />
             
                 <Container>
                 <TeacherDashboardHeader/>

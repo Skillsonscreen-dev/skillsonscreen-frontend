@@ -17,6 +17,7 @@ import CoursesScreen from './views/screens/teacher/courses/CoursesScreen';
 import PerformanceScreen from './views/screens/teacher/performance/performanceScreen';
 import StudentScreen from './views/screens/teacher/students/StudentScreen';
 import FinanceScreen from './views/screens/teacher/finance/financeScreen';
+import HelpScreen from './views/screens/teacher/help/HelpScreen';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route path="/teacher/performance" element={<PerformanceScreen />} />
               <Route path="/teacher/students" element={<StudentScreen />} />
               <Route path="/teacher/finance" element={<FinanceScreen />} />
+              <Route path="/teacher/help-and-support" element={<HelpScreen />} />
             </Routes>
         </Provider>
       </ThemeProvider>

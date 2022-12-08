@@ -42,7 +42,7 @@ const TeacherDashboardHeader: React.FC = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link className='link' to="/teacher/support">
+                        <Link className='link' to="/teacher/help-and-support">
                             <span><TbHelp /></span>
                             <p>Help and Support</p>
                         </Link>
