@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
+h4 {
+            font-family: 'Raleway';
+            font-style: normal;
+            font-size: 20px;
+            margin-top: 2rem;
+        }
     .start-banner{
         background: #1C1D1F;
         border-radius: 20px;
@@ -29,41 +35,91 @@ export const Wrapper = styled.div`
             border-radius: 2px;
         }
     }
-    .title {
-        display: flex;
-        flex: 1;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 0;
-        margin-left: 1rem;
-
-        .search-wrapper {
-            margin-left: 20px;
+    .faq-container {
+        margin-bottom: 4rem;
+        
+        .faqs {
+            margin-top: 1rem;
             display: flex;
-            flex: 1;
-            max-width: 280px;
-            align-items: center;
-            background: #F7F9FA;
-            border: 1px solid #5C5C5C;
-            border-radius: 12px;
-            height: 40px;
-            padding: 0px 10px;
-
-            input {
-                height: 100%;
-                flex: 1;
-                background-color: transparent;
-                border: none;
-                padding-left: 10px;
-            }
-
-            svg {
-                font-size: 18px;
-                color: #898B8D;
+            flex-direction: column;
+            gap: 16px;
+            .faq{
+                background: #F7F9FA;
+                padding: 1rem;
+                border: 1px solid #D1D7DC;
+                border-radius: 8px;
+                .info {
+                    display: flex;
+                justify-content: space-between;
+                }
+                .title {
+                    font-family: 'Lato';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+                .ans{
+                    padding-top: 5px;
+                    font-size: 15px;
+                }
             }
         }
-        h4 {
-            font-size: 20px;
+    }
+    .contact {
+        .half{
+            display: flex;
+            width: 100%;
+            gap: 1rem ;
+            margin: 1rem 0;
+            @media screen and (max-width: 768px) {
+               display:block ;
+            }
+        }
+        .email{
+            flex: 1;
+        }
+        .subject{
+            flex: 1;
+        }
+        label {
+            color: #1C1D1F;
+            font-family: 'Lato';
+            font-style: normal;
+            font-weight: 800;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        input {
+            margin-top: 5px;
+            width: 100%;
+            height: 2.5rem;
+            display: block;
+            background: #F7F9FA;
+            border: 1px solid #D1D7DC;
+            border-radius: 4px;
+            padding: 4px;
+            font-size: 16px;
+        }
+        textarea {
+            margin-top: 5px;
+            width: 100%;
+            height: 6rem;
+            display: block;
+            background: #F7F9FA;
+            border: 1px solid #D1D7DC;
+            border-radius: 4px;
+            padding: 4px;
+            font-size: 16px;
+        }
+        button {
+            background: #3186C6;
+            border-radius: 4px;
+            border: none;
+            padding: 0.5rem 1rem;
+            color: #FFFFFF;
+            margin: 1.5rem 0;
+            font-size: 16px;
         }
     }
 `;

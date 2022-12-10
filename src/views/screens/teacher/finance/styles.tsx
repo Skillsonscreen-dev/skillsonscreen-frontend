@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
         margin-left: 1rem;
         h4 {
             font-size: 20px;
+            font-family: 'Raleway';
+            font-style: normal;
         }
     }
     .cards{
