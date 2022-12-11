@@ -63,6 +63,8 @@ export const Wrapper = styled.div`
             }
         }
         h4 {
+            font-family: 'Raleway';
+            font-style: normal;
             font-size: 20px;
         }
     }
