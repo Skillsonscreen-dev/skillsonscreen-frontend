@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
         font-weight: 700;
         font-size: 20px;
         color: #000000;
-        margin-bottom: 12px;
+        margin-bottom: 12px !important;
     }
 `;
 

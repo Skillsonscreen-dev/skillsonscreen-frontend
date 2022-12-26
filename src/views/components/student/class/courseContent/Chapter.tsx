@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BsDot, BsFillCheckCircleFill } from 'react-icons/bs';
-import { useParams } from 'react-router';
+import { useParams, useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import formatNumber from '../../../../../utils/numberFormatter';
 import { Chapter as Wrapper, Content, ContentItem, Header } from './styles';
@@ -22,6 +22,7 @@ interface ChapterProps {
 
 const Chapter: React.FC<ChapterProps> = (props) => {
     const { course } = useParams();
+    const { hash } = useLocation();
     const [ showContent, setShowContent ] = useState(props.active);
 
     const toggleShowContent = () => {
@@ -54,7 +55,7 @@ const Chapter: React.FC<ChapterProps> = (props) => {
                     <Content>
                         {
                             props.content.map((c, i) => (
-                                <Link to={`/mycourses/${course}/class/lessons/${c.id}`}>
+                                <Link to={`/mycourses/${course}/class/lessons/${c.id}${hash? ('/'+hash):''}`}>
                                     <ContentItem key={i}>
                                         <div className="icon">
                                             {
