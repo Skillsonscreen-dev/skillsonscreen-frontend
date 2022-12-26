@@ -75,7 +75,7 @@ const Notes: React.FC = (props) => {
                           [0,1,2].map(num => (
                             <Chapter>
                                 <div className="header">
-                                    <span>Chapter 1</span><span className="title"> Introduction to Pastries</span>
+                                    <span>Chapter 1</span><span className="title">Introduction to Pastries</span>
                                 </div>
                                 <div className="body">
                                     <div className="time">

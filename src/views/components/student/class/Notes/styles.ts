@@ -99,6 +99,7 @@ export const Chapter = styled.div`
         .title {
             font-size: 14px;
             color: #1C1D1F;
+            margin-left: 11px;
         }
     }
     .body {
