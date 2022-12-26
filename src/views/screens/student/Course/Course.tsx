@@ -11,8 +11,23 @@ import { Breadcrumb } from "../../../components/student/skillJumboContent/style"
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
 import CoursePreview from "../../../components/student/courseDetails/coursePreview/CoursePreview";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import content from "../Class/data";
 
 const Course: React.FC = () => {
+    const { course } = useParams();
+    const [ currLesson, setCurrLesson ] = useState<string | number | null>(null);
+
+    useEffect(() => {
+        let currentLesson;
+        for(let c of content) {
+            currentLesson = c.lessons.find(l => l.current);
+            if(currentLesson) break;
+        }
+        if(currentLesson) setCurrLesson(currentLesson.id);
+    }, []);
+
     return (
         <Wrapper>
             <Header />
@@ -21,12 +36,12 @@ const Course: React.FC = () => {
                     <Breadcrumb mb={0}>
                         <span><Link to={"/categories"}>Explore</Link></span><BiChevronRight />
                         <span><Link to={"/categories/Baking/skills"}>Baking</Link></span><BiChevronRight />
-                        <span className="current">Making Pastries</span>
+                        <span className="current">{course}</span>
                     </Breadcrumb>
                 }
             />
             <Container>
-                <Mb><CoursePreview /></Mb>
+                <Mb><CoursePreview currLesson={currLesson} /></Mb>
                 <Mb><CourseInfo /></Mb>
                 <Mb><CourseProgress /></Mb>
                 <Mb><CourseContent /></Mb>
