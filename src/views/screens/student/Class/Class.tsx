@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import CourseContent from "../../../components/student/class/courseContent/CourseContent";
 import content from './data';
 import Transcript from "../../../components/student/class/Transcript/Transcript";
+import Notes from "../../../components/student/class/Notes/Notes";
 
 const Class: React.FC = () => {
     const { lesson, course } = useParams();
@@ -92,7 +93,7 @@ const Class: React.FC = () => {
                                     <Transcript />
                                 ):
                                 classTab === '#notes'?(
-                                    <>Hello</>
+                                    <Notes />
                                 ):
                                 classTab === '#resources'?(
                                     <>Hello</>

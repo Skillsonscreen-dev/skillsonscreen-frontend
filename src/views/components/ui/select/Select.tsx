@@ -3,6 +3,7 @@ import { OptionElement, SelectElement } from "./styles";
 
 interface SelectProps {
     title: string;
+    br?: number;
     children?: ReactNode;
 }
 
@@ -23,7 +24,7 @@ export const Option: React.FC<OptionProps> = (props) => {
 
 const Select: React.FC<SelectProps> = (props) => {
     return (
-        <SelectElement>
+        <SelectElement br={props.br}>
             <Option selected disabled>{ props.title }</Option>
             { props.children }
         </SelectElement>

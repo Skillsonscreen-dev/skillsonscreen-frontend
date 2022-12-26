@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
         .body {
             .progress-pill {
                 width: 100%;
-                max-width: 416px;
+                max-width: 426px;
                 display: inline-flex;
                 margin-bottom: 10px;
                 .progress-content {

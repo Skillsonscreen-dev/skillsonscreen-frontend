@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const SelectElement = styled.select`
+export const SelectElement = styled.select<{br?: number;}>`
     font-family: 'Raleway';
     background: transparent;
     background-image: url("/assets/icons/carret-down.svg");
@@ -8,6 +8,7 @@ export const SelectElement = styled.select`
     background-position-x: calc(100% - 16px);
     background-position-y: 50%;
     border: 0.8px solid #1C1D1F;
+    ${props => props.br? `border-radius: ${props.br}px;`: ''}
     padding: 6px 30px 6px 16px;
     -moz-appearance:none;
     -webkit-appearance:none;
