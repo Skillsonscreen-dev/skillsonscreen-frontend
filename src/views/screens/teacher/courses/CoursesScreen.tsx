@@ -1,4 +1,4 @@
-import Header from '../../../components/header/Header'
+import THeader from '../../../components/Teacher/TeacherHeader'
 import Footer from '../../../components/footer/Footer';
 import { Container, Wrapper } from './styles';
 import TeacherDashboardHeader from '../../../components/Teacher/dashboardHeader';
@@ -21,7 +21,7 @@ const CoursesScreen: React.FC = () => {
                         setshowModal(false)
                     }} />
                 </div>
-            <Header />
+            <THeader />
             
                 <Container>
                 <TeacherDashboardHeader/>

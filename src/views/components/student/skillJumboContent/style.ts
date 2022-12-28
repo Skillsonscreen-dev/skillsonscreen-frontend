@@ -6,11 +6,11 @@ export const Wrapper = styled.div`
     }
 `;
 
-export const Breadcrumb = styled.div`
+export const Breadcrumb = styled.div<{mb?: number}>`
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: ${props => typeof props.mb === 'number'? props.mb: 24}px;
     span {
         a {
             font-family: 'Lato';

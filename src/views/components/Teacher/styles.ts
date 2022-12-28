@@ -1,7 +1,18 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-    
+    .container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    height: 90px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 99999999;
+    filter: drop-shadow(0px 4px 8px rgba(137, 139, 141, 0.1));
+    }
 `;
 export const Navigation = styled.div`
     ul {
@@ -322,4 +333,192 @@ export const StudentModalContainer = styled.div`
         padding-top: 500px;
     }
     
+`;
+export const THeader = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 4%;
+    flex: 1;
+
+    .site-logo {
+        height: 40px;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .icon-image {
+            display: none;
+        }
+    }
+
+    .toggle-menu {
+        margin-left: 20px;
+        display: block;
+        cursor: pointer;
+
+        svg {
+            font-size: 18px;
+            color: #5C5C5C;
+        }
+    }
+
+    @media screen and (min-width: 990px) {
+        .toggle-menu {
+            display: none;
+        }
+    }
+    @media screen and (min-width: 1240px) {
+        .site-logo {
+            height: 40px;
+            .logo-image {
+                display: block;
+            }
+            .icon-image {
+                display: none;
+            }
+        }
+
+        .categories {
+            margin: 0px 10px 0px 40px;
+        }
+    }
+`;
+export const NavWrapper = styled.nav<{navigationState: boolean}>`
+    visibility: ${props => props.navigationState ? "visible" : "hidden"};
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    /* background: #0006; */
+    /* height: 100vh;
+    width: 100%; */
+
+    ::before {
+        content: "";
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        display: ${props => props.navigationState ? "block" : "none"};
+        height: 100vh;
+        width: 100%;
+        background-color: ${props => props.navigationState ? "#0006" : "transparent"};
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        z-index: 999;
+
+        @media screen and (min-width: 990px) {
+            background-color: transparent;
+            width: 0px;
+            height: unset;
+        }
+    }
+
+    .nav-wrapper {
+        width: 240px;
+        height: 100vh;
+        background: #fff;
+        padding: 20px 0px;
+        position: relative;
+        z-index: 9999;
+        left: ${props => props.navigationState ? "0px" : "-240px"};
+        top: 0px;
+        transition: all 0.2s ease-in-out;
+
+        .nav-logo {
+            margin-bottom: 10px;
+            padding: 0px 20px 20px 20px;
+            border-bottom: 1px solid #ccc;
+
+            img {
+                width: 160px;
+                margin: 0px auto;
+            }
+        }
+
+        nav {
+            ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                li {
+                    
+                    a {
+                        display: block;
+                        padding: 10px 20px;
+                        color: #1C1D1F;
+                        white-space: nowrap;
+                        font-size: 14px;
+                        font-weight: 400;
+                        font-family: 'Lato', sans-serif;
+                        svg{
+                            font-size: 18px;
+                            font-weight: 400;
+                        }
+                        span{
+                            display: none;
+                        }
+                        @media screen and (max-width: 990px) {
+                           svg{
+                            display: none;
+                           }
+                        }
+                    }
+                    .teacher{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                            img{ 
+                                width: 35px;
+                                height: 35px;
+                                border-radius: 50%;
+                            }
+                    }
+                }
+            }
+        }
+
+    }
+
+    @media screen and (min-width: 990px) {
+        display: flex;
+        visibility: visible;
+        align-items: center;
+        justify-content: flex-end;
+        position: unset;
+        top: 0px;
+        left: 0px;
+        background: unset;
+        height: unset;
+        width: auto;
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            position: unset;
+            width: unset;
+            height: unset;
+            background: unset;
+            padding: 0px;
+
+            .nav-logo {
+                display: none;
+            }
+
+            nav {
+                margin-right: 20px;
+                ul {
+                    flex-direction: row;
+
+                    li a {
+                        margin-left: 20px;
+                        padding: 0px;
+                    }
+                }
+            }
+
+        }
+    }
 `;

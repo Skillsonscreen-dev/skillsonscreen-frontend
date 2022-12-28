@@ -1,4 +1,4 @@
-import Header from '../../../components/header/Header'
+import THeader from '../../../components/Teacher/TeacherHeader'
 import Footer from '../../../components/footer/Footer';
 import { Container, Wrapper } from './styles';
 import TeacherDashboardHeader from '../../../components/Teacher/dashboardHeader';
@@ -8,7 +8,7 @@ import { TbCurrencyNaira } from 'react-icons/tb';
 const FinanceScreen: React.FC = () => {
     return ( 
         <Wrapper>
-            <Header />
+            <THeader />
             
                 <Container>
                 <TeacherDashboardHeader/>

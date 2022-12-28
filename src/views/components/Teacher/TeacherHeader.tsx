@@ -1,11 +1,10 @@
 import react, { useRef } from 'react'
-import { Container, NavWrapper, Wrapper } from './styles'
-import { TbSearch } from 'react-icons/tb'
-import { HiOutlineShoppingCart } from 'react-icons/hi'
+import { THeader, NavWrapper, Wrapper } from './styles'
 import { VscMenu } from 'react-icons/vsc'
 import { Link,  } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { setNavigation } from '../../../slices/navigationSlice'
+import { MdNotificationsNone } from 'react-icons/md'
 
 const Header: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -20,23 +19,13 @@ const Header: React.FC = () => {
     }
 
     return (
-        <Wrapper>
-            <Container>
+        <Wrapper >
+            <div className='container'>
+            <THeader>
                 <Link className='site-logo' to="/">
                     <img className='logo-image' src="/assets/img/logo.png" alt="" />
                     <img className='icon-image' src="/assets/img/icon.png" alt="" />
                 </Link>
-                <div className="first-nav-sec">
-                    <Link className='categories' to="/categories">Categories</Link>
-                    <div className="search-wrapper">
-                        <TbSearch />
-                        <input type="text" placeholder='Search for a skill' />
-                    </div>
-                </div>
-                <div className="cart-sec">
-                    <HiOutlineShoppingCart />
-                    <span>1</span>
-                </div>
                 <NavWrapper ref={sidebarRef} onClick={e => closeMenu(e)} navigationState={toggleState}>
                     <div className="nav-wrapper">
                         <div className="nav-logo">
@@ -46,23 +35,34 @@ const Header: React.FC = () => {
                         </div>
                         <nav>
                             <ul>
-                                <li><a href="#">Become a Tutor</a></li>
+                                <li><a href="#">Student View</a></li>
                                 <li><a href="#">Blog</a></li>
-                                <li><Link to={'/mycourses/Making Pastries'}>My Courses</Link></li>
+                                <li>
+                                    <a href="#">
+                                    <MdNotificationsNone />
+                                    <span>Notifications</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href='#' className="teacher">
+                                    <div className="img-wrapper">
+                                    <img src="https://www.un.org/sites/un2.un.org/files/styles/large-article-image-style-16-9/public/2021/12/human-rights-exhibits.jpg?itok=aZyiPOl1" alt="teacher" />
+                                    </div>
+                                    {/* <a href="#"> */}
+                                    Adekunle Ciroma
+                                    {/* </a> */}
+                                    </a>
+                                </li>
                             </ul>
                         </nav>
-                        <div className="auth-nav">
-                            <ul>
-                                <li><Link to="/signin">Log In</Link></li>
-                                <li><Link to="/signup">Join for Free</Link></li>
-                            </ul>
-                        </div>
                     </div>
                 </NavWrapper>
                 <div className="toggle-menu" onClick={ () => dispatch(setNavigation(true)) }>
                     <VscMenu />
                 </div>
-            </Container>
+            </THeader>
+            </div>
+            
         </Wrapper>
     )
 }

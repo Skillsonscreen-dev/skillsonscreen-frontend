@@ -5,6 +5,8 @@ export const Wrapper = styled.div`
         margin-top: 1rem;
         margin-left: 1rem;
         h4 {
+            font-family: 'Raleway';
+            font-style: normal;
             font-size: 20px;
         }
     }
@@ -71,6 +73,8 @@ export const Wrapper = styled.div`
             align-items: center;
             
             h4 {
+                font-family: 'Raleway';
+                font-style: normal;
                 color: #1C1D1F;
                 font-size: 20px;
             }
