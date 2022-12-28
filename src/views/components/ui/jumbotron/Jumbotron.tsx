@@ -5,12 +5,13 @@ interface JumboProps {
     title?: string;
     content?: ReactNode;
     image?: string;
+    size?: 'md' | 'sm';
 }
 
 const Jumbotron: React.FC<JumboProps> = (props) => {
     return (
         <Wrapper>
-            <Container>
+            <Container padding={props.size === 'sm'? 30: 40}>
                 <JumboContent>
                     <>
                         {

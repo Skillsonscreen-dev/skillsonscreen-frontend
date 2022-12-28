@@ -4,10 +4,10 @@ export const Wrapper = styled.div`
     background: #051221;
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<{padding: number;}>`
     max-width: 1340px;
     margin: 0px auto;
-    padding: 40px 20px;
+    padding: ${props => props.padding}px 20px;
 `;
 
 export const JumboContent = styled.div`

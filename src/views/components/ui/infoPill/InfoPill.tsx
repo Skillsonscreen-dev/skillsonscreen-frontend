@@ -3,9 +3,9 @@ import { InfoPillBordered, InfoPillFilled } from "./styles";
 
 interface InfoPillProps {
     className?: string;
-    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light' | 'white';
+    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light' | 'white' | 'black';
     variant?: 'outline' | 'filled';
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'sm' | 'md' | 'lg' | 'xs';
     children?: ReactNode;
     br?: number;
 }

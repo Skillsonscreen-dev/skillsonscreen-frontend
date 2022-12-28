@@ -48,7 +48,7 @@ const Header: React.FC = () => {
                             <ul>
                                 <li><a href="#">Become a Tutor</a></li>
                                 <li><a href="#">Blog</a></li>
-                                <li><a href="#">My Courses</a></li>
+                                <li><Link to={'/mycourses/Making Pastries'}>My Courses</Link></li>
                             </ul>
                         </nav>
                         <div className="auth-nav">
