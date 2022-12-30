@@ -11,6 +11,7 @@ import content from './data';
 import Transcript from "../../../components/student/class/Transcript/Transcript";
 import Notes from "../../../components/student/class/Notes/Notes";
 import useWindowDimensions from "../../../../hooks/useWindow";
+import Resources from "../../../components/student/class/Resource/Resources";
 
 const Class: React.FC = () => {
     const { lesson, course } = useParams();
@@ -104,7 +105,7 @@ const Class: React.FC = () => {
                                     <Notes />
                                 ):
                                 classTab === '#resources'?(
-                                    <>Hello</>
+                                    <Resources />
                                 ):
                                 classTab === '#discussions'?(
                                     <>Hello</>

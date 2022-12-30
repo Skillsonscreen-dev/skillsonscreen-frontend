@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const ButtonBordered = styled.button<{color?: string; size?: string; br?: number}>`
     cursor: pointer;
+    font-weight: 700;
     font-family: 'Lato';
     white-space: nowrap;
     ${
@@ -38,6 +39,7 @@ export const ButtonBordered = styled.button<{color?: string; size?: string; br?:
 
 export const ButtonFilled = styled.button<{color?: string; size?: string; br?: number}>`
     cursor: pointer;
+    font-weight: 700;
     font-family: 'Lato';
     white-space: nowrap;
     ${
