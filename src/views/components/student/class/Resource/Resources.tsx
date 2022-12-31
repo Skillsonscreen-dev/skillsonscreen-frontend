@@ -1,8 +1,5 @@
 import { Resource, Wrapper } from "./styles";
-import formatNumber from '../../../../../utils/numberFormatter';
-import { useState } from "react";
 import Button from "../../../ui/button/Button";
-import { FaFile, FaFileAlt } from "react-icons/fa";
 import { BiFile } from "react-icons/bi";
 
 const Resources: React.FC = (props) => {
