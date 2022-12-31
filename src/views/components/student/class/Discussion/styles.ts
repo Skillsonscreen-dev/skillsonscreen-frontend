@@ -60,7 +60,7 @@ export const FilterContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin-bottom: 72px;
     .sort {
         .sort-buttons {
             display: none;
@@ -106,6 +106,7 @@ export const Comment = styled.div`
     }
     .body {
         margin-bottom: 15px;
+        width: 100%;
         h6 {
             font-family: 'Lato';
             font-weight: 700;
