@@ -9,51 +9,65 @@ export const Wrapper = styled.div`
         color: #000000;
         border-bottom: 1px solid #000000;
     }
-    .chapters {
-        .chapter {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            h6 {
-                font-family: 'Raleway';
-                font-weight: 700;
-                font-size: 12px;
-                color: #5C5C5C;
-                margin-bottom: 8px;
-            }
-            .resources-cards {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-            }
-        }
+    .announcements {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
     }
+    
 `;
 
-export const Resource = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 25px;
-    background: #F2F3F5;
-    border-radius: 8px;
-    .details {
+export const Announce = styled.div<{border: boolean}>`
+    ${props => props.border? 'border-bottom: 0.8px solid #000000;': ''}
+    padding-bottom: 40px;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        @media screen and (min-width: 480px) {
+            justify-content: flex-start;
+            gap: 16px;
+        }
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        span {
+            font-family: 'Lato';
+            font-weight: 400;
+            font-size: 14px;
+            color: #000000;
+        }
+    }
+    .body {
+        h6 {
+            font-family: 'Lato';
+            font-weight: 700;
+            font-size: 20px;
+            color: #5C5C5C;
+            margin-bottom: 10px;
+        }
+        .content {
+            font-family: 'Lato';
+            font-weight: 400;
+            font-size: 14px;
+            color: #000000;
+            line-height: 22px;
+        }
+    }
+    .image {
+        margin-top: 20px;
+        width: 100%;
+        max-height: 400px;
         display: flex;
         align-items: center;
-        gap: 25px;
-        .info {
-            font-family: 'Lato';
-            p {
-                font-weight: 700;
-                font-size: 14px;
-                color: #1C1D1F;
-                margin-bottom: 4px;
-            }
-            span {
-                font-weight: 400;
-                font-size: 14px;
-                color: #898B8D;
-            }
+        overflow: hidden;
+        img {
+            width: 100%;
         }
     }
 `;
