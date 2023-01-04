@@ -10,10 +10,15 @@ import CourseContent from "../../../components/student/class/courseContent/Cours
 import content from './data';
 import Transcript from "../../../components/student/class/Transcript/Transcript";
 import Notes from "../../../components/student/class/Notes/Notes";
+import useWindowDimensions from "../../../../hooks/useWindow";
+import Resources from "../../../components/student/class/Resource/Resources";
+import Discussion from "../../../components/student/class/Discussion/Discussion";
+import Announcement from "../../../components/student/class/Announcement/Announcement";
 
 const Class: React.FC = () => {
     const { lesson, course } = useParams();
     const { hash } = useLocation();
+    const windowDimensions = useWindowDimensions();
     const [ chapters, setChapters ] = useState<typeof content>([]);
     const [ currLesson, setCurrLesson ] = useState<any>({});
     const [ activeChapter, setActiveChapter ] = useState<string | number | null>(null);
@@ -39,6 +44,12 @@ const Class: React.FC = () => {
         setChapters(content);
     }, []);
     
+    useEffect(() => {
+        if(windowDimensions.width > 720 && hash === '#content') {
+            window.location.hash = '#transcript';
+        }
+    }, [windowDimensions.width, hash]);
+
     return (
         <Wrapper>
             <Header />
@@ -96,13 +107,13 @@ const Class: React.FC = () => {
                                     <Notes />
                                 ):
                                 classTab === '#resources'?(
-                                    <>Hello</>
+                                    <Resources />
                                 ):
                                 classTab === '#discussions'?(
-                                    <>Hello</>
+                                    <Discussion />
                                 ):
                                 classTab === '#announcements'?(
-                                    <>Hello</>
+                                    <Announcement />
                                 ):
                                 null
                             }
