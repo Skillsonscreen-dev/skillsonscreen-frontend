@@ -11,7 +11,7 @@ let baseURL;
 if (REACT_APP_SERVER_HOST) {
   baseURL = `${REACT_APP_SERVER_HOST}/`;
 } else {
-  const host = "https://team-konect-api.herokuapp.com/v1";
+  const host = "https://skillsonscreen.loftywebtech.com/v1";
   baseURL = `${host}/`;
 }
 
@@ -25,13 +25,13 @@ const AxiosCall = async (requestObj) => {
     "token": token
   };
 
-  baseURL = "https://team-konect-api.herokuapp.com/v1"
+  baseURL = "https://skillsonscreen.loftywebtech.com/v1"
  
 
   const url = version ? `${baseURL}${version}/${path}` : `${baseURL}${path}`;
   try {
     const response = await Axios({ method, url, data, headers, json: true });
-    const result = response && {data: response.data.data, headers: response.headers};
+    const result = response && response.data
 
     return result;
   } catch (error) {
