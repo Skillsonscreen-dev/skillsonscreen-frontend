@@ -20,6 +20,7 @@ import FinanceScreen from './views/screens/teacher/finance/financeScreen';
 import HelpScreen from './views/screens/teacher/help/HelpScreen';
 import Course from './views/screens/student/Course/Course';
 import Class from './views/screens/student/Class/Class';
+import PersonalDataScreen from './views/screens/teacher/registration/PersonalDataScreen';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               <Route path="/mycourses/:course/class/lessons/:lesson" element={<Class />} />
 
               {/* Teacher protected Routes */}
+              <Route path="/Become-a-Tutor" element={<PersonalDataScreen />} />
               <Route path="/teacher/" element={<CoursesScreen />} />
               <Route path="/teacher/performance" element={<PerformanceScreen />} />
               <Route path="/teacher/students" element={<StudentScreen />} />
