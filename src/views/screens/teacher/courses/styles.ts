@@ -22,11 +22,15 @@ export const Wrapper = styled.div`
             display: block;
             background: #3186C6;
             padding: 0.8rem;
-            font-size: 14px;
+            
             margin: 1rem 0;
             border: none;
-            color: #FFFFFF;
+            
             border-radius: 2px;
+            a {
+                color: #FFFFFF;
+                font-size: 14px;
+            }
         }
     }
     .title {

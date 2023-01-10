@@ -83,6 +83,42 @@ const HelpScreen: React.FC = () => {
                     <button type="submit">Submit</button>
                 </form>
                 </div>
+                <div className="speak">
+                <h4>Speak with us</h4>
+                <div className="speak-container">
+                    <div className="speak-item">
+                        <div className="img-wrapper">
+                            <img src="/assets/img/whatsapp-svg.svg" alt="whatsapp icon" />
+                        </div>
+                        <div>
+                            <p>Whatsapp</p>
+                            <a href="https://wa.me/08000000000">0800-000-0000</a>
+                            <a href="https://wa.me/08000000000">0800-000-0000</a>
+                        </div>
+                    </div>
+                    <span className="line"></span>
+                    <div className="speak-item">
+                        <div className="img-wrapper">
+                            <img src="/assets/img/phone-svg.svg" alt="phone icon" />
+                        </div>
+                        <div>
+                            <p>Phone</p>
+                            <a href="tel:+2348000000000">0800-000-0000</a>
+                            <a href="tel:+2348000000000">0800-000-0000</a>
+                        </div>
+                    </div>
+                    <span className="line"></span>
+                    <div className="speak-item">
+                        <div className="img-wrapper">
+                            <img src="/assets/img/email-svg.svg" alt="phone icon" />
+                        </div>
+                        <div>
+                            <p>Email address</p>
+                            <a href="mailto:hello@skillsonscreen.com">hello@skillsonscreen.com</a>
+                        </div>
+                    </div>
+                </div>
+                </div>
                 </Container>
                
             <Footer />
