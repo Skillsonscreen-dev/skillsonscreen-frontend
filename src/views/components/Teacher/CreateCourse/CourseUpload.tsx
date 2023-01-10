@@ -150,7 +150,7 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                     <button className="add-chapter" onClick={() => {}}>
                     <AiOutlinePlusCircle /> Add Chapter
                         </button>
-                        <button onClick={() => {}}>
+                        <button onClick={() => {props.setPage(props.page + 1);}}>
                         Save and Continue
                         </button>
                     </div>
