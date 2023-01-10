@@ -334,6 +334,82 @@ export const StudentModalContainer = styled.div`
     }
     
 `;
+export const AddLectureModalContainer = styled.div`
+   position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.6);
+    overflow-y: scroll;
+    padding-top: 160px;
+    .close-btn {
+        display: flex;
+        justify-content: end;
+        margin: 1rem 0;
+        width: 90%;
+        color: #FFFFFF;
+        cursor: pointer;
+        svg{
+            font-size: 24px;
+        }
+    }
+    h5{
+        font-size: 20px;
+        font-weight: 500;
+    }
+    label {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px; 
+        color: #1C1D1F;
+        display: block;
+    }
+    .modal{
+        width: 80%;
+        margin:0 auto;
+        background: #FFFFFF;
+        border-radius: 20px;
+        color: #1C1D1F;
+        padding: 1rem;
+        .lecture-detail {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            input, select, textarea{
+            padding: 0.5rem  0.5rem;
+            background: #FFFFFF;
+            border: 0.8px solid #898B8D;
+            border-radius: 4px;
+            margin-top: 8px;
+            margin-right: 10px;
+            }
+        }
+        .upload {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            button{
+                background: #3186C6;
+                color: #FFFFFF;
+                padding: 0.5rem;
+                border: none;
+                border-radius: 8px;
+            }
+        }
+       
+    }
+
+    @media screen and (max-width: 1020px) {
+
+    }
+    @media screen and (max-width: 400px) {
+        padding-top: 500px;
+    }
+    
+`;
 export const THeader = styled.div`
     display: flex;
     flex-wrap: wrap;

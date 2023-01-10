@@ -7,6 +7,7 @@ import { BsFillStarFill, BsStarHalf } from 'react-icons/bs';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import Modal from '../../../components/Teacher/course-modal';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 const CoursesScreen: React.FC = () => {
     const [showModal, setshowModal] = useState(false)
     const openModal = () => {
@@ -28,7 +29,7 @@ const CoursesScreen: React.FC = () => {
                 <div className="start-banner">
                     <div className="">
                         <span>Get started a <b>Tutor</b><br /> on Skillsonscreen</span>
-                        <button>Create a Course</button>
+                        <button><Link to={'/teacher/create-a-course'}>Create a Course</Link> </button>
                     </div>
                 </div>
                 <div className="title">
