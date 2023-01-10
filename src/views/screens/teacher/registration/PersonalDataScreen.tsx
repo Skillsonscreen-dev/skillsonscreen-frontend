@@ -1,4 +1,4 @@
-import THeader from '../../../components/Teacher/TeacherHeader'
+import Header from '../../../components/header/Header'
 import Footer from '../../../components/footer/Footer';
 import { Container, Wrapper } from './styles';
 import { useState } from 'react';
@@ -46,16 +46,16 @@ const PersonalDataScreen: React.FC = () => {
     ]
     return ( 
         <Wrapper>
-            <THeader />
+            <Header />
                 
                 <Container>
                 <div className="title">
                     <h4>Create your Tutor profile</h4>
                     <p>Let your students and fellow community member know more about you</p>
                 </div>
-               {/* <form> */}
+               <form onSubmit={(e) => { e.preventDefault()}}>
                <div>{componentList[page]}</div>
-               {/* </form> */}
+               </form>
                 </Container>
                 <Footer />
         </Wrapper>

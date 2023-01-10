@@ -21,6 +21,7 @@ import HelpScreen from './views/screens/teacher/help/HelpScreen';
 import Course from './views/screens/student/Course/Course';
 import Class from './views/screens/student/Class/Class';
 import PersonalDataScreen from './views/screens/teacher/registration/PersonalDataScreen';
+import CreateCourse from './views/screens/teacher/courses/CreateCourse';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
               <Route path="/teacher/students" element={<StudentScreen />} />
               <Route path="/teacher/finance" element={<FinanceScreen />} />
               <Route path="/teacher/help-and-support" element={<HelpScreen />} />
+              <Route path="/teacher/create-a-course" element={<CreateCourse />} />
             </Routes>
         </Provider>
       </ThemeProvider>

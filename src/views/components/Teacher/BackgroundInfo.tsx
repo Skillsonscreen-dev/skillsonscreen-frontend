@@ -120,7 +120,7 @@ const TeacherBackgroundInfo:React.FC<formDataProps> = (props: formDataProps) => 
                     <button onClick={() => {props.setPage(props.page - 1)}}>
                          Previous
                         </button>
-                        <button onClick={() => {console.log(props.formData)}}>
+                        <button>
                          Complete
                         </button>
                     </div>
