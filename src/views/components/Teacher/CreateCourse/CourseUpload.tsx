@@ -7,6 +7,7 @@ import {IoIosArrowDropdown, IoIosArrowDropup} from "react-icons/io"
 import AddLectureModal from "../AddLectureModal";
 import { BiPencil } from "react-icons/bi";
 
+
 type formDataProps = {
     formData: {
         chapters: Array<any>,
@@ -56,11 +57,7 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
     
     return ( 
         <Wrapper>
-             <div className={showModal ? 'show' : 'view-modal'}>
-                    <AddLectureModal close={() => {
-                        setshowModal(false)
-                    }} />
-                </div>
+             
             <h5>Course Upload</h5>
             {
                 props.formData.chapters.map(
@@ -74,7 +71,7 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                     <IoIosArrowDropup />
                                 } 
                             </div> 
-                        <p >Chapter {c.id}:</p>
+                        <p >Chapter {index + 1}:</p>
                         <p className="chapter-title">{c.title}</p>
                     </div>
                     <div className="chapter-btn">
@@ -126,6 +123,14 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                    <AiOutlinePlusCircle /> Add Lecture
                                 </button>
                             </div>
+                                <div className={showModal ? 'show' : 'view-modal'}>
+                                    <AddLectureModal close={() => {
+                                        setshowModal(false)
+                                    }} 
+                                    index={index}
+                                    formData={props.formData}
+                                    />
+                                </div>
                             {/* <div className="">
                                 <label htmlFor="lecture">Lecture</label>
                                 <div className="lecture-detail">

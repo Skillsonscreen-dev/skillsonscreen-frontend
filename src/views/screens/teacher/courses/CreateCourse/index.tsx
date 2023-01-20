@@ -22,7 +22,8 @@ const CreateCourse: React.FC = () => {
         whatLearn: [],
         requirements: [],
         price: '',
-        chapters: [{ id: 1, title: 'Types of Pastries ', lecture: [], }],
+        chapters: [{ id: 1, title: 'Types of Pastries ', lecture: [
+        ], }],
     })
     const componentList = [
         <CourseOverview 
