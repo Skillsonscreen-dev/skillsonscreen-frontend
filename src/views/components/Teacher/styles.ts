@@ -422,37 +422,36 @@ export const AddLectureModalContainer = styled.div`
         align-items: center;
         flex-wrap: wrap;
         gap: 1.5rem;
-        margin: 2rem 0;
+        /* margin: 2rem 0; */
         .img-wrapper{
             display: flex;
             align-items: center;
             text-align: center;
             
-            img{
-                width: 250px;
+            video{
+                width: 350px;
             }
+        }
+        .btn-dark{
+            border: none;
+            background: #1C1D1F;
+            color: #fff;
+            font-size: 16px;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
         }
         input[type="file"] {
         display: none;
         }
         .actions{
-            margin: 0.8rem 0;
-        }
-        .btn-primary {
-            cursor: pointer;
-            background-color: #3186C6;
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            margin-right: 1rem;
-        }
-        .btn-secondary {
-            background-color: #F2F3F5;
-            color:#5C5C5C;
-            border: 1px solid #D1D7DC;
-            padding: 0.5rem 1rem; 
-            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         p{
             font-weight: 400;

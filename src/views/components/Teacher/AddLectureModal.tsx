@@ -3,29 +3,28 @@ import { MdOutlineCancel } from 'react-icons/md'
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import React, { useState } from 'react';
+import { IoMdAttach } from 'react-icons/io';
 
 const AddLectureModal: React.FC<{close: any, index: any, formData: any}> = (props) => {
-    const [readingData, setreadingData] = useState()
-    const [lectureVideo, setlectureVideo] = useState('')
     const [lectureDetails, setLectureDetails] = useState({
-        lectureType: '',
+        lectureType: 'reading',
         duration: '',
         timeType: '',
         video: '',
+        readingData: ''
     })
     const selectVideo = (x: any) => {
-        const input = x.target.files;
-        setlectureVideo(input[0]) ;
-        if (input && input[0]) {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            setlectureVideo(e.target.result);
-            lectureDetails.video = e.target.result
-          };
-          reader.readAsDataURL(input[0]);
-        }
+        const file = x.target.files[0];
+        const videourl = URL.createObjectURL(file);
+        setLectureDetails({...lectureDetails, video: videourl})
         
       }
+      const handleChange = (editor: any) => {
+        console.log(editor)
+        const data = editor?.getData()
+        // setLectureDetails({...lectureDetails, readingData: data})
+      }
+    //   console.log(lectureDetails.readingData)
     return ( 
         <Wrapper>
             <AddLectureModalContainer>
@@ -76,20 +75,20 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: any}> = (prop
                     {
                         lectureDetails.lectureType === 'reading' ?
                         <div className="editor">
-                    <CKEditor editor={ClassicEditor} data={readingData}></CKEditor>
+                    <CKEditor editor={ClassicEditor} data={lectureDetails.readingData}  onChange={handleChange}></CKEditor>
                     </div> : 
                     <div className="video">
                         <h4>Video Upload</h4>
                         <div className="img-container">
                             <div className="img-wrapper">
                                 {
-                                    lectureVideo ?  
-                                        <video width="500" height="500" controls >
-                                        <source src={lectureVideo} type="video/mp4"/>
+                                    lectureDetails.video ?  
+                                        <video width="400" controls >
+                                        <source src={lectureDetails.video} type="video/mp4"/>
                                         Your browser does not support HTML video.
                                        </video>
-                               : <video width="500" height="500" controls >
-                               <source src={lectureVideo} type="video/mp4"/>
+                               : <video width="400" controls >
+                               <source src='/assets/img/video.mp4' type="video/mp4"/>
                               </video>
                                 }
                                 
@@ -97,20 +96,19 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: any}> = (prop
                             <div>
                             <div className="file-name">
                             <label htmlFor="profile">File Name:</label>
-                            <p>{lectureVideo}</p>
+                            <p>{lectureDetails.video}</p> <br />
                             </div>
                             <div className="file-name">
                             <label htmlFor="profile">Status:</label>
-                            {/* p */}
+                            </div>
                             </div>
                             <div className="actions">
                                 
-                                <label htmlFor="image" className="btn-primary" >
-                                <input type="file" accept="video/*" required onChange={selectVideo}  name="image" id="image" />
-                                        Upload photo
-                                </label>                              
-                            </div>
-                            <p>Maximum file size 1MB  File format JPEG, PNG or GIF</p>
+                                <label htmlFor="video" className="btn-dark" >
+                                <input type="file" accept="video/*" required onChange={selectVideo}  name="video" id="video" />
+                                    <IoMdAttach/> Attach file
+                                </label>    
+                                <p>Note: All files should be at least <b>720p</b> and less than 4GB</p>                          
                             </div>
                         </div>
                     </div>
