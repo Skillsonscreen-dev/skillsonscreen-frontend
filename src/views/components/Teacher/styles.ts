@@ -336,6 +336,7 @@ export const StudentModalContainer = styled.div`
 `;
 export const AddLectureModalContainer = styled.div`
    position: fixed;
+   list-style-type: inherit !important;
     top: 0px;
     bottom: 0;
     left: 0;
@@ -354,6 +355,10 @@ export const AddLectureModalContainer = styled.div`
             font-size: 24px;
         }
     }
+    .ck-editor__editable_inline {
+    padding: 0 30px !important;
+}
+
     h5{
         font-size: 20px;
         font-weight: 500;
@@ -374,18 +379,31 @@ export const AddLectureModalContainer = styled.div`
         border-radius: 20px;
         color: #1C1D1F;
         padding: 1rem;
-        .lecture-detail {
+        .lecture-details {
             display: flex;
             gap: 2rem;
             flex-wrap: wrap;
-            input, select, textarea{
+            margin-bottom: 1rem;
+            input, select{
             padding: 0.5rem  0.5rem;
             background: #FFFFFF;
             border: 0.8px solid #898B8D;
             border-radius: 4px;
-            margin-top: 8px;
             margin-right: 10px;
+            margin-top: 8px !important;
             }
+            .duration{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                select{
+                margin-top: -2px !important;
+                }
+            }
+            
+        }
+        .editor{
+            margin: 2rem 0;
         }
         .upload {
             margin: 2rem 0;
@@ -394,11 +412,53 @@ export const AddLectureModalContainer = styled.div`
             button{
                 background: #3186C6;
                 color: #FFFFFF;
-                padding: 0.5rem;
+                padding: 0.6rem 0.8rem;
                 border: none;
                 border-radius: 8px;
             }
         }
+        .img-container{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        /* margin: 2rem 0; */
+        .img-wrapper{
+            display: flex;
+            align-items: center;
+            text-align: center;
+            
+            video{
+                width: 350px;
+            }
+        }
+        .btn-dark{
+            border: none;
+            background: #1C1D1F;
+            color: #fff;
+            font-size: 16px;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+        }
+        input[type="file"] {
+        display: none;
+        }
+        .actions{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        p{
+            font-weight: 400;
+            color: #898B8D;
+        }
+        
+    }
        
     }
 
