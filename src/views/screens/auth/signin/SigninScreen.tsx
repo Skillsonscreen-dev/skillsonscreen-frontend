@@ -7,6 +7,7 @@ import { useRef, useState } from 'react'
 import AxiosCall from '../../../../utils/axios'
 import Message from '../../../components/message/Message'
 import Loader from '../../../components/Loader/Loader'
+import useQuery from '../../../../hooks/useQuery'
 
 
 const SigninScreen: React.FC = () => {
@@ -16,6 +17,8 @@ const SigninScreen: React.FC = () => {
 
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
+
+    const query = useQuery()
 
     const signin = async (e: any) => {
         e.preventDefault();
@@ -41,6 +44,11 @@ const SigninScreen: React.FC = () => {
             if (res.status == 1) {
                 setIsLoading(false)
                 Message.success("Login success")
+                localStorage.setItem("authToken", res.data.token)
+                let redirectPath = query.get('redirect')
+                if (redirectPath) {
+                    return navigate(redirectPath);
+                }
                 return navigate("/home");
             } else {
                 setIsLoading(false)

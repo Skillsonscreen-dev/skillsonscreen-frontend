@@ -1,5 +1,9 @@
 import { Wrapper } from "../../screens/teacher/registration/styles";
 import { useState } from 'react';
+import Message from "../message/Message";
+import AxiosCall from "../../../utils/axios";
+import Loader from "../Loader/Loader";
+import UploadUtility from "../../../utils/axios/UploadUtility";
 type gender = {
     male: string,
     female: string,
@@ -26,6 +30,7 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
     const selectImage = (x: any) => {
         const input = x.target.files;
         setinstructor(input[0]) ;
+        uploadProfileImg(input[0])
         if (input && input[0]) {
           const reader = new FileReader();
           reader.onload = (e: any) => {
@@ -48,7 +53,63 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
           ...props.formData,
           [name]: value
         })
-      }
+    }
+
+    const [profileImg, setProfileImg] = useState<any>(null)
+    const [isUploadingProfileImg, setIsUploadingProfileImg] = useState(false)
+
+    const uploadProfileImg = async (file: string | Blob) => {
+        try {
+            setIsUploadingProfileImg(true)
+            const res = await UploadUtility(file)
+            setProfileImg(res.data)
+            setIsUploadingProfileImg(false)
+        } catch (error) {
+            setIsUploadingProfileImg(false)
+        }
+    }
+
+    const [isSavingProfile, setIsSavingProfile] = useState<boolean>(false);
+    const saveProfile = async (e: any) => {
+        e.preventDefault();
+        if (profileImg == null) {
+            console.log('====================================');
+            console.log(profileImg);
+            console.log('====================================');
+            return Message.error("Please upload an image")
+        }
+        setIsSavingProfile(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "POST",
+                path: "/teacher/profile/update",
+                data: {   
+                    dateOfBirth: props.formData.dob,
+                    skill: props.formData.skill,
+                    about: props.formData.about,
+                    gender: props.formData.gender,
+                    firstName: props.formData.firstname,
+                    lastName: props.formData.lastname,
+                    location: props.formData.location,
+                    headline: props.formData.headline,
+                    profileImg: profileImg.name
+                }
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsSavingProfile(false)
+                Message.success("Teacher Profile updated successfuly");
+                props.setPage(props.page + 1);
+            } else {
+                setIsSavingProfile(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsSavingProfile(false)
+            Message.error(err?.response.data.message)
+        }
+    }
     return ( 
         <Wrapper>
             <h5>Personal Data</h5>
@@ -60,7 +121,10 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
                                 {
                                     instructor ?  <img src={instructor} alt="instructor" /> : <img src='assets/img/instructor.png' alt="instructor" /> 
                                 }
-                                
+
+                                {isUploadingProfileImg  && <div className="uploading-profile-img">
+                                    <Loader />
+                                </div>}
                             </div>
                             <div>
                             <div className="actions">
@@ -98,16 +162,16 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
                                </span>
                                 <div className="gender">
                                     <span>
-                                    <input type="radio" name="gender" id="" value={props.formData.gender.male}
+                                    <input type="radio" name="gender" id="" value="male"
                                         onChange={handleChange} /> Male
                                     </span>
                                     <span>
-                                    <input type="radio" name="gender" id="" value={props.formData.gender.female}
+                                    <input type="radio" name="gender" id="" value="female"
                                         onChange={handleChange} /> Female
                                     </span>
                                     <span>
-                                    <input type="radio" name="gender" id="" value={props.formData.gender.unknown}
-                                        onChange={handleChange} /> I’d rather not say 
+                                    <input type="radio" name="gender" id="" value="unknown"
+                                        onChange={handleChange} /> I'd rather not say 
                                     </span>
                                 </div>
                             </div>
@@ -145,8 +209,10 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
                     </div>
 
                     <div className="save">
-                        <button onClick={() => {props.setPage(props.page + 1);}}>
-                        Save and Continue
+                        <button onClick={(e) => {
+                            saveProfile(e);
+                        }}>
+                        {isSavingProfile ? <Loader /> : "Save and Continue"}
                         </button>
                     </div>
                 {/* </form> */}

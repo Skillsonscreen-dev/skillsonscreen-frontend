@@ -12,11 +12,7 @@ const PersonalDataScreen: React.FC = () => {
             lastname: '',
             img: '',
             dob: '',
-            gender: {
-                male: 'male',
-                female: 'female',
-                unknown: 'unknown',
-            },
+            gender: '',
             location: '',
             skill: '',
             about: '',
@@ -30,20 +26,12 @@ const PersonalDataScreen: React.FC = () => {
             accountName: '',
             terms: false,
     })
+
     const componentList = [
-        <TeacherPersonalData 
-                formData={formData}
-                setFormData={setFormData}
-                page={page}
-                setPage={setPage}
-                ></TeacherPersonalData>,
-                <TeacherBackgroundInfo 
-                formData={formData}
-                setFormData={setFormData}
-                page={page}
-                setPage={setPage}
-                ></TeacherBackgroundInfo>
+        <TeacherPersonalData  formData={formData} setFormData={setFormData} page={page} setPage={setPage} />,
+        <TeacherBackgroundInfo formData={formData} setFormData={setFormData} page={page} setPage={setPage} />
     ]
+
     return ( 
         <Wrapper>
             <Header />
@@ -54,7 +42,7 @@ const PersonalDataScreen: React.FC = () => {
                     <p>Let your students and fellow community member know more about you</p>
                 </div>
                <form onSubmit={(e) => { e.preventDefault()}}>
-               <div>{componentList[page]}</div>
+                    <div>{componentList[page]}</div>
                </form>
                 </Container>
                 <Footer />

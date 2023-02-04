@@ -7,6 +7,8 @@ import { useRef, useState } from 'react'
 import Message from '../../../components/message/Message'
 import AxiosCall from '../../../../utils/axios'
 import Loader from '../../../components/Loader/Loader'
+import useQuery from '../../../../hooks/useQuery'
+import { log } from 'console'
 
 
 const SignupScreen: React.FC = () => {
@@ -20,6 +22,7 @@ const SignupScreen: React.FC = () => {
     const password = useRef<HTMLInputElement>(null);
 
     let navigate = useNavigate();
+    const query = useQuery();
 
     const signup = async (e: any) => {
         e.preventDefault();
@@ -32,6 +35,9 @@ const SignupScreen: React.FC = () => {
                 setIsLoading(false)
                 return Message.error("Passwords can't be empty");
             }
+
+            let userType = query.get('user-type')
+            
             const res: any = await AxiosCall({
                 method: "POST",
                 path: "/user/signup",
@@ -40,7 +46,7 @@ const SignupScreen: React.FC = () => {
                     password: password?.current?.value,
                     firstname: firstName?.current?.value,
                     lastname: lastName?.current?.value,
-                    userType: "STUDENT"
+                    userType: userType ? "TEACHER" : "STUDENT"
                 }
                 });
 
@@ -48,7 +54,13 @@ const SignupScreen: React.FC = () => {
             if (res.status == 1) {
                 setIsLoading(false)
                 Message.success("Account created successfully")
-                return navigate("/signin");
+
+                localStorage.setItem("authToken", res.data.token)
+                if (userType?.toLocaleLowerCase() == "teacher") {
+                    return navigate("/become-a-tutor");
+                } else {
+                    return navigate("/signin");
+                }
             } else {
                 setIsLoading(false)
                 Message.error(res.message)

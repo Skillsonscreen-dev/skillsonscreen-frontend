@@ -22,7 +22,7 @@ const AxiosCall = async (requestObj) => {
 
   const headers = {
     "Content-Type": contentType,
-    "token": token
+    "Authorization": "Bearer "+ token
   };
 
   baseURL = "https://skillsonscreen.loftywebtech.com/v1"
@@ -38,7 +38,8 @@ const AxiosCall = async (requestObj) => {
     console.log(error);
     if (error.response.status === 401) {
       localStorage.setItem("authToken", "");
-      window.location.href = "/signin";
+      const currentPath = window.location.href.replace(window.location.host, '').replace(window.location.protocol + '//', '')
+      window.location.href = `/signin?redirect=${currentPath}`;
     }
     throw error;
   }

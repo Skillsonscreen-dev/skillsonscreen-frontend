@@ -4,6 +4,10 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsBank } from "react-icons/bs";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import AxiosCall from "../../../utils/axios";
+import Message from "../message/Message";
+import { useNavigate } from "react-router";
+import Loader from "../Loader/Loader";
 type formDataProps = {
     formData: {
         degree: string,
@@ -29,10 +33,46 @@ const TeacherBackgroundInfo:React.FC<formDataProps> = (props: formDataProps) => 
           [name]: value
         })
       }
-      const [displayAccountForm, setdisplayAccountForm] = useState(false)
-      const openAcctForm = () => {
-        setdisplayAccountForm(!displayAccountForm)
-      }
+    const navigate = useNavigate()
+    const [displayAccountForm, setdisplayAccountForm] = useState(false)
+    const openAcctForm = () => {
+    setdisplayAccountForm(!displayAccountForm)
+    }
+
+    const [isSavingProfile, setIsSavingProfile] = useState<boolean>(false);
+    const saveProfile = async (e: any) => {
+        e.preventDefault();
+        setIsSavingProfile(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "POST",
+                path: "/teacher/profile/update",
+                data: {
+                    degree: props.formData.degree,
+                    occupation: props.formData.occupation,
+                    institution: props.formData.institution,
+                    experience: props.formData.experience,
+                    bank: props.formData.bank,
+                    accountNumber: props.formData.accountNumber,
+                    accountName: props.formData.accountName
+                }
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsSavingProfile(false)
+                Message.success("Teacher Profile updated successfuly");
+                return navigate("/teacher");
+            } else {
+                setIsSavingProfile(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsSavingProfile(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
     return ( 
         <Wrapper>
             <h5>Background & Experience</h5>
@@ -60,7 +100,7 @@ const TeacherBackgroundInfo:React.FC<formDataProps> = (props: formDataProps) => 
                             </div> 
                         </div>
                         <div className="note-text">
-                        When you sign up to become an instructor on Skillsonscreen, you agree to abide by the <a href="/Become-a-tutor">Instructor Terms</a>. <br />
+                        When you sign up to become an instructor on Skillsonscreen, you agree to abide by the <a href="/become-a-tutor">Instructor Terms</a>. <br />
                        <p> They cover details about the Udemy platform that are relevant to instructors (including pricing, payments, and your obligations as an instructor), so it’s important to read them.</p>
                         </div>
                         <div className="check">
@@ -120,8 +160,8 @@ const TeacherBackgroundInfo:React.FC<formDataProps> = (props: formDataProps) => 
                     <button onClick={() => {props.setPage(props.page - 1)}}>
                          Previous
                         </button>
-                        <button>
-                         Complete
+                        <button onClick={saveProfile}>
+                         {isSavingProfile ? <Loader /> : "Complete"}
                         </button>
                     </div>
         </Wrapper>

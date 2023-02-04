@@ -46,7 +46,7 @@ const Header: React.FC = () => {
                         </div>
                         <nav>
                             <ul>
-                                <li><Link to={'/Become-a-tutor'}>Become a Tutor</Link></li>
+                                <li><Link to={'/signup?user-type=teacher'}>Become a Tutor</Link></li>
                                 <li><a href="#">Blog</a></li>
                                 <li><Link to={'/mycourses/Making Pastries'}>My Courses</Link></li>
                             </ul>
