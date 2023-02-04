@@ -209,7 +209,7 @@ export const Wrapper = styled.div`
     .course-upload {
         background: #F7F9FA;
         border-radius: 16px;
-        margin-top: 2rem;
+        margin-top: 1rem;
         .chapter-head {
             background: #1C1D1F;
             border-radius: 8px;
@@ -242,6 +242,7 @@ export const Wrapper = styled.div`
                     color: #1C1D1F;
                     border: none;
                     padding: 0.7rem;
+                    cursor: pointer;
                 }
                 .delete{
                     background: #FC2E2E;

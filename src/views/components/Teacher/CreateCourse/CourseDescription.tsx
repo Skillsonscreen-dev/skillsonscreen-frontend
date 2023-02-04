@@ -1,5 +1,5 @@
 import { Wrapper } from "../../../screens/teacher/courses/CreateCourse/styles";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 type formDataProps = {
@@ -15,26 +15,23 @@ type formDataProps = {
 let nextId = 0
 const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
 
-      
-    const handleChange = (evt: any) => {
-        const name = evt.target.name;
-        const value = 
-        evt.target.value;
-        props.setFormData({
-          ...props.formData,
-          [name]: value
-        })
-      }
+
       const [studentDescription, setstudentDescription] = useState('')
       const [studentLearn, setstudentLearn] = useState('')
       const [requirements, setrequirements] = useState('')
 
+      const studentDescriptionRef = useRef<HTMLInputElement>(null)
+
       const addDescription = () => {
-        setstudentDescription('')
-       if(studentDescription.length) {
-        props.formData.whoCourse.push(
-            {id: nextId++,
-            description: studentDescription})
+       if(studentDescriptionRef.current!.value!.length) {
+        let whoCourse = props.formData.whoCourse
+        whoCourse.push({
+            id: nextId++,
+            description: studentDescriptionRef?.current?.value
+        })
+        studentDescriptionRef!.current!.value = "";
+
+         props.setFormData({...props.formData, whoCourse: whoCourse})
        }
       }
       const addLearn = () => {
@@ -67,8 +64,7 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                                         )
                                         )
                                 }
-                                <input type="text" required name="studentDes" placeholder='Describe your potential student' id=""  value={studentDescription}
-                                onChange={e => setstudentDescription(e.target.value)} />
+                                <input ref={studentDescriptionRef} type="text" required name="studentDes" placeholder='Describe your potential student' id="" />
                                 <button type="button" className="add" onClick={addDescription}>
                                    <AiOutlinePlusCircle /> Add
                                 </button>
@@ -114,7 +110,9 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                     <button onClick={() => {props.setPage(props.page - 1)}}>
                          Previous
                         </button>
-                        <button onClick={() => {props.setPage(props.page + 1);}}>
+                        <button onClick={() => { 
+                            props.setPage(props.page + 1)
+                        }}>
                         Save and Continue
                         </button>
                     </div>

@@ -5,10 +5,12 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import {IoIosArrowDropdown, IoIosArrowDropup} from "react-icons/io"
 import AddLectureModal from "../AddLectureModal";
+import { BiPencil } from "react-icons/bi";
+
 
 type formDataProps = {
     formData: {
-        chapterTitle: string,
+        chapters: Array<any>,
     }
     setFormData: Function,
     page: number,
@@ -16,27 +18,12 @@ type formDataProps = {
 }
 const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
 
-    const handleChange = (evt: any) => {
-        const name = evt.target.name;
-        const value = 
-        evt.target.value;
-        props.setFormData({
-          ...props.formData,
-          [name]: value
-        })
-      }
-      const [showModal, setshowModal] = useState(false)
+    const [showModal, setshowModal] = useState(false)
     const openModal = () => {
         
         setshowModal(true)
     }
-    const chapters = [
-        { id: 1, title: 'Types of Pastries ', },
-        { id: 2, title: 'How to make meat pie pastries', },
-        { id: 3, title: 'How to make Sausage rolls Pastries', },
-        { id: 4, title: 'How do I promote my course to gain more students', },
-        { id: 4, title: 'How to make Puff-puff Pastries', }
-    ]
+   
     const [ showChapter, setShowChapter ] = useState<any>({});
 
     const toggleShowChapter = (Chapter: number) => {
@@ -45,18 +32,37 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
             [Chapter]: !showChapter[Chapter]
         })
     }
+    
+    const addChapter = () => {
+        let chapters = props.formData.chapters
+        chapters.push({
+            id: chapters.length + 1,
+            title: '',
+            lecture: []
+        })
+        props.setFormData({...props.formData, chapters: chapters})
+      
+    }
+
+
+      const removeChapter = (id: number) => {
+        for (var i = props.formData.chapters.length - 1; i >= 0; i--) {
+            if (props.formData.chapters[i].id === id) {
+                props.formData.chapters.splice(i, 1);
+                
+            }
+            props.setFormData({...props.formData, chapters: props.formData.chapters})
+           }
+      }
+    
     return ( 
         <Wrapper>
-             <div className={showModal ? 'show' : 'view-modal'}>
-                    <AddLectureModal close={() => {
-                        setshowModal(false)
-                    }} />
-                </div>
+             
             <h5>Course Upload</h5>
             {
-                chapters.map(
-                    c => (
-                        <div className="course-upload">
+                props.formData.chapters.map(
+                    (c, index) => (
+                        <div className="course-upload" key={c.id}>
                 <div className="chapter-head">
                     <div className="" onClick={() => { toggleShowChapter(c.id) }}>
                     <div className="icon">
@@ -65,17 +71,14 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                     <IoIosArrowDropup />
                                 } 
                             </div> 
-                        <p >Chapter {c.id}:</p>
+                        <p >Chapter {index + 1}:</p>
                         <p className="chapter-title">{c.title}</p>
                     </div>
                     <div className="chapter-btn">
-                                <button type="button" >
-                                   <AiOutlinePlusCircle /> Add Content
+                                <button type="button" onClick={() => { toggleShowChapter(c.id) }}>
+                                   <BiPencil /> Add Content
                                 </button>
-                                <button>
-                                    <FiEdit />
-                                </button> 
-                               <button className="delete">
+                               <button className="delete" onClick={() => { removeChapter(c.id) }}>
                                   <RiDeleteBinLine />
                                </button>
                     </div>
@@ -83,11 +86,17 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                 {  
                 showChapter[c.id] && 
                     (
-                    <div className="chapter-details">
+                    <div className="chapter-details" key={c.id}>
                     <div className="">
                                 <label htmlFor="institution">Chapter Title</label>
-                                <input type="text" required name="title" placeholder='Types of Cakes' id="" value={props.formData.chapterTitle}
-                                onChange={handleChange} />
+                                <input type="text" required name="title" placeholder='Types of Cakes' id="" value={props.formData.chapters[index]?.title}
+                                onChange={(e) => {
+                                    let oldChapters = props.formData.chapters;
+                                    oldChapters[index].title = e.target.value
+                                    props.setFormData({...props.formData, chapters: oldChapters})
+                                }}
+                                
+                                />
                             </div>
                             <div className="">
                                 <label htmlFor="lecture">Lecture</label>
@@ -106,7 +115,7 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                     <FiEdit />
                                 </button> 
                                <button className="delete">
-                                  <RiDeleteBinLine />
+                                  <RiDeleteBinLine  />
                                </button>
                             </div>
                                 </div>
@@ -114,6 +123,14 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                    <AiOutlinePlusCircle /> Add Lecture
                                 </button>
                             </div>
+                                <div className={showModal ? 'show' : 'view-modal'}>
+                                    <AddLectureModal close={() => {
+                                        setshowModal(false)
+                                    }} 
+                                    index={index}
+                                    formData={props.formData}
+                                    />
+                                </div>
                             {/* <div className="">
                                 <label htmlFor="lecture">Lecture</label>
                                 <div className="lecture-detail">
@@ -147,10 +164,10 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
             }
 
                     <div className="save">
-                    <button className="add-chapter" onClick={() => {}}>
+                    <button className="add-chapter" onClick={addChapter}>
                     <AiOutlinePlusCircle /> Add Chapter
                         </button>
-                        <button onClick={() => {}}>
+                        <button onClick={() => {props.setPage(props.page + 1);}}>
                         Save and Continue
                         </button>
                     </div>
