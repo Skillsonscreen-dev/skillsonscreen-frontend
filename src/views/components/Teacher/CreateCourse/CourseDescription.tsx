@@ -1,6 +1,10 @@
 import { Wrapper } from "../../../screens/teacher/courses/CreateCourse/styles";
 import { useRef, useState } from 'react';
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import Message from "../../message/Message";
+import AxiosCall from "../../../../utils/axios";
+import Loader from "../../Loader/Loader";
+import UploadUtility from "../../../../utils/axios/UploadUtility";
 
 type formDataProps = {
     formData: {
@@ -46,6 +50,60 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
         props.formData.requirements.push( {id: nextId++, description: requirements})
        }
       }
+
+
+      const [courseImg, setCourseImg] = useState<any>(null)
+      const [isUploadingCourseImage, setIsUploadingCourseImage] = useState(false)
+  
+      const uploadCourseImage = async (file: string | Blob) => {
+          try {
+              setIsUploadingCourseImage(true)
+              const res = await UploadUtility(file)
+              setCourseImg(res.data)
+              setIsUploadingCourseImage(false)
+          } catch (error) {
+              setIsUploadingCourseImage(false)
+          }
+      }
+      
+
+      const [isAddingCourseDescription, setIsAddingCourseDescription] = useState(false)
+      const addCourseDescription = async (e: any) => {
+        e.preventDefault(); 
+        setIsAddingCourseDescription(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "POST",
+                path: "/teacher/course/add",
+                data: {   
+                    title: "A course title",
+                    category: "banking",
+                    level: "BEGINNER",
+                    description: "Very good course",
+                    about: "Cool course",
+                    courseImg: "",
+                    isFor: ["Guys","females"],
+                    wouldLearn: ["Joy","Peace"],
+                    requirements: ["Nice","good"],
+                    price: 3000,
+                    status: "active"
+                }
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsAddingCourseDescription(false)
+                Message.success("Teacher Profile updated successfuly");
+                props.setPage(props.page + 1)
+            } else {
+                setIsAddingCourseDescription(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsAddingCourseDescription(false)
+            Message.error(err?.response.data.message)
+        }
+    }
     return ( 
         <Wrapper>
             <h5>Course Description</h5>
@@ -110,10 +168,10 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                     <button onClick={() => {props.setPage(props.page - 1)}}>
                          Previous
                         </button>
-                        <button onClick={() => { 
-                            props.setPage(props.page + 1)
+                        <button onClick={(e) => { 
+                            addCourseDescription(e)
                         }}>
-                        Save and Continue
+                        {isAddingCourseDescription ? <Loader /> : "Save and Continue"}
                         </button>
                     </div>
                 {/* </form> */}

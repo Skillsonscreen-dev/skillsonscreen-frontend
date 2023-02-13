@@ -47,6 +47,19 @@ export const Wrapper = styled.div`
         flex-wrap: wrap;
         gap: 1.5rem;
         margin: 2rem 0;
+
+
+        .uploading-profile-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            background-color: #0006;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
         .img-wrapper{
             display: flex;
             align-items: center;

@@ -49,6 +49,12 @@ const SigninScreen: React.FC = () => {
                 if (redirectPath) {
                     return navigate(redirectPath);
                 }
+
+                if (res.data.userType == "STUDENT") {
+                    return navigate("/home");
+                } else {
+                    return navigate("/teacher");
+                }
                 return navigate("/home");
             } else {
                 setIsLoading(false)
