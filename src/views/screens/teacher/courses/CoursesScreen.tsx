@@ -63,7 +63,7 @@ const CoursesScreen: React.FC = () => {
                     <div className="start-banner">
                         <div className="">
                             <span>Get started a <b>Tutor</b><br /> on Skillsonscreen</span>
-                            <button><Link to="/teacher/create-a-course">Create a Course</Link> </button>
+                            <Link to="/teacher/create-a-course">Create a Course</Link>
                         </div>
                     </div>
                     <div className="title">
