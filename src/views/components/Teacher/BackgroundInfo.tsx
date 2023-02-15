@@ -90,12 +90,12 @@ const TeacherBackgroundInfo:React.FC<formDataProps> = (props: formDataProps) => 
                             </div>
                             <div className="">
                                 <label htmlFor="ocupation">Occupation</label>
-                                <input type="text" required name="ocupation" id="" placeholder="Baker" value={props.formData.occupation}
+                                <input type="text" required name="ocupation" id="" placeholder="Baker" defaultValue={props.formData.occupation}
                                 onChange={handleChange}/> 
                             </div>
                             <div className="">
                                 <label htmlFor="experience">Years of Experience</label>
-                                <input type="text" required name="experience" placeholder='6 years' id="" value={props.formData.experience}
+                                <input type="text" required name="experience" placeholder='6 years' id="" defaultValue={props.formData.experience}
                                         onChange={handleChange} />
                             </div> 
                         </div>

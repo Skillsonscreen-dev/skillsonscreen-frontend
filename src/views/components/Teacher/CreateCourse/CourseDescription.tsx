@@ -5,6 +5,7 @@ import Message from "../../message/Message";
 import AxiosCall from "../../../../utils/axios";
 import Loader from "../../Loader/Loader";
 import UploadUtility from "../../../../utils/axios/UploadUtility";
+import useQuery from "../../../../hooks/useQuery";
 
 type formDataProps = {
     formData: {
@@ -65,35 +66,32 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
               setIsUploadingCourseImage(false)
           }
       }
-      
+
+      const query = useQuery()
 
       const [isAddingCourseDescription, setIsAddingCourseDescription] = useState(false)
       const addCourseDescription = async (e: any) => {
+        // Message.success("Course updated successfuly");
+        // props.setPage(props.page + 1)
+        // return;
         e.preventDefault(); 
         setIsAddingCourseDescription(true)
+        const courseId = query.get('course-id')
         try {
             const res: any = await AxiosCall({
                 method: "POST",
-                path: "/teacher/course/add",
-                data: {   
-                    title: "A course title",
-                    category: "banking",
-                    level: "BEGINNER",
-                    description: "Very good course",
-                    about: "Cool course",
-                    courseImg: "",
-                    isFor: ["Guys","females"],
-                    wouldLearn: ["Joy","Peace"],
-                    requirements: ["Nice","good"],
-                    price: 3000,
-                    status: "active"
+                path: "/teacher/course/update/"+courseId,
+                data: {
+                    isFor: props.formData.whoCourse,
+                    wouldLearn: props.formData.whatLearn,
+                    requirements: props.formData.requirements
                 }
             });
 
             console.log("response:",res);
             if (res.status == 1) {
                 setIsAddingCourseDescription(false)
-                Message.success("Teacher Profile updated successfuly");
+                Message.success("Course updated successfuly");
                 props.setPage(props.page + 1)
             } else {
                 setIsAddingCourseDescription(false)
@@ -168,7 +166,7 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                     <button onClick={() => {props.setPage(props.page - 1)}}>
                          Previous
                         </button>
-                        <button onClick={(e) => { 
+                        <button onClick={(e) => {
                             addCourseDescription(e)
                         }}>
                         {isAddingCourseDescription ? <Loader /> : "Save and Continue"}

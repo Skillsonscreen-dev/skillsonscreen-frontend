@@ -11,7 +11,7 @@ interface LoaderInterface {
 const Loader: React.FC<LoaderInterface> = ({topColor, sideColor, styleTwo = false, topPadding = "0px", bottomPadding = "0px"}) => {
 
     return (
-        <Wrapper topPadding={topPadding} bottomPadding={bottomPadding} topColor={styleTwo ? "#DD1F6F" : topColor} sideColor={styleTwo ? "#ffcee2" : sideColor} />
+        <Wrapper topPadding={topPadding} bottomPadding={bottomPadding} topColor={styleTwo ? "#3186C6" : topColor} sideColor={styleTwo ? "#CDF2FD" : sideColor} />
     );
 }
  

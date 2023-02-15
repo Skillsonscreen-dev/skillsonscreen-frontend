@@ -57,13 +57,13 @@ export const Wrapper = styled.div`
             background-color: #0006;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
         }
         
         .img-wrapper{
             display: flex;
             align-items: center;
             text-align: center;
+            position: relative;
             
             img{
                 width: 250px;

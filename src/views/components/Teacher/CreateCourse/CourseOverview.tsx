@@ -1,9 +1,11 @@
 import { Wrapper } from "../../../screens/teacher/courses/CreateCourse/styles";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Loader from "../../Loader/Loader";
 import AxiosCall from "../../../../utils/axios";
 import UploadUtility from "../../../../utils/axios/UploadUtility";
 import Message from "../../message/Message";
+import useQuery from "../../../../hooks/useQuery";
+import { useLocation, useNavigate } from "react-router";
 
 type formDataProps = {
     formData: {
@@ -19,10 +21,13 @@ type formDataProps = {
     setPage: Function,
 }
 const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [courseImage, setcourseImage] = useState('')
     const selectImage = (x: any) => {
         const input = x.target.files;
-        setcourseImage(input[0]) ;
+        setcourseImage(input[0]);
+        uploadCourseImage(input[0])
         if (input && input[0]) {
           const reader = new FileReader();
           reader.onload = (e: any) => {
@@ -36,8 +41,25 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
       const removeImage = () => {
         setcourseImage('')
       }
-      const categories = ["Baking", "Photography", "Sewing", "Makeup"];
-      const levels = ["Beginner", "Intermediate", "Advanced",];
+      const categories = [
+        "fishery",
+        "Baking",
+        "Comestics",
+        "Hair stylist",
+        "Catering",
+        "Poultry",
+        "Pop wall",
+        "Fashion Design",
+        "bead making",
+        "Photography",
+        "Snail framing",
+        "Tye and dye",
+        "Event management ",
+        "Interior Design",
+        "Event decoration",
+        "Videography",
+    ];
+    const levels = ["Beginner", "Intermediate", "Advanced",];
     const handleChange = (evt: any) => {
         const name = evt.target.name;
         const value = 
@@ -49,7 +71,15 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
       }
 
 
+    let currentUrl = "";
 
+    const setCurrentUrl = () => {
+        currentUrl = window.location.href.replace(window.location.host, '').replace(window.location.protocol + '//', '')
+    }
+
+    useEffect(() => {
+        setCurrentUrl();
+    }, [])
 
 
       const [courseImg, setCourseImg] = useState<any>(null)
@@ -66,10 +96,13 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
           }
       }
       
-
+      const query = useQuery()
       const [isAddingCourseOverview, setIsAddingCourseOverview] = useState(false)
       const addCourseDescription = async (e: any) => {
-        e.preventDefault(); 
+        e.preventDefault();
+        if (courseImg == null) {
+            return Message.error("Please add a course image")
+        }
         setIsAddingCourseOverview(true)
         try {
             const res: any = await AxiosCall({
@@ -78,7 +111,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                 data: {   
                     title: props.formData.title,
                     category: props.formData.category,
-                    level: props.formData.level,
+                    level: props.formData.level.toUpperCase(),
                     description: props.formData.description,
                     about: props.formData.about,
                     courseImg: courseImg.name,
@@ -94,6 +127,18 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
             if (res.status == 1) {
                 setIsAddingCourseOverview(false)
                 Message.success("Course created successfuly");
+
+                if (query.get("course-id") == null || query.get("course-id") == 'null') {
+                    navigate({
+                        pathname: location.pathname,
+                        search: '?tab=description&course-id='+res.data._id
+                    })
+                } else {
+                    navigate({
+                        pathname: location.pathname,
+                        search: '?tab=description&course-id='+query.get('course-id')
+                    })
+                }
                 props.setPage(props.page + 1)
             } else {
                 setIsAddingCourseOverview(false)

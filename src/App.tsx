@@ -46,7 +46,7 @@ function App() {
 
               {/* Teacher protected Routes */}
               <Route path="/become-a-tutor" element={<PersonalDataScreen />} />
-              <Route path="/teacher/" element={<CoursesScreen />} />
+              <Route path="/teacher" element={<CoursesScreen />} />
               <Route path="/teacher/performance" element={<PerformanceScreen />} />
               <Route path="/teacher/students" element={<StudentScreen />} />
               <Route path="/teacher/finance" element={<FinanceScreen />} />
