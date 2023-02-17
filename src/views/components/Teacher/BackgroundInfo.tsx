@@ -1,5 +1,5 @@
 import { Wrapper } from "../../screens/teacher/registration/styles";
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BsBank } from "react-icons/bs";
@@ -14,9 +14,9 @@ type formDataProps = {
         institution: string,
         occupation: string,
         experience: string,
-        bank: string,
-        accountNumber: number,
-        accountName: string,
+        bank: any,
+        accountNumber: any,
+        accountName: any, 
         terms: any,
     }
     setFormData: Function,
@@ -34,11 +34,24 @@ const TeacherBackgroundInfo:React.FC<formDataProps> = (props: formDataProps) => 
         })
       }
     const navigate = useNavigate()
-    const [displayAccountForm, setdisplayAccountForm] = useState(false)
-    const openAcctForm = () => {
-    setdisplayAccountForm(!displayAccountForm)
-    }
-
+    const [displayAccountForm, setdisplayAccountForm] = useState(true)
+    const bankNameRef = useRef<HTMLInputElement>(null)
+    const accountNameRef = useRef<HTMLInputElement>(null)
+    const accountNumberRef = useRef<HTMLInputElement>(null)
+    const addPayoutMethod = () => {
+        if(bankNameRef.current!.value!.length && accountNameRef.current!.value!.length && accountNumberRef.current!.value!.length) {
+          props.setFormData({
+            ...props.formData, 
+            bank: bankNameRef?.current?.value,
+            accountNumber: accountNumberRef?.current?.value,
+            accountName: accountNameRef?.current?.value
+            })
+        }
+        setdisplayAccountForm(!displayAccountForm)
+       }
+    // const editAcctForm = () => {
+    // setdisplayAccountForm(!displayAccountForm)
+    // }
     const [isSavingProfile, setIsSavingProfile] = useState<boolean>(false);
     const saveProfile = async (e: any) => {
         e.preventDefault();
@@ -112,47 +125,52 @@ const TeacherBackgroundInfo:React.FC<formDataProps> = (props: formDataProps) => 
                         <h5>Payout and Taxes</h5>
                         <h4>Choose your payout method below.</h4>
                         <p>You can only  add one payout method at a time. Connecting to a new payout method may take a few days. You won’t receive payments to the new linked account until its status is approved.</p>
-                        <h4>Saved Payment Method</h4>
-                        <div className="account-detail">
-                            <div className="">
-                                <span className="bank">
-                                    <BsBank />
-                                </span>
-                                <span>
-                                    <small>Access Bank</small><br />
-                                    <strong>Adekunle Ciroma | 0568631256</strong>
-                                </span>
-                            </div>
-                            <div>
-                               <button className="edit">
-                                    <FiEdit />
-                                </button> 
-                               <button className="delete">
-                                  <RiDeleteBinLine />
-                               </button>
-                            </div>
-                        </div>
-                        { displayAccountForm === true &&
-                        <div className="account-form">
-                        <div className="">
-                                <label htmlFor="bank">Bank</label>
-                                <input type="text" name="bank" placeholder='Access Bank' id=""  value={props.formData.bank}
-                                onChange={handleChange} />
-                            </div>
+                       
                          <div className="">
-                                <label htmlFor="account-number">Account Number</label>
-                                <input type="text" required name="accountNumber" placeholder='058522899289' id="" value={props.formData.accountNumber}
-                                onChange={handleChange} />
-                            </div>
+                            <h4>Saved Payment Method</h4> 
+                            { props.formData.bank && props.formData.accountName && props.formData.accountNumber &&
+                            <div className="account-detail">
+                                <div className="">
+                                    <span className="bank">
+                                        <BsBank />
+                                    </span>
+                                    <span>
+                                        <small>{props.formData.bank}</small><br />
+                                        <strong>{props.formData.accountName} | {props.formData.accountNumber}</strong>
+                                    </span>
+                                </div>
+                                <div>
+                                <button className="edit">
+                                        <FiEdit />
+                                    </button> 
+                                <button className="delete">
+                                    <RiDeleteBinLine />
+                                </button>
+                                </div>
+                            </div> 
+                            }
+                        </div>
+                
+                        {
+                            displayAccountForm && 
+                            <div className="account-form">
                             <div className="">
-                                <label htmlFor="account-name">Account Name</label>
-                                <input type="text" required name="accountName" id="" placeholder="Adekunle Ciroma" value={props.formData.accountName}
-                                onChange={handleChange}/> 
+                                    <label htmlFor="bank">Bank</label>
+                                    <input type="text" name="bank" placeholder='Access Bank' id=""  ref={bankNameRef} />
+                                </div>
+                             <div className="">
+                                    <label htmlFor="account-number">Account Number</label>
+                                    <input type="text" required name="accountNumber" placeholder='058522899289' id="" ref={accountNumberRef} />
+                                </div>
+                                <div className="">
+                                    <label htmlFor="account-name">Account Name</label>
+                                    <input type="text" required name="accountName" id="" placeholder="Adekunle Ciroma" ref={accountNameRef} /> 
+                                </div>
+                                <button className="acct-action" onClick={addPayoutMethod}>
+                                    <AiOutlinePlusCircle /> Add Payout Method
+                                </button>
                             </div>
-                        </div> }
-                        <button className="acct-action" onClick={openAcctForm}>
-                           <AiOutlinePlusCircle /> Add Payout Method
-                        </button>
+                        }
                         </div>
                     </div>
 
