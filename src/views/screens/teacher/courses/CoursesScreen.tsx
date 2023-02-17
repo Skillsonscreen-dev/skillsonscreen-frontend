@@ -16,10 +16,7 @@ import dayjs from 'dayjs'
 const CoursesScreen: React.FC = () => {
     const [showModal, setshowModal] = useState(false)
     const [courses, setCourses] = useState([])
-    const openModal = () => {
-        
-        setshowModal(true)
-    }
+
     const [isFetchingCourses, setIsFetchingCourses] = useState(false)
 
     const fetchCourses = async () => {
@@ -116,7 +113,7 @@ const CoursesScreen: React.FC = () => {
                                         </div>
                                         </td>
                                         <td>
-                                            <button onClick={openModal} className='view-course'>
+                                            <button onClick={() =>  setshowModal(true)} className='view-course'>
                                                 View Course
                                             </button>
                                         </td>
