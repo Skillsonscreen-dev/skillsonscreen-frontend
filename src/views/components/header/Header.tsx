@@ -6,8 +6,10 @@ import { VscMenu } from 'react-icons/vsc'
 import { Link,  } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { setNavigation } from '../../../slices/navigationSlice'
+import { ProfileSliceInterface } from '../../../slices/profileSlice'
 
 const Header: React.FC = () => {
+    const userProfile: ProfileSliceInterface = useAppSelector(state => state.profile.state);
     const dispatch = useAppDispatch();
     const toggleState = useAppSelector(state => state.navigation.state);
 
@@ -35,7 +37,7 @@ const Header: React.FC = () => {
                 </div>
                 <div className="cart-sec">
                     <HiOutlineShoppingCart />
-                    <span>1</span>
+                    <span onClick={() => alert(userProfile.fetchedProfile)}>1</span>
                 </div>
                 <NavWrapper ref={sidebarRef} onClick={e => closeMenu(e)} navigationState={toggleState}>
                     <div className="nav-wrapper">
@@ -48,7 +50,7 @@ const Header: React.FC = () => {
                             <ul>
                                 <li><Link to={'/signup?user-type=teacher'}>Become a Tutor</Link></li>
                                 <li><a href="#">Blog</a></li>
-                                <li><Link to={'/mycourses/Making Pastries'}>My Courses</Link></li>
+                                {userProfile.fetchedProfile == true && userProfile.userType == "STUDENT" ? <li><Link to={'/mycourses/Making Pastries'}>My Courses</Link></li> : <></>}
                             </ul>
                         </nav>
                         <div className="auth-nav">

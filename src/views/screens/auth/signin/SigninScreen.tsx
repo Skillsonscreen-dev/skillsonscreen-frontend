@@ -8,12 +8,15 @@ import AxiosCall from '../../../../utils/axios'
 import Message from '../../../components/message/Message'
 import Loader from '../../../components/Loader/Loader'
 import useQuery from '../../../../hooks/useQuery'
+import { useDispatch } from 'react-redux'
+import { setProfile } from '../../../../slices/profileSlice'
 
 
 const SigninScreen: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const email = useRef<HTMLInputElement>(null);
     const password = useRef<HTMLInputElement>(null);
@@ -46,6 +49,17 @@ const SigninScreen: React.FC = () => {
                 Message.success("Login success")
                 localStorage.setItem("authToken", res.data.token)
                 let redirectPath = query.get('redirect')
+
+                dispatch(setProfile({
+                    email: res.data.email,
+                    firstName: res.data.firstName,
+                    lastName: res.data.lastName,
+                    phone: res.data.phoneNumber,
+                    profileImg: res.data.profileImg,
+                    userType: res.data.userType,
+                    fetchedProfile: true,
+                }))
+
                 if (redirectPath) {
                     return navigate(redirectPath);
                 }

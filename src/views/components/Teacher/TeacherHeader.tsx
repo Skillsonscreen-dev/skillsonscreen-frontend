@@ -5,8 +5,10 @@ import { Link,  } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { setNavigation } from '../../../slices/navigationSlice'
 import { MdNotificationsNone } from 'react-icons/md'
+import { ProfileSliceInterface } from '../../../slices/profileSlice'
 
 const Header: React.FC = () => {
+    const userProfile: ProfileSliceInterface = useAppSelector(state => state.profile.state);
     const dispatch = useAppDispatch();
     const toggleState = useAppSelector(state => state.navigation.state);
 
@@ -46,10 +48,10 @@ const Header: React.FC = () => {
                                 <li>
                                     <a href='#' className="teacher">
                                     <div className="img-wrapper">
-                                    <img src="https://www.un.org/sites/un2.un.org/files/styles/large-article-image-style-16-9/public/2021/12/human-rights-exhibits.jpg?itok=aZyiPOl1" alt="teacher" />
+                                    <img src={userProfile.profileImg} alt="teacher" />
                                     </div>
                                     {/* <a href="#"> */}
-                                    Adekunle Ciroma
+                                    {userProfile.firstName} {userProfile.lastName}
                                     {/* </a> */}
                                     </a>
                                 </li>
