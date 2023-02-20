@@ -10,6 +10,9 @@ import CourseUpload from '../../../../components/Teacher/CreateCourse/CourseUplo
 import useQuery from '../../../../../hooks/useQuery';
 import { set } from 'immer/dist/internal';
 import { useLocation, useNavigate } from 'react-router';
+import AxiosCall from '../../../../../utils/axios';
+import Message from '../../../../components/message/Message';
+import Loader from '../../../../components/Loader/Loader';
 // import TeacherBackgroundInfo from '../../../components/Teacher/BackgroundInfo';
 
 const CreateCourse: React.FC = () => {
@@ -25,8 +28,13 @@ const CreateCourse: React.FC = () => {
         whatLearn: [],
         requirements: [],
         price: '',
-        chapters: [{ id: 1, title: '', lectures: [
-        ], }],
+        chapters: [
+            {
+                id: "",
+                title: '',
+                lectures: [],
+            }
+        ],
     })
     const componentList = [
         <CourseOverview 
@@ -77,6 +85,70 @@ const CreateCourse: React.FC = () => {
     useEffect(() => {
         setPageTab()
     }, [])
+
+
+    const [isFetchingCourse, setIsFetchngCourse] = useState<any>(true)
+    const getCourse = async () => {
+        const courseId = query.get('course-id')
+        if (courseId == null) {
+            setIsFetchngCourse(false)
+            return;
+        }
+        setIsFetchngCourse(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/course/fetch/"+courseId
+            });
+
+            console.log("response:",res);
+    
+            if (res.status == 1) {
+
+                const course = res.data
+
+                const chapterList = []
+
+                for (let index = 0; index < course.chapters.length; index++) {
+                    const chapter = course.chapters[index];
+                    chapterList.push({
+                        id: chapter._id,
+                        title: chapter.title,
+                        lectures: chapter.lectures
+                    })
+                }
+
+                setFormData({...formData,
+                    title: course.title,
+                    description: course.description,
+                    img: course.courseImg,
+                    category: course.category,
+                    level: course.level,
+                    about: course.about,
+                    whoCourse: [],
+                    whatLearn: [],
+                    requirements: [],
+                    price: course.price,
+                    chapters: chapterList,
+                })
+
+                setIsFetchngCourse(false)
+                Message.success(res.message);
+            } else {
+                setIsFetchngCourse(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchngCourse(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+
+    useEffect(() => {
+        getCourse()
+    }, [])
+
     return ( 
         <Wrapper>
             <THeader />
@@ -91,7 +163,7 @@ const CreateCourse: React.FC = () => {
                 <Container>
 
                <form onSubmit={(e) => { e.preventDefault()}}>
-               {page != null && <div>{componentList[page]}</div>}
+               {page == null || isFetchingCourse ? <Loader styleTwo /> : <div>{componentList[page]}</div>}
                </form>
                 </Container>
                 <Footer />

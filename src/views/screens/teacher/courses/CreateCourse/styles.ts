@@ -347,6 +347,18 @@ export const Wrapper = styled.div`
     .show{
         display: block;
     }
+
+    .chpter-action-row {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            cursor: pointer;
+            :first-child {
+                background-color: ${props => props.theme.primaryColor} !important;
+            }
+        }
+    }
  
         @media screen and (max-width:1018px){
                 .form-container{

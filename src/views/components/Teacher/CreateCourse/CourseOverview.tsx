@@ -100,6 +100,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
       const [isAddingCourseOverview, setIsAddingCourseOverview] = useState(false)
       const addCourseDescription = async (e: any) => {
         e.preventDefault();
+        const courseId = query.get("course-id")
         if (courseImg == null) {
             return Message.error("Please add a course image")
         }
@@ -107,8 +108,8 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
         try {
             const res: any = await AxiosCall({
                 method: "POST",
-                path: "/teacher/course/add",
-                data: {   
+                path: courseId == null ? "/teacher/course/add" : "/teacher/course/update/"+courseId,
+                data: {
                     title: props.formData.title,
                     category: props.formData.category,
                     level: props.formData.level.toUpperCase(),
@@ -126,9 +127,9 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
             console.log("response:",res);
             if (res.status == 1) {
                 setIsAddingCourseOverview(false)
-                Message.success("Course created successfuly");
+                Message.success(res.message);
 
-                if (query.get("course-id") == null || query.get("course-id") == 'null') {
+                if (courseId == null || courseId == 'null') {
                     navigate({
                         pathname: location.pathname,
                         search: '?tab=description&course-id='+res.data._id
@@ -209,7 +210,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                            </section>
                             <div className="">
                                 <label htmlFor="title">Course Title</label>
-                                <input type="text" required name="title" placeholder='Making Pastries' id=""  value={props.formData.title}
+                                <input type="text" required name="title" placeholder='Making Pastries' id=""  defaultValue={props.formData.title}
                                 onChange={handleChange} />
                             </div>
                          <div className="">
