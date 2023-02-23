@@ -68,7 +68,7 @@ const CoursePricing:React.FC<formDataProps> = (props: formDataProps) => {
                     </p>
                     <div className="money">
                         <div>NGN</div>
-                        <input type="text" required name="price" placeholder="15,000" onChange={handleChange} id="" />
+                        <input defaultValue={props.formData.price} type="text" required name="price" placeholder="15,000" onChange={handleChange} id="" />
                     </div>
                 </div>
 

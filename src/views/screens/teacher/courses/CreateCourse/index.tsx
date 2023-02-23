@@ -32,7 +32,11 @@ const CreateCourse: React.FC = () => {
             {
                 id: "",
                 title: '',
-                lectures: [],
+                lectures: [{
+                    type: "",
+                    id: "",
+                    link: ""
+                }],
             }
         ],
     })
@@ -123,7 +127,7 @@ const CreateCourse: React.FC = () => {
                     description: course.description,
                     img: course.courseImg,
                     category: course.category,
-                    level: course.level,
+                    level: course.level.toLowerCase(),
                     about: course.about,
                     whoCourse: [],
                     whatLearn: [],

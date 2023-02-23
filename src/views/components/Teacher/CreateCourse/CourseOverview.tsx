@@ -59,7 +59,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
         "Event decoration",
         "Videography",
     ];
-    const levels = ["Beginner", "Intermediate", "Advanced",];
+    const levels = ["beginner", "intermediate", "advanced",];
     const handleChange = (evt: any) => {
         const name = evt.target.name;
         const value = 
@@ -101,7 +101,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
       const addCourseDescription = async (e: any) => {
         e.preventDefault();
         const courseId = query.get("course-id")
-        if (courseImg == null) {
+        if (courseImg == null && !props.formData.img) {
             return Message.error("Please add a course image")
         }
         setIsAddingCourseOverview(true)
@@ -115,7 +115,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                     level: props.formData.level.toUpperCase(),
                     description: props.formData.description,
                     about: props.formData.about,
-                    courseImg: courseImg.name,
+                    courseImg: courseImg ? courseImg.name : courseImg,
                     isFor: [],
                     wouldLearn: [],
                     requirements: [],
@@ -161,7 +161,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                         <div className="img-container">
                             <div className="img-wrapper">
                                 {
-                                    courseImage ?  <img src={courseImage} alt="courseImage" /> : <img src='/assets/img/courseImage.svg' alt="instructor" /> 
+                                    courseImage ?  <img src={courseImage} alt="courseImage" /> : <img src={props.formData.img ? props.formData.img : "/assets/img/courseImage.svg"} alt="instructor" /> 
                                 }
                                 
                                 {isUploadingCourseImage  && <div className="uploading-profile-img">
@@ -198,7 +198,7 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                             </div>
                             <div className="">
                                 <label htmlFor="level">Level</label>
-                                <select name="level" required id="" value={props.formData.level}
+                                <select style={{textTransform: 'capitalize'}} name="level" required id="" value={props.formData.level}
                                         onChange={handleChange}>
                                 {levels.map((option: string, index: number) => (
                                 <option key={index} value={option}>
