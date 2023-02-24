@@ -21,13 +21,9 @@ type formDataProps = {
     setPage: Function,
 }
 const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
-
     const [showModal, setshowModal] = useState(false)
-    const openModal = () => {
-        
-        setshowModal(true)
-    }
-   
+    const [lectureChapter, setLectureChapter] = useState<number | null>(null)
+
     const [ showChapter, setShowChapter ] = useState<any>({});
 
     const toggleShowChapter = (Chapter: string) => {
@@ -63,36 +59,9 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
 
     const [isAddingCourseDescription, setIsAddingCourseDescription] = useState(false)
     const addCourseDescription = async (e: any) => {
+        e.preventDefault(); 
         Message.success("Course updated successfuly");
         props.setPage(props.page + 1)
-        return;
-        e.preventDefault(); 
-        setIsAddingCourseDescription(true)
-        const courseId = query.get('course-id')
-        try {
-            const res: any = await AxiosCall({
-                method: "POST",
-                path: "/teacher/course/update/"+courseId,
-                data: {
-                    // isFor: props.formData.whoCourse,
-                    // wouldLearn: props.formData.whatLearn,
-                    // requirements: props.formData.requirements
-                }
-            });
-
-            console.log("response:",res);
-            if (res.status == 1) {
-                setIsAddingCourseDescription(false)
-                Message.success("Course updated successfuly");
-                props.setPage(props.page + 1)
-            } else {
-                setIsAddingCourseDescription(false)
-                Message.error(res.message)
-            }
-        } catch (err: any) {
-            setIsAddingCourseDescription(false)
-            Message.error(err?.response.data.message)
-        }
     }
 
     const [isSavingChapter, setIsSavingChapter] = useState<any>(null)
@@ -102,13 +71,6 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
         const courseId = query.get('course-id')
         const oldChapters = [...props.formData.chapters]
         try {
-            console.log('====================================');
-            console.log("before chapters: ", oldChapters);
-            console.log('====================================');
-            const oldId = oldChapters[chapterIndex].id
-            console.log('====================================');
-            console.log("oldId: ", oldId);
-            console.log('====================================');
             const res: any = await AxiosCall({
                 method: oldChapters[chapterIndex].id ? "PATCH" : "POST",
                 path: oldChapters[chapterIndex].id ? "/teacher/course/chapter/update/"+oldChapters[chapterIndex].id : "/teacher/course/chapter/add",
@@ -181,16 +143,16 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                 />
                             </div>
                             <div className="">
-                                {c.lectures.map((item: any, index:any) => {
-                                    return <>
-                                        <label htmlFor="lecture">Lecture</label><div className="lecture-detail">
+                                {c.lectures.length > 0 && <label htmlFor="lecture">Lectures</label>}
+                                {c.lectures.map((item: any, lectureIndex:any) => {
+                                    return  <div className="lecture-detail" key={"lecture-"+lectureIndex}>
                                         <div className="">
                                             <span className="lecture-type">
                                                 <img src="/assets/img/book.svg" alt="" />
                                             </span>
                                             <span>
-                                                <strong>Introduction to Pastries</strong><br />
-                                                <small>Reading . 5 min</small>
+                                                <strong>{item.title}</strong><br />
+                                                <small>{item.type} . {item.duration} minutes</small>
                                             </span>
                                         </div>
                                         <div>
@@ -202,24 +164,27 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                             </button>
                                         </div>
                                     </div>
-                                </>
                                 })}
 
                                 <div className="chpter-action-row">
                                     <button type="button" className="btn-dark" onClick={(e) => saveChapter(e, chapterIndex)}>
                                         {isSavingChapter == chapterIndex ? <Loader /> : <><AiOutlinePlusCircle /> Save chapter</>}
                                     </button>
-                                    <button type="button" className="btn-dark" onClick={openModal}>
+                                    <button type="button" className="btn-dark" onClick={() => {
+                                        setLectureChapter(chapterIndex)
+                                        setshowModal(true);
+                                    }}>
                                         <AiOutlinePlusCircle /> Add Lecture
                                     </button>
                                 </div>
                             </div>
                             <div className={showModal ? 'show' : 'view-modal'}>
-                                <AddLectureModal close={() => {
+                                <AddLectureModal selectedChapter={chapterIndex} close={() => {
                                     setshowModal(false)
                                 }} 
                                 index={chapterIndex}
                                 formData={props.formData}
+                                setFormData={props.setFormData}
                                 />
                             </div>
                             {/* <div className="">

@@ -32,11 +32,7 @@ const CreateCourse: React.FC = () => {
             {
                 id: "",
                 title: '',
-                lectures: [{
-                    type: "",
-                    id: "",
-                    link: ""
-                }],
+                lectures: [],
             }
         ],
     })
@@ -118,7 +114,7 @@ const CreateCourse: React.FC = () => {
                     chapterList.push({
                         id: chapter._id,
                         title: chapter.title,
-                        lectures: chapter.lectures
+                        lectures: []
                     })
                 }
 

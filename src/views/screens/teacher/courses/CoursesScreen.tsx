@@ -15,7 +15,12 @@ import dayjs from 'dayjs'
 
 const CoursesScreen: React.FC = () => {
     const [showModal, setshowModal] = useState(false)
+    const [selectedCourse, setSelectedCourse] = useState<any>(null)
     const [courses, setCourses] = useState([])
+
+    // const openCourseModal() {
+    //     setshowModal(true)
+    // }
 
     const [isFetchingCourses, setIsFetchingCourses] = useState(false)
 
@@ -49,7 +54,7 @@ const CoursesScreen: React.FC = () => {
     return ( 
         <Wrapper>
             <div className={showModal ? 'show' : 'view-modal'}>
-                    <Modal close={() => {
+                    <Modal course={selectedCourse} close={() => {
                         setshowModal(false)
                     }} />
                 </div>
@@ -113,7 +118,8 @@ const CoursesScreen: React.FC = () => {
                                         </div>
                                         </td>
                                         <td>
-                                            <button onClick={() =>  setshowModal(true)} className='view-course'>
+                                            <button onClick={() =>  { setSelectedCourse(item); setshowModal(true)}} className='view-course'>
+                                                
                                                 View Course
                                             </button>
                                         </td>

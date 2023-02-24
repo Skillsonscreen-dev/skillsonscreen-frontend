@@ -5,7 +5,9 @@ import {FiEdit} from 'react-icons/fi'
 import { MdOutlineCancel } from 'react-icons/md'
 import { BiCommentDetail } from 'react-icons/bi';
 import {RiDeleteBin5Line} from 'react-icons/ri'
-const Modal: React.FC<{close: any}> = (props) => {
+import { useNavigate } from 'react-router';
+const Modal: React.FC<{close: any, course: any}> = (props) => {
+    const navigation = useNavigate()
     return ( 
         <Wrapper>
             <ModalContainer onClick={() => props.close()}>
@@ -68,7 +70,7 @@ const Modal: React.FC<{close: any}> = (props) => {
                             
                         </div>
                         <div className="actions">
-                                <button><FiEdit /> Edit course</button>
+                                <button onClick={() => {navigation("/teacher/create-a-course?tab=overview&course-id="+props.course.courseId)}}><FiEdit /> Edit course</button>
                                 <button><BiCommentDetail/> View comments</button>
                                 <button className='del'><RiDeleteBin5Line/> Delete course</button>
                             </div>
