@@ -438,9 +438,21 @@ export const AddLectureModalContainer = styled.div`
             display: flex;
             align-items: center;
             text-align: center;
+            position: relative;
             
             video{
                 width: 350px;
+            }
+
+
+            .uploading-profile-img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                background-color: #000c;
+                width: 100%;
+                height: 100%;
             }
         }
         .btn-dark{

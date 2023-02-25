@@ -111,10 +111,20 @@ const CreateCourse: React.FC = () => {
 
                 for (let index = 0; index < course.chapters.length; index++) {
                     const chapter = course.chapters[index];
+
+                    // const lectureList: any = []
+
+                    // for (let index = 0; index < chapter.lectures.length; index++) {
+                    //     const lecture = chapter.lectures[index];
+                    //     lectureList.push({
+                    //         lecture
+                    //     })
+                    // }
+            
                     chapterList.push({
                         id: chapter._id,
                         title: chapter.title,
-                        lectures: []
+                        lectures: chapter.lectures
                     })
                 }
 

@@ -67,7 +67,6 @@ const Modal: React.FC<{close: any, course: any}> = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <div className="actions">
                                 <button onClick={() => {navigation("/teacher/create-a-course?tab=overview&course-id="+props.course.courseId)}}><FiEdit /> Edit course</button>

@@ -22,7 +22,7 @@ type formDataProps = {
 }
 const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
     const [showModal, setshowModal] = useState(false)
-    const [lectureChapter, setLectureChapter] = useState<number | null>(null)
+    const [selectedLecture, setSelectedLecture] = useState<number | null>(null)
 
     const [ showChapter, setShowChapter ] = useState<any>({});
 
@@ -156,7 +156,10 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                             </span>
                                         </div>
                                         <div>
-                                            <button className="edit">
+                                            <button className="edit" onClick={() => {
+                                                setshowModal(true);
+                                                setSelectedLecture(lectureIndex)
+                                            }}>
                                                     <FiEdit />
                                                 </button> 
                                             <button className="delete">
@@ -171,22 +174,22 @@ const CourseUpload:React.FC<formDataProps> = (props: formDataProps) => {
                                         {isSavingChapter == chapterIndex ? <Loader /> : <><AiOutlinePlusCircle /> Save chapter</>}
                                     </button>
                                     <button type="button" className="btn-dark" onClick={() => {
-                                        setLectureChapter(chapterIndex)
                                         setshowModal(true);
                                     }}>
                                         <AiOutlinePlusCircle /> Add Lecture
                                     </button>
                                 </div>
                             </div>
-                            <div className={showModal ? 'show' : 'view-modal'}>
-                                <AddLectureModal selectedChapter={chapterIndex} close={() => {
+                            {showModal && <div className={'show'}>
+                                <AddLectureModal lectureIndex={selectedLecture} selectedChapter={chapterIndex} close={() => {
                                     setshowModal(false)
+                                    setSelectedLecture(null)
                                 }} 
                                 index={chapterIndex}
                                 formData={props.formData}
                                 setFormData={props.setFormData}
                                 />
-                            </div>
+                            </div>}
                             {/* <div className="">
                                 <label htmlFor="lecture">Lecture</label>
                                 <div className="lecture-detail">

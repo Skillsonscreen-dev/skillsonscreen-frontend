@@ -2,56 +2,98 @@ import { Wrapper, AddLectureModalContainer } from './styles';
 import { MdOutlineCancel } from 'react-icons/md'
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IoMdAttach } from 'react-icons/io';
 import AxiosCall from '../../../utils/axios';
 import Message from '../message/Message';
 import useQuery from '../../../hooks/useQuery';
 import Loader from '../Loader/Loader';
+import UploadUtility from '../../../utils/axios/UploadUtility';
 
-const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Array<any>}, setFormData: Function, selectedChapter: number}> = (props) => {
-    
+const AddLectureModal: React.FC<{close: any, index: any, lectureIndex: any, formData: {chapters: Array<any>}, setFormData: Function, selectedChapter: number}> = (props) => {
+    const [isInitLecture, setIsInitLecture] = useState(true)
     const [lecture, setLecture] = useState<any>({
         id: "",
         title: "",
         body: "",
         duration: {
-            value: "0",
+            value: "",
             type: "minutes"
         },
-        type: "reading",
+        type: "NOTE",
         items: []
     })
+
+    const titleRef = useRef<HTMLInputElement>(null)
+    const durationRef = useRef<HTMLInputElement>(null)
+    const durationTypeRef = useRef<HTMLSelectElement>(null)
+    const contentTypeRef = useRef<HTMLSelectElement>(null)
+
+    const checkSelectedLecture = () => {
+        setIsInitLecture(true)
+        if (props.lectureIndex != null) {
+            const selectedLecture = props.formData.chapters[props.selectedChapter].lectures[props.lectureIndex]
+
+            console.log('====================================');
+            console.log("lecture found: ", selectedLecture);
+            console.log('====================================');
+            setLecture({
+                id: selectedLecture.id,
+                title: selectedLecture.title,
+                body: selectedLecture.body ? selectedLecture.body : "",
+                duration: {
+                    value: selectedLecture.duration,
+                    type: "minutes"
+                },
+                type: selectedLecture.type,
+                items: selectedLecture.items
+            })
+        } else {
+            console.log('====================================');
+            console.log("lecture index not found");
+            console.log('====================================');
+        }
+
+        setTimeout(() => {
+            setIsInitLecture(false)
+        }, 500)
+    }
     
-    
-    const [lectureDetails, setLectureDetails] = useState({
-        lectureType: 'reading',
-        duration: '',
-        timeType: '',
-        video: '',
-        readingData: ''
-    })
+    useEffect(() => {
+        checkSelectedLecture()
+    }, [])
+
+    const [isUploadingFile, setIsUploadingFile] = useState(false)
+
     const selectVideo = (x: any) => {
         const file = x.target.files[0];
-        console.log('====================================');
-        console.log(file);
-        console.log('====================================');
         const videourl = URL.createObjectURL(file);
 
         setLecture({...lecture, items: [{
-            title: "",
+            title: lecture.items.length ? lecture.items[0].title : "",
             fileName: "",
             originalName: file.name,
             uri: videourl
         }]})
-        
+
+        uploadCourseImage(file)
       }
-      const handleChange = (editor: any) => {
-        console.log(editor)
-        const data = editor?.getData()
-        // setLectureDetails({...lectureDetails, readingData: data})
+
+      const uploadCourseImage = async (file: string | Blob) => {
+          try {
+                setIsUploadingFile(true)
+                const res = await UploadUtility(file)
+                setLecture({...lecture, items: [{
+                    title: lecture.items.length ? lecture.items[0].title : "",
+                    fileName: res.data.name,
+                    originalName: res.data.originalName,
+                    uri: res.data.uri
+                }]})
+                setIsUploadingFile(false)
+          } catch (error) {
+              setIsUploadingFile(false)
+          }
       }
-    //   console.log(lectureDetails.readingData)
 
     const query = useQuery()
 
@@ -69,7 +111,7 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
                     title: lecture.title,
                     chapterId: oldChapters[props.selectedChapter].id,
                     courseId: courseId,
-                    type: lecture.type == "reading" ? "NOTE" : "FILE",
+                    type: lecture.type,
                     body: lecture.body,
                     duration: lecture.duration.value
                 }
@@ -79,24 +121,13 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
     
             if (res.status == 1) {
                 
-                if (lecture.type == "video") {
+                if (lecture.type == "FILE") {
                     await saveLectureFile(res.data._id)
                 } else {
                     await saveLectureNote(res.data._id)
                 }
 
-                setLecture({
-                    id: "",
-                    title: "",
-                    body: "",
-                    duration: {
-                        value: "0",
-                        type: ""
-                    },
-                    type: "Reading",
-                    items: []
-                })
-                
+                resetLectureEditor()
                 setIsSavingLesture(false)
                 Message.success(res.message);
             } else {
@@ -104,11 +135,8 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
                 Message.error(res.message)
             }
         } catch (err: any) {
-            console.log('====================================');
-            console.log(err);
-            console.log('====================================');
             setIsSavingLesture(false)
-            // Message.error(err?.response.data.message)
+            Message.error(err?.response.data.message)
         }
     }
 
@@ -151,10 +179,7 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
                 Message.error(res.message)
             }
         } catch (err: any) {
-            console.log('====================================');
-            console.log(err);
-            console.log('====================================');
-            // Message.error(err?.response.data.message)
+            Message.error(err?.response.data.message)
         }
     }
 
@@ -165,7 +190,7 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
             const courseId = query.get('course-id')
             const res: any = await AxiosCall({
                 method: "POST",
-                path: "/teacher/course/lecture/note/add",
+                path: "/teacher/course/lecture/file/add",
                 data: {
                     lectureId: lectureId,
                     courseId: courseId,
@@ -204,92 +229,114 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
         }
     }
 
+    const resetLectureEditor = () => {
+        console.log("is reseting editor");
+        
+        titleRef!.current!.value = "";
+        durationRef!.current!.value = "";
+        durationTypeRef!.current!.value = "";
+        contentTypeRef!.current!.value = "";
+        setLecture({
+            id: "",
+            title: "",
+            body: "",
+            duration: {
+                value: "0",
+                type: ""
+            },
+            type: "NOTE",
+            items: []
+        })
+        console.log("Reseting editor completed");
+    }
+
     return ( 
         <Wrapper>
             <AddLectureModalContainer>
-            <div className="close-btn" onClick={() => props.close()}>
+            {isInitLecture ? <Loader styleTwo /> : <>
+            <div className="close-btn" onClick={() => {
+                props.close()
+                // resetLectureEditor()
+            }}>
                     <MdOutlineCancel />
                 </div>
                 <div className="modal">
+                
                 <h5>Chapter {props.selectedChapter+1}</h5>
                     <div className="lecture-details">
-                    <div className="">
-                        <label htmlFor="lectureType">Content type</label>
-                        <select name="lecturetype" required id="" onChange={(e) => {
-                                    setLectureDetails({...lectureDetails, lectureType: e.target.value})
-                                    setLecture({...lecture, type: e.target.value})
-                                }}>
-                            <option value="reading">
-                                Reading
-                            </option>
-                            <option value="video">
-                                Video
-                            </option>
-                            {/* <option value="quiz">
-                                Quiz
-                            </option> */}
-                        </select>
+                        <div className="">
+                            <label htmlFor="lectureType">Content type</label>
+                            <select ref={contentTypeRef} value={lecture.type} name="lecturetype" required id="" onChange={(e) => {
+                                setLecture({...lecture, type: e.target.value})
+                            }}>
+                                {lecture.id == "" || lecture.type == "NOTE" ? <option value="NOTE">Reading</option> : <></>}
+                                {lecture.id == "" || lecture.type == "FILE" ? <option value="FILE">Video</option> : <></>}
+                                {/* <option value="quiz">
+                                    Quiz
+                                </option> */}
+                            </select>
+                        </div>
+                        <div className="">
+                            <label htmlFor="duration">Duration</label>
+                            <span className="duration">
+                            <input ref={durationRef} defaultValue={lecture.duration.value} className="duration-input" type="text" name="time" placeholder="duration" id="" onChange={(e) => {
+                                setLecture({...lecture, duration: {value: e.target.value, type: lecture.duration.type}})
+                            }} />
+                            <select ref={durationTypeRef} defaultValue={lecture.duration.type} name="timeType" required id="" onChange={(e) => {
+                                setLecture({...lecture, duration: {type: e.target.value, value: lecture.duration.value}})
+                            }}>
+                                <option value="minutes">Minutes</option>
+                                <option value="hours">Hours</option>
+                            </select>
+                            </span>
+                        </div>
                     </div>
-                    <div className="">
-                        <label htmlFor="duration">Duration</label>
-                        <span className="duration">
-                        <input className="duration-input" type="text" name="time" placeholder="duration" id="" onChange={(e) => {
-                                    setLecture({...lecture, duration: {value: e.target.value, type: lecture.duration.type}})
-                                }} />
-                        <select name="timeType" required id="" onChange={(e) => {
-                                    setLecture({...lecture, duration: {type: e.target.value, value: lecture.duration.value}})
-                                }}>
-                            <option value="minutes">
-                                Minutes
-                            </option>
-                            <option value="hours">
-                                Hours
-                            </option>
-                        </select>
-                        </span>
-                    </div>
-                    </div>
-                    <input type="text" name="" id="" placeholder="Lecture title" onChange={(e) => {
+                    <input ref={titleRef} type="text" name="" id="" defaultValue={lecture.title} placeholder="Lecture title" onChange={(e) => {
                         setLecture({
                             ...lecture,
-                            title: e.target.value
+                            title: e.target.value,
+                            items: [{
+                                title: e.target.value,
+                                body: lecture.items.length ? lecture.items[0].body : "",
+                                fileName: lecture.items.length ? lecture.items[0]?.fileName : "",
+                                originalName: lecture.items.length ? lecture.items[0]?.originalName : "",
+                                uri: lecture.items.length ? lecture.items[0]?.uri : ""
+                            }]
                         })
                     }} />
-                    {
-                        lectureDetails.lectureType === 'reading' ?
+                    {lecture.type === 'NOTE' ?
                         <div className="editor">
-                    <CKEditor 
-                            editor={ ClassicEditor }
-                            data=" "
-                            onReady={ editor => {
-                                // You can store the "editor" and use when it is needed.
-                                console.log( 'Editor is ready to use!', editor );
-                            } }
-                            onChange={ ( event, editor ) => {
-                                const data = editor.getData();
-                                // console.log( { event, editor, data } );
-                                setLecture({...lecture, body: data})
-                            } }
-                            onBlur={ ( event, editor ) => {
-                                // console.log( 'Blur.', editor );
-                            } }
-                            onFocus={ ( event, editor ) => {
-                                // console.log( 'Focus.', editor );
-                            } }></CKEditor>
-                    </div> : 
+                            <CKEditor
+                                editor={ ClassicEditor }
+                                onReady={ editor => {
+                                    editor.setData(lecture.body)
+                                } }
+                                onChange={( event, editor ) => {
+                                    const data = editor.getData();
+                                    setLecture({
+                                        ...lecture, body: data,
+                                        items: [{
+                                            title: lecture.items.length ? lecture.items[0].title : "",
+                                            body: data
+                                        }]})
+                            }} />
+                        </div> : 
                     <div className="video">
                         <h4>Video Upload</h4>
                         <div className="img-container">
                             <div className="img-wrapper">
                                 {
-                                    lecture.items.length > 0 ?  
-                                        <video width="400" controls >
+                                    lecture.items.length > 0 ?  <>
+                                        {lecture.items[0]?.uri?.length && <video width="400" height="180" controls >
                                             <source src={lecture.items[0].uri} type="video/mp4"/>
                                             Your browser does not support HTML video.
-                                       </video>
+                                       </video>}
+
+                                        {isUploadingFile && <div className="uploading-profile-img">
+                                        <Loader styleTwo />
+                                    </div>} </>
                                : <div className="blank-video"></div>
                                 }
-                                
                             </div>
 
                             <div className="video-meta">
@@ -303,10 +350,9 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
                                     </div>
                                 </div>
                                 <div className="actions">
-                                    <label htmlFor="video" className="btn-dark" >
-                                    <input type="file" accept="video/*" required onChange={selectVideo}  name="video" id="video" />
-                                        <IoMdAttach/> Attach file
-                                    </label>    
+                                    <input type="file" accept="video/*" required onChange={selectVideo}  name="video" id="file-input" />
+                                    <label style={{cursor: 'pointer'}} htmlFor="file-input" className="btn-dark" ><IoMdAttach /> Attach file</label>
+                                    
                                     <p>Note: All files should be at least <b>720p</b> and less than 4GB</p>                          
                                 </div>
                             </div>
@@ -318,36 +364,10 @@ const AddLectureModal: React.FC<{close: any, index: any, formData: {chapters: Ar
                         <span>If you need further assistance <a href="">contact our support team</a></span>
                         <button onClick={(e) => {
                             saveLecture(e);
-                            // const oldChapters =  props.formData.chapters
-                            // oldChapters[props.selectedChapter].lectures.push({
-                            //     id: "",
-                            //     title: lecture.title,
-                            //     body: lecture.body,
-                            //     duration: lecture.duration.value,
-                            //     type: lecture.type,
-                            //     items: [{
-                            //         title: lecture.title,
-                            //         body: lecture.body,
-                            //     }]
-                            // })
-                            // props.setFormData({...props.formData, chapters: oldChapters})
-                            // props.close()
-
-                            // setLecture({
-                            //     id: "",
-                            //     title: "",
-                            //     body: "",
-                            //     duration: {
-                            //         value: "0",
-                            //         type: ""
-                            //     },
-                            //     type: "Reading",
-                            //     items: []
-                            // })
                         }}>{isSavingLecture ? <Loader /> : "Upload"}</button>
                     </div>
-                </div>
-            </AddLectureModalContainer>           
+                </div></>}
+            </AddLectureModalContainer>  
         </Wrapper>
      );
 }
