@@ -186,7 +186,6 @@ export const Wrapper = styled.div`
             width: 100%;
             background: #F2F3F5;
             border-radius: 8px;
-            margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             padding: 0.8rem 0.8rem;
@@ -230,6 +229,7 @@ export const Wrapper = styled.div`
         display: flex;
         gap: 1.5rem;
         flex-direction: column;
+        margin-top: 1rem;
         input{
             padding: 0.8rem  0.5rem;
             background: #FFFFFF;

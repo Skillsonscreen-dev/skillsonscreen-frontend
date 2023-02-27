@@ -35,10 +35,12 @@ const Header: React.FC = () => {
                         <input type="text" placeholder='Search for a skill' />
                     </div>
                 </div>
-                <div className="cart-sec">
-                    <HiOutlineShoppingCart />
-                    <span onClick={() => alert(userProfile.fetchedProfile)}>1</span>
-                </div>
+                <Link to="/cart">
+                    <div className="cart-sec">
+                        <HiOutlineShoppingCart />
+                        <span>1</span>
+                    </div>
+                </Link>
                 <NavWrapper ref={sidebarRef} onClick={e => closeMenu(e)} navigationState={toggleState}>
                     <div className="nav-wrapper">
                         <div className="nav-logo">
