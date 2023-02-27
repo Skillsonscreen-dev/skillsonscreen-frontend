@@ -217,9 +217,9 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                                 
                                 <div className="about">
                                 <label htmlFor="description">Brief Description</label>
-                                <span className="about-length">{props.formData.description.length}/50</span>
+                                <span className="about-length">{props.formData.description.length}/200</span>
                                 </div>
-                                <textarea name="description" required id="" rows={2} onChange={handleChange} value={props.formData.description} maxLength={50}>
+                                <textarea name="description" required id="" rows={2} onChange={handleChange} value={props.formData.description} maxLength={200}>
                                     {props.formData.description}
                                 </textarea>
                             </div>

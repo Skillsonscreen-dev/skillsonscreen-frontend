@@ -65,11 +65,11 @@ const HomeScreen: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>{item.title}</span>
+                                                <span>{item.category}</span>
                                                 <span>N{item.price}</span>
                                             </div>
-                                            <h3>{item.description}</h3>
-                                            <p>Kola Adisa, {item.category} </p>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.description} </p>
 
                                             <div className="foot-col">
                                                 <div className="stats-col">
@@ -116,22 +116,24 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Kickstart your learning</h3>
                             <h4 className="sec-sub-title">Beginner courses to help begining your journey to your desired skill </h4>
                             <CourseWrapper>
-                                {[1,2,3,4].map((item, index) => {
+                                
+                            {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
+                                {courses.map((item: any, index) => {
                                     return (
                                         <CourseCard key={index}>
                                             <div className="img-wrapper">
-                                                <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" alt="course image" />
+                                                <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
                                                     <BiBadgeCheck />
-                                                    <span>Beginner</span>
+                                                    <span>{item.level}</span>
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>Carpentry</span>
-                                                <span>N25,000</span>
+                                                <span>{item.category}</span>
+                                                <span>N{item.price}</span>
                                             </div>
-                                            <h3>CPT 101: Introduction to Carpenter</h3>
-                                            <p>Kola Adisa, The Kafinta </p>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.description} </p>
 
                                             <div className="foot-col">
                                                 <div className="stats-col">
@@ -147,12 +149,16 @@ const HomeScreen: React.FC = () => {
                                                 </div>
 
                                                 <div className="action-col">
+                                                    <div className="fav-box">
+                                                        <BsFillHeartFill />
+                                                    </div>
                                                     <a href="#">Add to cart</a>
                                                 </div>
                                             </div>
                                         </CourseCard>
                                     )
                                 })}
+                            </CourseWrapper>}
                             </CourseWrapper>
                         </SectionContainer>
                     </Section>
@@ -161,22 +167,24 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Free Courses just for you</h3>
                             <h4 className="sec-sub-title">Learn different crafts from credible vocational experts for free</h4>
                             <CourseWrapper>
-                                {[1,2,3,4].map((item, index) => {
+                                
+                            {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
+                                {courses.map((item: any, index) => {
                                     return (
                                         <CourseCard key={index}>
                                             <div className="img-wrapper">
-                                                <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" alt="course image" />
+                                                <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
                                                     <BiBadgeCheck />
-                                                    <span>Beginner</span>
+                                                    <span>{item.level}</span>
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>Carpentry</span>
-                                                <span>N25,000</span>
+                                                <span>{item.category}</span>
+                                                <span>N{item.price}</span>
                                             </div>
-                                            <h3>CPT 101: Introduction to Carpenter</h3>
-                                            <p>Kola Adisa, The Kafinta </p>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.description} </p>
 
                                             <div className="foot-col">
                                                 <div className="stats-col">
@@ -192,12 +200,16 @@ const HomeScreen: React.FC = () => {
                                                 </div>
 
                                                 <div className="action-col">
+                                                    <div className="fav-box">
+                                                        <BsFillHeartFill />
+                                                    </div>
                                                     <a href="#">Add to cart</a>
                                                 </div>
                                             </div>
                                         </CourseCard>
                                     )
                                 })}
+                            </CourseWrapper>}
                             </CourseWrapper>
                         </SectionContainer>
                     </Section>

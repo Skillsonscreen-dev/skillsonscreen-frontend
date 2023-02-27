@@ -71,6 +71,7 @@ export const CourseCard = styled.div`
         img {
             object-fit: cover;
             min-height: 100%;
+            min-width: 100%;
         }
 
         .label {
