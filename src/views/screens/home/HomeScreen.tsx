@@ -8,6 +8,7 @@ import Footer from '../../components/footer/Footer'
 import AxiosCall from '../../../utils/axios'
 import Message from '../../components/message/Message'
 import Loader from '../../components/Loader/Loader'
+import { Link } from 'react-router-dom'
 
 const HomeScreen: React.FC = () => {
     const [isFetchingCourses, setIsFetchingCourses] = useState(false)
@@ -88,7 +89,7 @@ const HomeScreen: React.FC = () => {
                                                     <div className="fav-box">
                                                         <BsFillHeartFill />
                                                     </div>
-                                                    <a href="#">Add to cart</a>
+                                                    <Link to="/cart">Add to cart</Link>
                                                 </div>
                                             </div>
                                         </CourseCard>
@@ -152,7 +153,7 @@ const HomeScreen: React.FC = () => {
                                                     <div className="fav-box">
                                                         <BsFillHeartFill />
                                                     </div>
-                                                    <a href="#">Add to cart</a>
+                                                    <Link to="/cart">Add to cart</Link>
                                                 </div>
                                             </div>
                                         </CourseCard>
@@ -203,7 +204,7 @@ const HomeScreen: React.FC = () => {
                                                     <div className="fav-box">
                                                         <BsFillHeartFill />
                                                     </div>
-                                                    <a href="#">Add to cart</a>
+                                                    <Link to="/cart">Add to cart</Link>
                                                 </div>
                                             </div>
                                         </CourseCard>
