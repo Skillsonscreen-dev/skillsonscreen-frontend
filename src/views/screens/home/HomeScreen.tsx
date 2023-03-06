@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 
 const HomeScreen: React.FC = () => {
     const [isFetchingCourses, setIsFetchingCourses] = useState(false)
-    const [courses, setCourses] = useState([])
+    const [courses, setCourses] = useState<CourseInterface[]>([])
     const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
     const dispatch = useAppDispatch();
 
@@ -32,11 +32,14 @@ const HomeScreen: React.FC = () => {
         const itemInCart = oldCart.filter(item => item.courseId == course.courseId)
 
         if (itemInCart.length) {
+            console.log("remove old item");
             const itemIndex = oldCart.indexOf(itemInCart[0]);
             oldCart.splice(itemIndex, 1);
             dispatch(setCart(oldCart))
             setCartList([...oldCart])
         } else {
+            console.log("new item");
+            
             oldCart.push(course)
             dispatch(setCart(oldCart))
             setCartList([...oldCart])
@@ -182,7 +185,7 @@ const HomeScreen: React.FC = () => {
                                                     <div className="fav-box">
                                                         <BsFillHeartFill />
                                                     </div>
-                                                    <Link to="/cart">Add to cart</Link>
+                                                    {cartList.filter(data => data.courseId == item.courseId).length ? <Link to="/cart">Checkout</Link> : <a href="#" onClick={(e) => {e.preventDefault(); addCourseToCart(item)}}>Add to cart</a>}
                                                 </div>
                                             </div>
                                         </CourseCard>
@@ -233,7 +236,7 @@ const HomeScreen: React.FC = () => {
                                                     <div className="fav-box">
                                                         <BsFillHeartFill />
                                                     </div>
-                                                    <Link to="/cart">Add to cart</Link>
+                                                    {cartList.filter(data => data.courseId == item.courseId).length ? <Link to="/cart">Checkout</Link> : <a href="#" onClick={(e) => {e.preventDefault(); addCourseToCart(item)}}>Add to cart</a>}
                                                 </div>
                                             </div>
                                         </CourseCard>

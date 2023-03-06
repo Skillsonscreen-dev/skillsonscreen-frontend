@@ -49,8 +49,8 @@ const CartScreen: React.FC = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {cartItems.map((item, idx) => <tr>
-                                <td key={"cart-"+idx}>
+                            {cartItems.map((item, idx) => <tr key={"cart-"+idx}>
+                                <td>
                                     <div className="course">
                                         <div className="img-wrapper">
                                         <img src={item.courseImg} className='course-img' alt="Course" />
