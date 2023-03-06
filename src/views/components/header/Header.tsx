@@ -7,8 +7,10 @@ import { Link,  } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { setNavigation } from '../../../slices/navigationSlice'
 import { ProfileSliceInterface } from '../../../slices/profileSlice'
+import { CourseInterface } from '../../../slices/cartSlice'
 
 const Header: React.FC = () => {
+    const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
     const userProfile: ProfileSliceInterface = useAppSelector(state => state.profile.state);
     const dispatch = useAppDispatch();
     const toggleState = useAppSelector(state => state.navigation.state);
@@ -38,7 +40,7 @@ const Header: React.FC = () => {
                 <Link to="/cart">
                     <div className="cart-sec">
                         <HiOutlineShoppingCart />
-                        <span>1</span>
+                        {cartItems.length ?  <span>{cartItems.length}</span> : <></>}
                     </div>
                 </Link>
                 <NavWrapper ref={sidebarRef} onClick={e => closeMenu(e)} navigationState={toggleState}>

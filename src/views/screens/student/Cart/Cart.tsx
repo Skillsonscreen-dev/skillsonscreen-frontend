@@ -2,14 +2,32 @@ import Header from "../../../components/header/Header";
 import Footer from '../../../components/footer/Footer';
 import { CartTable, Checkout, Container, CourseCard, CourseWrapper, SectionContainer, Wrapper } from './styles';
 import { BsFillHeartFill, BsFillStarFill, BsStarHalf } from 'react-icons/bs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiBadgeCheck } from "react-icons/bi";
+import { CourseInterface } from "../../../../slices/cartSlice";
+import { useAppSelector } from "../../../../hooks/hooks";
 const CartScreen: React.FC = () => {
+    const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
     const [showModal, setshowModal] = useState(false)
     const openModal = () => {
-        
         setshowModal(true)
     }
+
+    const [totalCost, setTotalCost] = useState(0)
+
+    const getTotalCost = () => {
+        let price = 0;
+        for (let index = 0; index < cartItems.length; index++) {
+            const cartItem = cartItems[index];
+            price = price +cartItem.price
+        }
+
+        setTotalCost(price)
+    }
+
+    useEffect(() => {
+        getTotalCost()
+    }, [])
     
     return ( 
         <Wrapper>
@@ -31,20 +49,20 @@ const CartScreen: React.FC = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
+                            {cartItems.map((item, idx) => <tr>
+                                <td key={"cart-"+idx}>
                                     <div className="course">
                                         <div className="img-wrapper">
-                                        <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course" />
+                                        <img src={item.courseImg} className='course-img' alt="Course" />
                                         </div>
                                         <div className="course-details">
                                             <div className="">
-                                                <h3>Pig disease and treatment</h3>
-                                                <p>Chi Farm</p>
+                                                <h3>{item.title}</h3>
+                                                <p>{item.category}</p>
                                             </div>
                                             <div className="sub-details">
                                                 <div>
-                                                    <p>Level:</p> <strong>Beginner</strong>
+                                                    <p>Level:</p> <strong>{item.level}</strong>
                                                 </div>
                                                 <div className="divide"></div>
                                                 <div>
@@ -74,57 +92,10 @@ const CartScreen: React.FC = () => {
                                     <button className="cart-action">Remove course</button>
                                 </td>
                                 <td>
-                                    <p className="sell-price">N25000</p>
-                                    <p className="discount-price">N25000</p>
+                                    <p className="sell-price">N{item.price}</p>
+                                    <p className="discount-price">N{item.price}</p>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="course">
-                                        <div className="img-wrapper">
-                                        <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" className='course-img' alt="Course" />
-                                        </div>
-                                        <div className="course-details">
-                                            <div className="">
-                                            <h3>Pig disease and treatment</h3>
-                                            <p>Chi Farm</p>
-                                            </div>
-                                            <div className="sub-details">
-                                                <div>
-                                                    <p>Level:</p> <strong>Beginner</strong>
-                                                </div>
-                                                <div className="divide"></div>
-                                                <div>
-                                                    <p>Duration:</p> <strong>12 hours</strong>
-                                                </div>
-                                                <div className="divide"></div>
-                                                <div>
-                                                    <p>Classes:</p> <strong>25</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                <div className="rat-sec">
-                                <span>4.5</span>
-                                    <BsFillStarFill />
-                                    <BsFillStarFill />
-                                    <BsFillStarFill />
-                                    <BsFillStarFill />
-                                    <BsStarHalf />
-                                </div>
-                                <p className="student-num">(10,000 Students)</p>
-                                </td>
-                                <td>
-                                    <button className="cart-action">Move to Wishlist </button>
-                                    <button className="cart-action">Remove course</button>
-                                </td>
-                                <td>
-                                    <p className="sell-price">N25000</p>
-                                    <p className="discount-price">N25000</p>
-                                </td>
-                            </tr>
+                            </tr>)}
                             </tbody>
                             </table>
                         </div>
@@ -132,11 +103,11 @@ const CartScreen: React.FC = () => {
                       <Checkout>
                         <div className="summary">
                             <p>Purchase summary</p>
-                            <span>4 courses</span>
+                            <span>{cartItems.length} courses</span>
                         </div>
                         <div className="total">
                             <p>Total</p>
-                            <span>N50000</span>
+                            <span>N{totalCost}</span>
                         </div>
                         <button className="checkout-btn">
                         Checkout

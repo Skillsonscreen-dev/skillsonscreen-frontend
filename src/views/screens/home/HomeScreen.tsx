@@ -9,10 +9,39 @@ import AxiosCall from '../../../utils/axios'
 import Message from '../../components/message/Message'
 import Loader from '../../components/Loader/Loader'
 import { Link } from 'react-router-dom'
+import { CourseInterface, setCart } from '../../../slices/cartSlice'
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 
 const HomeScreen: React.FC = () => {
     const [isFetchingCourses, setIsFetchingCourses] = useState(false)
     const [courses, setCourses] = useState([])
+    const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
+    const dispatch = useAppDispatch();
+
+    const [cartList, setCartList] = useState<CourseInterface[]>([]);
+
+    useEffect(()=> {
+        setCartList([...cartItems])
+    }, [])
+
+    const addCourseToCart = (course: any) => {
+        const oldCart = [...cartItems]
+        console.log('====================================');
+        console.log("cartItems: ", oldCart);
+        console.log('====================================');
+        const itemInCart = oldCart.filter(item => item.courseId == course.courseId)
+
+        if (itemInCart.length) {
+            const itemIndex = oldCart.indexOf(itemInCart[0]);
+            oldCart.splice(itemIndex, 1);
+            dispatch(setCart(oldCart))
+            setCartList([...oldCart])
+        } else {
+            oldCart.push(course)
+            dispatch(setCart(oldCart))
+            setCartList([...oldCart])
+        }
+    }
 
     const fetchCourses = async () => {
         setIsFetchingCourses(true)
@@ -89,7 +118,7 @@ const HomeScreen: React.FC = () => {
                                                     <div className="fav-box">
                                                         <BsFillHeartFill />
                                                     </div>
-                                                    <Link to="/cart">Add to cart</Link>
+                                                    {cartList.filter(data => data.courseId == item.courseId).length ? <Link to="/cart">Checkout</Link> : <a href="#" onClick={(e) => {e.preventDefault(); addCourseToCart(item)}}>Add to cart</a>}
                                                 </div>
                                             </div>
                                         </CourseCard>
