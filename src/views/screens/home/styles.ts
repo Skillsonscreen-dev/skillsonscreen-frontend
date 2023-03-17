@@ -276,7 +276,7 @@ export const CategoryCard = styled.div`
 
     .img-wrapper {
         width: 100px;
-        height: 80px;
+        height: 100px;
         position: relative;
         overflow: hidden;
         img {
