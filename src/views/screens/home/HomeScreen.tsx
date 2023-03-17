@@ -3,7 +3,7 @@ import Header from '../../components/header/Header'
 import Hero from '../../components/hero/Hero'
 import { BsFillHeartFill, BsFillStarFill, BsStarHalf } from 'react-icons/bs'
 import { BiBadgeCheck } from 'react-icons/bi'
-import { CategoryCard, CategoryCardWrapper, Container, CourseCard, CourseWrapper, ExploreSection, ExploreSectionContainer, MainSection, Section, SectionContainer, TrustItem, TrustItemWrapper, TrustSection, TrustSectionContainer, Wrapper } from './styles'
+import { CategoryCard, CategoryCardWrapper, Container, CourseCard, CourseWrapper, ExploreSection, ExploreSectionContainer, HeroContainer, HeroWrapper, ImageContent, MainSection, ReviewCard, ReviewCardWrapper, ReviewContent, ReviewSection, Section, SectionContainer, TextContent, TrustItem, TrustItemWrapper, TrustSection, TrustSectionContainer, Wrapper } from './styles'
 import Footer from '../../components/footer/Footer'
 import AxiosCall from '../../../utils/axios'
 import Message from '../../components/message/Message'
@@ -268,6 +268,44 @@ const HomeScreen: React.FC = () => {
                             </CategoryCardWrapper>
                         </ExploreSectionContainer>
                     </ExploreSection>
+
+                    <ReviewSection>
+                        <ReviewContent>
+                            <h3 className="sec-title">Reviews from our students</h3>
+                            <ReviewCardWrapper>
+                                {[1,2,3,4,5].map((item, index) => {
+                                    return <ReviewCard key={"review-"+index}>
+                                    <div className="img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="review image" />
+                                    </div>
+                                    <div className="content">
+                                        <h4>Tinuke Okon</h4>
+                                        <span>Nigeria</span>
+                                        <p>Skills on Screen have helped me learn alot within a very short period of time, and it's paying off.  Further talks</p>
+                                    </div>
+                                </ReviewCard>
+                                })}
+                            </ReviewCardWrapper>
+                        </ReviewContent>
+                    </ReviewSection>
+
+
+                    <HeroWrapper>
+                        <HeroContainer>
+                            <TextContent>
+                                <h2>Become a Vocational Tutor</h2>
+                                <h6>We have the right tools and skills for you to teach your skills to thousands of students on our platform.</h6>
+
+                                <div className="link-sec">
+                                    <Link to="/become-a-tutor">Start teaching</Link>
+                                </div>
+                            </TextContent>
+
+                            <ImageContent>
+                                <img src="/assets/img/become-tutor-img.png" alt="lady" />
+                            </ImageContent>
+                        </HeroContainer>
+                    </HeroWrapper>
                 </MainSection>
             </Container>
             <Footer />
