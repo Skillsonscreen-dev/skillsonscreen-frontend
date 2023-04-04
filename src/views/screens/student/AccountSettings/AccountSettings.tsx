@@ -9,10 +9,17 @@ import ProfileNavContent from "../../../components/student/profileNav/profileNav
 import Button from "../../../components/ui/button/Button";
 import Switch from "../../../components/ui/switch";
 import { Container, Content, Flex, Layout, TopNav, Wrapper } from "./styles";
+import ResetPasswordModal from "./ResetPasswordModal";
 
 const AccountSettings: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: showPassword, onOpen: onShowPassword, onClose: onHidePassword } = useDisclosure();
+    const { isOpen: showReset, onOpen: onShowReset, onClose: onHideReset } = useDisclosure();
+
+    const closeResetModal = () => {
+        // Clear password state
+        onHideReset();
+    }
 
     return (
         <Wrapper>
@@ -32,6 +39,10 @@ const AccountSettings: React.FC = () => {
                         <ProfileNavContent />
                     </div>
 
+                    {
+                        showReset && <ResetPasswordModal onClose={closeResetModal} />
+                    }
+                    
                     <Content>
                         <div className="account-settings">
                             <h2>Account Settings</h2>
@@ -43,14 +54,14 @@ const AccountSettings: React.FC = () => {
                                 <div className="input-group">
                                     <div className="label">Password</div>
                                     <div className="input-subgroup">
-                                        <input type={showPassword? 'text': 'password'} placeholder="* * * * * * *" />
+                                        <input type={showPassword ? 'text' : 'password'} placeholder="* * * * * * *" />
                                         {
-                                            showPassword?
-                                            <BsEyeSlash size={20} color="#898B8D" onClick={onHidePassword} />:
-                                            <BsEye size={20} color="#898B8D" onClick={onShowPassword} />
+                                            showPassword ?
+                                                <BsEyeSlash size={20} color="#898B8D" onClick={onHidePassword} /> :
+                                                <BsEye size={20} color="#898B8D" onClick={onShowPassword} />
                                         }
-                                    </div>                                    
-                                    <Button br={5} size="md" variant="outline">Reset Password</Button>
+                                    </div>
+                                    <Button br={5} size="md" variant="outline" onClick={onShowReset}>Reset Password</Button>
                                 </div>
                             </Flex>
                         </div>
@@ -60,13 +71,13 @@ const AccountSettings: React.FC = () => {
                                 <div className="promotions box">
                                     <Switch />
                                     <div className="text">
-                                    I wish to receive promotions, course recommendations and articles from Skillsonscreen
+                                        I wish to receive promotions, course recommendations and articles from Skillsonscreen
                                     </div>
                                 </div>
                                 <div className="announcements box">
                                     <Switch />
                                     <div className="text">
-                                    I wish to receive announcements from Tutors whose course(s) I am enrolled in
+                                        I wish to receive announcements from Tutors whose course(s) I am enrolled in
                                     </div>
                                 </div>
                             </Flex>
@@ -76,7 +87,7 @@ const AccountSettings: React.FC = () => {
                         </div>
                     </Content>
                 </Layout>
-            </Container>         
+            </Container>
             <Footer />
         </Wrapper>
     )

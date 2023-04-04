@@ -14,7 +14,7 @@ const DeleteModal: React.FC<{ onClose: any }> = (props) => {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <Content>
               <div className="delete-account-box">
-                <h1 className='delete-modal-header'>Delete account <MdOutlineCancel onClick={() => props.onClose()} /></h1>
+                <h1 className='modal-header'>Delete account <MdOutlineCancel onClick={() => props.onClose()} /></h1>
 
                 <div className="delete-warning">
                   <p>Are you sure you want to delete your account?</p>

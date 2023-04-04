@@ -62,7 +62,7 @@ export const Layout = styled.div`
 export const Content = styled.div`
     width: 100%;
 
-    .delete-modal-header {
+    .modal-header {
         color: unset;
         display: flex;
         justify-content: space-between;
@@ -282,6 +282,7 @@ export const ModalContainer = styled.div`
     background-color: rgba(0,0,0,0.6);
     overflow-y: scroll;
     padding-top: 160px;
+    z-index: 999;
     .close-btn {
         display: flex;
         justify-content: end;
