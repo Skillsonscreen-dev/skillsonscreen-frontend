@@ -21,6 +21,8 @@ import HelpScreen from './views/screens/teacher/help/HelpScreen';
 import Course from './views/screens/student/Course/Course';
 import Class from './views/screens/student/Class/Class';
 import AccountSettings from './views/screens/student/AccountSettings/AccountSettings';
+import PaymentMethod from './views/screens/student/PaymentMethod/PaymentMethod';
+import AddPaymentMethod from './views/screens/student/PaymentMethod/AddPaymentMethod';
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
               <Route path="/mycourses/:course/class/lessons/:lesson" element={<Class />} />
 
               <Route path="/myaccount/settings" element={<AccountSettings />} />
+              {/* <Route path="/myaccount/payment" element={<PaymentMethod />} /> */}
+              <Route path="/myaccount/payment/new" element={<AddPaymentMethod />} />
 
               {/* Teacher protected Routes */}
               <Route path="/teacher/" element={<CoursesScreen />} />
