@@ -61,6 +61,20 @@ export const Layout = styled.div`
 
 export const Content = styled.div`
     width: 100%;
+
+    .delete-modal-header {
+        color: unset;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        svg {
+            cursor: pointer;
+        }
+    }
+    .delete-warning {
+        padding: 24px 0;
+    }
+    
     .profile-picture-cover {
         .profile-picture {
             width: 190px;
@@ -87,7 +101,7 @@ export const Content = styled.div`
     }
     .account-settings {
         margin-bottom: 40px;
-        .payment-method-box {
+        .payment-method-box, .delete-account-box {
             max-width: 875px;
             width: 100%;
             p {
@@ -95,7 +109,7 @@ export const Content = styled.div`
                 font-weight: 400;
                 font-size: 12px;
             }
-            .payment-method-subtext {
+            .payment-method-subtext, .delete-account-subtext {
                 margin-bottom: 24px;
             }
         }
@@ -103,8 +117,15 @@ export const Content = styled.div`
             max-width: 500px;
             width: 100%;
         }
-        .payment-method-header {
+        .payment-method-header, .delete-account-header {
             margin-bottom: 24px
+        }
+        .delete-account-header {
+            h3 {
+                color: #FC2E2E;
+                font-weight: 700;
+                font-family: 'Raleway';
+            }
         }
         h3 {
             font-weight: 400;
@@ -250,5 +271,36 @@ export const SavedPaymentMethod = styled.div`
         h5: {
             font-size: 14px
         }
+    }
+`
+export const ModalContainer = styled.div`
+   position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.6);
+    overflow-y: scroll;
+    padding-top: 160px;
+    .close-btn {
+        display: flex;
+        justify-content: end;
+        margin: 1rem 0;
+        width: 90%;
+        color: #FFFFFF;
+        cursor: pointer;
+        svg{
+            font-size: 24px;
+        }
+    }
+    .modal{
+        width: 75%;
+        min-width: 300px;
+        max-width: 700px;
+        margin:0 auto;
+        background: #FFFFFF;
+        border-radius: 20px;
+        color: #1C1D1F;
+        padding: 5%;       
     }
 `

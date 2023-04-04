@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { ButtonBordered, ButtonFilled } from "./styles";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light' | 'white' | 'black' | 'grey';
+    color?: 'primary' | 'info' | 'dark' | 'secondary' | 'light' | 'white' | 'black' | 'grey' | 'danger';
     variant?: 'outline' | 'filled';
     size?: 'sm' | 'md' | 'lg';
     br?: number;

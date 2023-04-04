@@ -24,6 +24,7 @@ import AccountSettings from './views/screens/student/AccountSettings/AccountSett
 import AddPaymentMethod from './views/screens/student/AccountSettings/AddPaymentMethod';
 import PaymentMethod from './views/screens/student/AccountSettings/PaymentMethod';
 import EditProfile from './views/screens/student/AccountSettings/EditProfile';
+import DeleteAccount from './views/screens/student/AccountSettings/DeleteAccount';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
               {/* <Route path="/myaccount/payment" element={<PaymentMethod />} /> */}
               <Route path="/myaccount/payment/new" element={<AddPaymentMethod />} />
               <Route path="/myaccount/profile" element={<EditProfile />} />
+              <Route path="/myaccount/delete" element={<DeleteAccount />} />
 
               {/* Teacher protected Routes */}
               <Route path="/teacher/" element={<CoursesScreen />} />

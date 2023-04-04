@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { NavLink } from 'react-router-dom'
 import { Nav, NavDivider } from './styles'
+import { Link } from 'react-router-dom';
 
 const ProfileNavContent: React.FC = (props) => {
     const navRef = useRef(null);
@@ -14,7 +15,7 @@ const ProfileNavContent: React.FC = (props) => {
             </ul>
 
             <NavDivider />
-            <span className='delete-btn'>Delete account</span>
+            <Link to={'/myaccount/delete'}><span className='delete-btn'>Delete account</span></Link>
         </Nav>
     )
 }
