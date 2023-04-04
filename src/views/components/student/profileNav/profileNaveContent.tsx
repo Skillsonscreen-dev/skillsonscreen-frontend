@@ -10,7 +10,7 @@ const ProfileNavContent: React.FC = (props) => {
             <ul>
                 <li><NavLink to={'/myaccount/settings'} >Account settings</NavLink></li>
                 <li><NavLink to={'/myaccount/profile'} >Edit profile</NavLink></li>
-                <li><NavLink to={'/myaccount/payment'} >Payment method</NavLink></li>
+                <li><NavLink to={'/myaccount/payment/new'} >Payment method</NavLink></li>
             </ul>
 
             <NavDivider />

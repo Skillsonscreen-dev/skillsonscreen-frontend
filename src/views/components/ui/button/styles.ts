@@ -51,6 +51,7 @@ export const ButtonFilled = styled.button<{color?: string; size?: string; br?: n
         props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
         props => props.color === 'black'? '#1C1D1F':
+        props => props.color === 'grey'? '#F2F3F5':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
     };
@@ -60,12 +61,14 @@ export const ButtonFilled = styled.button<{color?: string; size?: string; br?: n
         props => props.color === 'white'? '#FFFFFF':
         props => props.color === 'dark'? '#0D2D53':
         props => props.color === 'black'? '#1C1D1F':
+        props => props.color === 'grey'? '#D1D7DC':
         props.color === 'secondary'? props.theme.secondaryColor:
         props.theme.primaryColor
     };
 
     color: ${
         props => props.color === 'white'? props.theme.primaryColor:
+        props.color === 'grey'? '#5C5C5C':
         '#FFF'
     };
     padding: ${

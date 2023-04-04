@@ -13,7 +13,7 @@ export const Container = styled.div`
         font-weight: 400;
         font-size: 28px;
         letter-spacing: -1px;
-        color: ${ props => props.theme.primaryColor };
+        color: ${props => props.theme.primaryColor};
         width: 100%;
     }
 
@@ -61,8 +61,61 @@ export const Layout = styled.div`
 
 export const Content = styled.div`
     width: 100%;
+    .profile-picture-cover {
+        .profile-picture {
+            width: 190px;
+            height: 190px;
+            display: flex;
+            align-items: center;
+            img {
+                object-fit: cover;
+                height: 100%;
+            }
+        }
+
+        .profile-photo-btns > div {
+            justify-content: center;
+            @media screen and (min-width: 840px) {
+                justify-content: flex-start;
+            }
+        }
+
+        .file-size {
+            font-weight: light;
+            color: #898B8D;
+        }
+    }
     .account-settings {
         margin-bottom: 40px;
+        .payment-method-box {
+            max-width: 875px;
+            width: 100%;
+            p {
+                font-family: 'Lato';
+                font-weight: 400;
+                font-size: 12px;
+            }
+            .payment-method-subtext {
+                margin-bottom: 24px;
+            }
+        }
+        .account-settings-box {
+            max-width: 500px;
+            width: 100%;
+        }
+        .payment-method-header {
+            margin-bottom: 24px
+        }
+        h3 {
+            font-weight: 400;
+            font-size: 24px;
+            letter-spacing: -1px;
+            color: #1C1D1F;
+            margin-bottom: 0;
+        }
+        .add-payment {
+            margin-bottom: 32px;
+        }
     }
 
     .notifications {
@@ -98,6 +151,16 @@ export const Content = styled.div`
         font-size: 12px;
         color: #1C1D1F;
         margin-bottom: 6px;
+        white-space: nowrap;
+    }
+    .right-label {
+        min-width: 90px;
+    }
+    .input-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
     }
 
     .input-group {
@@ -110,7 +173,7 @@ export const Content = styled.div`
                 cursor: pointer;
             }
         }
-        input {
+        input, textarea {
             padding: 12px 16px;
             width: 420px;
             height: 42px;
@@ -120,26 +183,72 @@ export const Content = styled.div`
             width: 100%;
             margin-bottom: 8px;
         }
+        textarea {
+            height: auto;
+            font-size: 12px;
+        }
     }
 
     .save-cover {
         button {
-            padding-left: 32px;
+            padding-left: 32px; 
             padding-right: 32px;
+        }
+    }
+
+    .personal-info, .background, .social, .contact {
+        margin-bottom: 50px;
+        h2 {
+            margin-bottom: 26px;
         }
     }
 `
 
-export const Flex = styled.div`
-    padding-top: 20px;
-    padding-bottom: 20px;
+export const Flex = styled.div<{
+    gap?: number;
+    alwaysRow?: boolean;
+    spaceBetween?: boolean;
+    autoWidth?: boolean;
+    noPadding?: boolean;
+    stretch?: boolean;
+    align?: boolean;
+    break?: number;
+}>`
+    ${props => props.noPadding ? '' : `
+            padding-top: 20px;
+            padding-bottom: 20px;
+        `
+    }
+    ${props => props.align ? 'align-items: center;' : ''}
+    ${props => props.stretch ? 'width: 100%;' : ''}
     display: flex;
-    flex-direction: column;
-    @media screen and (min-width: 840px) {
+    flex-direction: ${props => props.alwaysRow ? 'row' : 'column'};
+    gap: ${props => props.gap || 16}px;
+    ${props => props.spaceBetween ? `justify-content: space-between;` : ''}
+
+    @media screen and (min-width: ${props => props.break || 840}px) {
         flex-direction: row;
-        gap: 32px;
+        gap: ${props => props.gap || 32}px;;
         > * {
-            width: 50%;
+            ${props => !props.autoWidth ? 'width: 50%;' : ''
+    }            
+        }
+    }
+`
+
+export const SavedPaymentMethod = styled.div`
+    background: #F2F3F5;
+    min-height: 80px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    .bank-info {
+        .bank-name {
+            font-size: 10px
+        }
+        h5: {
+            font-size: 14px
         }
     }
 `
