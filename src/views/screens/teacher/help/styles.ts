@@ -4,7 +4,8 @@ export const Wrapper = styled.div`
 h4 {
             font-family: 'Raleway';
             font-style: normal;
-            font-size: 20px;
+            font-weight: 600;
+            font-size: 18px;
             margin-top: 2rem;
         }
     .start-banner{
@@ -86,7 +87,7 @@ h4 {
             color: #1C1D1F;
             font-family: 'Lato';
             font-style: normal;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 12px;
             line-height: 20px;
         }
@@ -120,6 +121,35 @@ h4 {
             color: #FFFFFF;
             margin: 1.5rem 0;
             font-size: 16px;
+        }
+    }
+    .speak-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .speak-item{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 1.2rem 0;
+            p{
+                font-weight: 300;
+                margin-bottom: 5px;
+            }
+            a{
+                display: block;
+                color: #1C1D1F;
+                font-weight: 600;
+                font-size: 14px;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            .img-wrapper{
+                width: 60px;
+                img{
+                    width: 100%;
+                }
+            }
         }
     }
 `;

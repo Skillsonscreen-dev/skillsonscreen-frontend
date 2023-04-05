@@ -334,6 +334,177 @@ export const StudentModalContainer = styled.div`
     }
     
 `;
+export const AddLectureModalContainer = styled.div`
+   position: fixed;
+   list-style-type: inherit !important;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.6);
+    overflow-y: scroll;
+    padding-top: 160px;
+    .close-btn {
+        display: flex;
+        justify-content: end;
+        margin: 1rem 0;
+        width: 90%;
+        color: #FFFFFF;
+        cursor: pointer;
+        svg{
+            font-size: 24px;
+        }
+    }
+    .ck-editor__editable_inline {
+    padding: 0 30px !important;
+}
+
+    h5{
+        font-size: 20px;
+        font-weight: 500;
+    }
+    label {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px; 
+        color: #1C1D1F;
+        display: block;
+    }
+    .modal{
+        width: 80%;
+        margin:0 auto;
+        background: #FFFFFF;
+        border-radius: 20px;
+        color: #1C1D1F;
+        padding: 1rem;
+        .lecture-details {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            input, select{
+            padding: 0.5rem  0.5rem;
+            background: #FFFFFF;
+            border: 0.8px solid #898B8D;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-top: 8px !important;
+            }
+            .duration{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                select{
+                margin-top: -2px !important;
+                }
+            }
+
+            .duration-input {
+                padding: 0.5rem  0.5rem;
+                background: #FFFFFF;
+                border: 0.8px solid #898B8D;
+                border-radius: 4px;
+                margin-right: 10px;
+                width: 100px;
+                margin-top: 8px !important;
+            }
+            
+        }
+        .editor{
+            margin: 2rem 0;
+        }
+        .upload {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            button{
+                background: #3186C6;
+                color: #FFFFFF;
+                padding: 0.6rem 0.8rem;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+        }
+        .img-container{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        /* margin: 2rem 0; */
+        .img-wrapper{
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            
+            video{
+                width: 350px;
+            }
+
+
+            .uploading-profile-img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                background-color: #000c;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .btn-dark{
+            border: none;
+            background: #1C1D1F;
+            color: #fff;
+            font-size: 16px;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+        }
+        input[type="file"] {
+        display: none;
+        }
+        .actions{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        p{
+            font-weight: 400;
+            color: #898B8D;
+        }
+
+
+        .video {
+            video {
+                width: 100%;
+                max-width: 400px;
+            }
+            .video-meta {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+    }
+       
+    }
+
+    @media screen and (max-width: 1020px) {
+
+    }
+    @media screen and (max-width: 400px) {
+        padding-top: 500px;
+    }
+    
+`;
 export const THeader = styled.div`
     display: flex;
     flex-wrap: wrap;

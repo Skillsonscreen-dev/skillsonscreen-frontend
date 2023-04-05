@@ -71,6 +71,7 @@ export const CourseCard = styled.div`
         img {
             object-fit: cover;
             min-height: 100%;
+            min-width: 100%;
         }
 
         .label {
@@ -267,19 +268,15 @@ export const CategoryCardWrapper = styled.div`
     }
 `;
 export const CategoryCard = styled.div`
+    display: flex;
     width: 100%;
-    min-width: 320px;
-    max-width: 480px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-radius: 10px;
+    border: 1px solid #D1D7DC;
     overflow: hidden;
 
     .img-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 300px;
+        width: 100px;
+        height: 100px;
         position: relative;
         overflow: hidden;
         img {
@@ -291,31 +288,85 @@ export const CategoryCard = styled.div`
     .content {
         display: flex;
         justify-content: space-between;
-        background-color: #0D2D53;
-        padding: 20px;
+        padding: 20px 20px;
+        flex: 1;
+
         .info {
             display: flex;
             flex-direction: column;
+            flex: 1;
             span {
-                color: #fff;
                 font-size: 13px;
                 font-weight: 400;
+                color: #898B8D;
                 :first-child {
-                    margin-bottom: 4px;
-                    font-size: 17px;
+                    color: ${props => props.theme.primaryColor};
                     font-weight: 800;
+                    font-size: 17px;
+                    margin-bottom: 4px;
                 }
             }
         }
 
         span.student-count {
-            color: #fff;
+            color: #898B8D;
             font-size: 14px;
             font-weight: 400;
         }
     }
 
     @media screen and (min-width: 720px) {
+        display: block;
+        width: 100%;
+        min-width: 320px;
+        max-width: 480px;
+        border: 1px solid none;
+        border-radius: 0px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        overflow: hidden;
+
+        .img-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            img {
+                object-fit: cover;
+                min-height: 100%;
+            }
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            background-color: #0D2D53;
+            padding: 20px;
+            .info {
+                display: flex;
+                flex-direction: column;
+                span {
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: 400;
+                    :first-child {
+                        color: #fff;
+                        margin-bottom: 4px;
+                        font-size: 17px;
+                        font-weight: 800;
+                    }
+                }
+            }
+
+            span.student-count {
+                color: #fff;
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
         width: calc(50% - 10px);
     }
     @media screen and (min-width: 1080px) {
@@ -326,4 +377,199 @@ export const CategoryCard = styled.div`
             height: 200px;
         }
     }
+`;
+
+
+export const ReviewSection = styled.div`
+    display: flex;
+    margin-top: 20px;
+
+
+    @media screen and (min-width: 720px) {
+        
+    }
+`;
+export const ReviewContent = styled.div`
+    width: 100%;
+    max-width: 1340px;
+    margin: 0px auto;
+    padding: 40px 20px;
+
+    h3 {
+        margin-bottom: 30px !important;
+        color: #000 !important;
+    }
+
+    @media screen and (min-width: 720px) {
+        
+    }
+`;
+
+export const ReviewCardWrapper = styled.div`
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    max-width: 100%;
+
+     /* Hide scrollbar for Chrome, Safari and Opera */
+     -ms-overflow-style: none;  /* 
+    IE and Edge */
+    scrollbar-width: none; 
+     ::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media screen and (min-width: 720px) {
+        
+    }
+`;
+
+export const ReviewCard = styled.div`
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    min-width: 480px;
+    max-width: 480px;
+
+
+    .img-wrapper {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+    }
+
+   .content {
+        flex: 1;
+        h4 {
+            color: #0D2D53;
+            font-weight: 00;
+            font-size: 15px;
+        }
+
+        span {
+            display: inline-block;
+            color: #5C5C5C;
+            font-size: 13px;
+            font-weight: 600;
+            border-bottom: 1px solid #5C5C5C;
+            padding: 10px 20px 10px 0px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #5C5C5C;
+            font-size: 14px;
+            line-height: 24px;
+        }
+   }
+
+
+    @media screen and (min-width: 720px) {
+        
+    }
+`;
+
+
+
+
+export const HeroWrapper = styled.div`
+    background-color: #fff;
+`;
+export const HeroContainer = styled.div`
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 4%;
+    max-width: 1080px;
+    margin: 0px auto;
+
+    @media screen and (min-width: 880px) {
+        flex-direction: row;
+        justify-content: center;
+        gap: 4%;
+    }
+`;
+
+export const TextContent = styled.div`
+    width: 100%;
+    max-width: 640px;
+
+    @media screen and (min-width: 880px) {
+        margin-top: 120px;
+    }
+    
+    h2 {
+        font-size: 40px;
+        font-weight: 700;
+        color: ${props => props.theme.primaryColor};
+        text-align: center;
+
+        @media screen and (min-width: 880px) {
+            font-size: 45px;
+            max-width: 480px;
+            text-align: unset;
+        }
+    }
+
+    h6 {
+        color: #5C5C5C;
+        font-family: 'Lato', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        margin-top: 20px;
+        line-height: 25px;
+        text-align: center;
+
+        @media screen and (min-width: 880px) {
+            text-align: unset;
+        }
+    }
+
+    .link-sec {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+        flex-direction: column;
+        justify-content: center;
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            width: 100%;
+            color: #fff;
+            padding: 0px 40px;
+            font-weight: 500;
+            border-radius: 5px;
+            background-color: ${props => props.theme.primaryColor};
+            border: 1px solid ${props => props.theme.primaryColor};
+
+            @media screen and (min-width: 880px) {
+                width: unset;
+            }
+        }
+
+
+        @media screen and (min-width: 480px) {
+            flex-direction: row;
+        }
+
+        @media screen and (min-width: 880px) {
+            justify-content: start;
+        }
+    }
+    
+`;
+export const ImageContent = styled.div`
+    width: 100%;
+    max-width: 480px;
 `;

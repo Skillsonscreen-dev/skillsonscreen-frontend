@@ -11,7 +11,7 @@ let baseURL;
 if (REACT_APP_SERVER_HOST) {
   baseURL = `${REACT_APP_SERVER_HOST}/`;
 } else {
-  const host = "https://team-konect-api.herokuapp.com/v1";
+  const host = "https://skillsonscreen.loftywebtech.com/v1";
   baseURL = `${host}/`;
 }
 
@@ -22,23 +22,24 @@ const AxiosCall = async (requestObj) => {
 
   const headers = {
     "Content-Type": contentType,
-    "token": token
+    "Authorization": "Bearer "+ token
   };
 
-  baseURL = "https://team-konect-api.herokuapp.com/v1"
+  baseURL = "https://skillsonscreen.loftywebtech.com/v1"
  
 
   const url = version ? `${baseURL}${version}/${path}` : `${baseURL}${path}`;
   try {
     const response = await Axios({ method, url, data, headers, json: true });
-    const result = response && {data: response.data.data, headers: response.headers};
+    const result = response && response.data
 
     return result;
   } catch (error) {
     console.log(error);
     if (error.response.status === 401) {
       localStorage.setItem("authToken", "");
-      window.location.href = "/signin";
+      const currentPath = window.location.href.replace(window.location.host, '').replace(window.location.protocol + '//', '')
+      window.location.href = `/signin?redirect=${currentPath}`;
     }
     throw error;
   }

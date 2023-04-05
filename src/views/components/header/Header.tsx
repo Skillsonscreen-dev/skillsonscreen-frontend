@@ -6,8 +6,12 @@ import { VscMenu } from 'react-icons/vsc'
 import { Link,  } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { setNavigation } from '../../../slices/navigationSlice'
+import { ProfileSliceInterface } from '../../../slices/profileSlice'
+import { CourseInterface } from '../../../slices/cartSlice'
 
 const Header: React.FC = () => {
+    const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
+    const userProfile: ProfileSliceInterface = useAppSelector(state => state.profile.state);
     const dispatch = useAppDispatch();
     const toggleState = useAppSelector(state => state.navigation.state);
 
@@ -33,10 +37,12 @@ const Header: React.FC = () => {
                         <input type="text" placeholder='Search for a skill' />
                     </div>
                 </div>
-                <div className="cart-sec">
-                    <HiOutlineShoppingCart />
-                    <span>1</span>
-                </div>
+                <Link to="/cart">
+                    <div className="cart-sec">
+                        <HiOutlineShoppingCart />
+                        {cartItems.length ?  <span>{cartItems.length}</span> : <></>}
+                    </div>
+                </Link>
                 <NavWrapper ref={sidebarRef} onClick={e => closeMenu(e)} navigationState={toggleState}>
                     <div className="nav-wrapper">
                         <div className="nav-logo">
@@ -46,9 +52,9 @@ const Header: React.FC = () => {
                         </div>
                         <nav>
                             <ul>
-                                <li><a href="#">Become a Tutor</a></li>
+                                <li><Link to={'/signup?user-type=teacher'}>Become a Tutor</Link></li>
                                 <li><a href="#">Blog</a></li>
-                                <li><Link to={'/mycourses/Making Pastries'}>My Courses</Link></li>
+                                {userProfile.fetchedProfile == true && userProfile.userType == "STUDENT" ? <li><Link to={'/mycourses/Making Pastries'}>My Courses</Link></li> : <></>}
                             </ul>
                         </nav>
                         <div className="auth-nav">

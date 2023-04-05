@@ -17,16 +17,18 @@ export const Wrapper = styled.div`
                 font-weight: 900;
             }
         }
-        button{
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            display: block;
             background: #3186C6;
             padding: 0.8rem;
-            font-size: 14px;
             margin: 1rem 0;
-            border: none;
-            color: #FFFFFF;
+            width: 127px;
             border-radius: 2px;
+            color: #FFFFFF;
+            font-size: 14px;
         }
     }
     .title {

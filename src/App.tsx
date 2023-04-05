@@ -25,6 +25,9 @@ import AddPaymentMethod from './views/screens/student/AccountSettings/AddPayment
 import PaymentMethod from './views/screens/student/AccountSettings/PaymentMethod';
 import EditProfile from './views/screens/student/AccountSettings/EditProfile';
 import DeleteAccount from './views/screens/student/AccountSettings/DeleteAccount';
+import PersonalDataScreen from './views/screens/teacher/registration/PersonalDataScreen';
+import CreateCourse from './views/screens/teacher/courses/CreateCourse';
+import CartScreen from './views/screens/student/Cart/Cart';
 
 function App() {
   return (
@@ -38,6 +41,7 @@ function App() {
 
               {/* Student protected Routes */}
               <Route path="/home" element={<StudentHome />} />
+              <Route path="/cart" element={<CartScreen />} />
               <Route path="/categories" element={<Category />} />
               <Route path="/categories/:category/skills" element={<Skills />} />
 
@@ -54,11 +58,13 @@ function App() {
               <Route path="/myaccount/delete" element={<DeleteAccount />} />
 
               {/* Teacher protected Routes */}
-              <Route path="/teacher/" element={<CoursesScreen />} />
+              <Route path="/become-a-tutor" element={<PersonalDataScreen />} />
+              <Route path="/teacher" element={<CoursesScreen />} />
               <Route path="/teacher/performance" element={<PerformanceScreen />} />
               <Route path="/teacher/students" element={<StudentScreen />} />
               <Route path="/teacher/finance" element={<FinanceScreen />} />
               <Route path="/teacher/help-and-support" element={<HelpScreen />} />
+              <Route path="/teacher/create-a-course" element={<CreateCourse />} />
             </Routes>
         </Provider>
       </ThemeProvider>
