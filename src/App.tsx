@@ -23,6 +23,7 @@ import Class from './views/screens/student/Class/Class';
 import PersonalDataScreen from './views/screens/teacher/registration/PersonalDataScreen';
 import CreateCourse from './views/screens/teacher/courses/CreateCourse';
 import CartScreen from './views/screens/student/Cart/Cart';
+import MainLayout from './views/layouts/mainLayout/MainLayout';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
 
               {/* Student protected Routes */}
               <Route path="/home" element={<StudentHome />} />
-              <Route path="/cart" element={<CartScreen />} />
+              <Route path="/cart" element={<MainLayout><CartScreen /></MainLayout>} />
               <Route path="/categories" element={<Category />} />
               <Route path="/categories/:category/skills" element={<Skills />} />
 

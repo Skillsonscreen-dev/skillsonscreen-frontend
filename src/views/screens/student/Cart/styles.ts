@@ -170,6 +170,9 @@ margin-top: 2rem;
         height: 50px;
         margin: 1rem 0;
     }
+    .complete-btn {
+        background: #909;
+    }
     @media screen and (min-width: 1028px) {
        width: 27%; 
     } 

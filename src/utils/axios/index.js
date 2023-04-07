@@ -11,7 +11,7 @@ let baseURL;
 if (REACT_APP_SERVER_HOST) {
   baseURL = `${REACT_APP_SERVER_HOST}/`;
 } else {
-  const host = "https://skillsonscreen.loftywebtech.com/v1";
+  const host = "http://localhost:4000/v1";
   baseURL = `${host}/`;
 }
 
@@ -25,7 +25,7 @@ const AxiosCall = async (requestObj) => {
     "Authorization": "Bearer "+ token
   };
 
-  baseURL = "https://skillsonscreen.loftywebtech.com/v1"
+  baseURL = "http://localhost:4000/v1"
  
 
   const url = version ? `${baseURL}${version}/${path}` : `${baseURL}${path}`;
@@ -39,7 +39,8 @@ const AxiosCall = async (requestObj) => {
     if (error.response.status === 401) {
       localStorage.setItem("authToken", "");
       const currentPath = window.location.href.replace(window.location.host, '').replace(window.location.protocol + '//', '')
-      window.location.href = `/signin?redirect=${currentPath}`;
+      const urlEncoded = encodeURIComponent(currentPath)
+      window.location.href = `/signin?redirect=${urlEncoded}`;
     }
     throw error;
   }

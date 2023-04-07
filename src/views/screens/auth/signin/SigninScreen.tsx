@@ -61,7 +61,8 @@ const SigninScreen: React.FC = () => {
                 }))
 
                 if (redirectPath) {
-                    return navigate(redirectPath);
+                    
+                    return navigate(decodeURIComponent(redirectPath));
                 }
 
                 if (res.data.userType == "STUDENT") {
