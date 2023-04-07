@@ -20,6 +20,11 @@ import FinanceScreen from './views/screens/teacher/finance/financeScreen';
 import HelpScreen from './views/screens/teacher/help/HelpScreen';
 import Course from './views/screens/student/Course/Course';
 import Class from './views/screens/student/Class/Class';
+import AccountSettings from './views/screens/student/AccountSettings/AccountSettings';
+import AddPaymentMethod from './views/screens/student/AccountSettings/AddPaymentMethod';
+import PaymentMethod from './views/screens/student/AccountSettings/PaymentMethod';
+import EditProfile from './views/screens/student/AccountSettings/EditProfile';
+import DeleteAccount from './views/screens/student/AccountSettings/DeleteAccount';
 import PersonalDataScreen from './views/screens/teacher/registration/PersonalDataScreen';
 import CreateCourse from './views/screens/teacher/courses/CreateCourse';
 import CartScreen from './views/screens/student/Cart/Cart';
@@ -46,6 +51,12 @@ function App() {
 
               <Route path="/mycourses/:course" element={<Course />} />
               <Route path="/mycourses/:course/class/lessons/:lesson" element={<Class />} />
+
+              <Route path="/myaccount/settings" element={<AccountSettings />} />
+              {/* <Route path="/myaccount/payment" element={<PaymentMethod />} /> */}
+              <Route path="/myaccount/payment/new" element={<AddPaymentMethod />} />
+              <Route path="/myaccount/profile" element={<EditProfile />} />
+              <Route path="/myaccount/delete" element={<DeleteAccount />} />
 
               {/* Teacher protected Routes */}
               <Route path="/become-a-tutor" element={<PersonalDataScreen />} />
