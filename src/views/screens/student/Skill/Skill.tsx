@@ -17,14 +17,24 @@ import { Banner, Container, Grid, Mb, Wrapper } from "./styles";
 import CourseOffer from "../../../components/student/courseDetails/courseOffer/CourseOffer";
 import { SkillsContent } from "../Skills/styles";
 import SkillCard from "../../../components/student/skillCard/SkillCard";
+import { useLocation } from "react-router-dom";
+import { CourseInterface } from "../../../../slices/cartSlice";
 
 const Skill: React.FC = () => {
+    const location: any = useLocation();
+    const course: CourseInterface = location.state.course
+    const getCourse = () => {
+
+    }
+
+    
+
     return (
         <Wrapper>
             <Header />
             <Jumbotron
-                content={ <SkillJumboContent /> }
-                image="https://media.istockphoto.com/id/1130530775/photo/chocolate-brownie-preparation-on-kitchen-table.jpg?s=612x612&w=0&k=20&c=naVVUlyh2JFxBR5_4UQt9du7GJtu2bePAIGQZzoieaU="
+                content={ <SkillJumboContent course={course} /> }
+                image={course.courseImg}
             />
 
             <Banner>
@@ -45,12 +55,12 @@ const Skill: React.FC = () => {
             
             <Container>
                 <Mb><CourseInfo /></Mb>
-                <Mb><CourseAboutSection /></Mb>
-                <Mb><CourseFor /></Mb>  
+                <Mb><CourseAboutSection course={course} /></Mb>
+                <Mb><CourseFor course={course} /></Mb>  
                 <Mb>
                     <Grid>
-                        <CourseWhat />
-                        <Requirements />
+                        <CourseWhat course={course} />
+                        <Requirements course={course} />
                     </Grid>                    
                 </Mb>
                 <Mb><CourseContent /></Mb>

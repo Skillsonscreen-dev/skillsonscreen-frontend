@@ -35,6 +35,7 @@ export const JumboImage = styled.div`
     display: none;
     align-self: stretch;
     overflow: hidden;
+    max-width: 640px;
     img {
         object-fit: cover;
         width: 100%;

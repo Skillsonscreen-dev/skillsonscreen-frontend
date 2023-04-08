@@ -135,9 +135,9 @@ const CreateCourse: React.FC = () => {
                     category: course.category,
                     level: course.level.toLowerCase(),
                     about: course.about,
-                    whoCourse: [],
-                    whatLearn: [],
-                    requirements: [],
+                    whoCourse: course.isFor,
+                    whatLearn: course.wouldLearn,
+                    requirements: course.requirements,
                     price: course.price,
                     chapters: chapterList,
                 })

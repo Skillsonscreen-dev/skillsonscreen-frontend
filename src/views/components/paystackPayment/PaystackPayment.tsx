@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { usePaystackPayment } from 'react-paystack';
+import { PaystackProps } from 'react-paystack/dist/types';
 
 interface PaystackPaymentInterface {
     reference: string
@@ -24,12 +25,13 @@ const PaystackPayment: React.FC<PaystackPaymentInterface> = ({reference, email, 
       console.log('closed')
     }
 
-    const config = {
+    const config: PaystackProps = {
         reference: reference,
         email: email,
         amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-        custom_fields: {
-          orderId: orderId
+        metadata: {
+          orderId: orderId,
+          custom_fields: []
         },
         publicKey: 'pk_test_10693f3b61dcdb189b33bed2bea1a4147c267913',
     };

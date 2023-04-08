@@ -89,7 +89,7 @@ const HomeScreen: React.FC = () => {
                             {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
                                 {courses.map((item: any, index) => {
                                     return (
-                                        <CourseCard key={index}>
+                                        <CourseCard to={"/skills/baking topic"} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
                                                 <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
@@ -153,7 +153,7 @@ const HomeScreen: React.FC = () => {
                             {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
                                 {courses.map((item: any, index) => {
                                     return (
-                                        <CourseCard key={index}>
+                                        <CourseCard to={"/skills/baking topic"} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
                                                 <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
@@ -204,7 +204,7 @@ const HomeScreen: React.FC = () => {
                             {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
                                 {courses.map((item: any, index) => {
                                     return (
-                                        <CourseCard key={index}>
+                                        <CourseCard to={"/skills/baking topic"} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
                                                 <img src={item.courseImg} alt="course image" />
                                                 <div className="label">

@@ -30,25 +30,24 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
       const addDescription = () => {
        if(studentDescriptionRef.current!.value!.length) {
         let whoCourse = props.formData.whoCourse
-        whoCourse.push({
-            id: nextId++,
-            description: studentDescriptionRef?.current?.value
-        })
+        whoCourse.push(studentDescriptionRef?.current?.value)
         studentDescriptionRef!.current!.value = "";
 
          props.setFormData({...props.formData, whoCourse: whoCourse})
        }
       }
+
       const addLearn = () => {
         setstudentLearn('')
        if(studentLearn.length) {
-        props.formData.whatLearn.push( {id: nextId++, description: studentLearn})
+        props.formData.whatLearn.push(studentLearn)
        }
       }
+
       const addRequirements = () => {
         setrequirements('')
        if(requirements.length) {
-        props.formData.requirements.push( {id: nextId++, description: requirements})
+        props.formData.requirements.push(requirements)
        }
       }
 
@@ -112,11 +111,15 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                                 <label htmlFor="studentDes">Who is this course for:</label>
 
                                 {
-                                    props.formData.whoCourse.map(des => 
+                                    props.formData.whoCourse.map((des, idx) => 
                                         (
-                                            <div className="answer" key={des.id}>
-                                                {des.description}
-                                            </div>
+
+                                            <input ref={studentDescriptionRef} type="text"  key={idx} required name="studentDes" placeholder='Describe your potential student' id="" defaultValue={des} onChange={(value) => {
+                                                let oldWhoCourse = props.formData.whoCourse
+                                                oldWhoCourse[idx] = value.target.value
+                                                props.setFormData({...props.formData, whoCourse: oldWhoCourse})
+                                            }}/>
+                                         
                                         )
                                         )
                                 }
@@ -128,11 +131,13 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                             <div className="">
                                 <label htmlFor="studentLearn">What you will learn</label>
                                 {
-                                    props.formData.whatLearn.map(learn => 
+                                    props.formData.whatLearn.map((learn, idx) => 
                                         (
-                                            <div className="answer" key={learn.id}>
-                                                {learn.description}
-                                            </div>
+                                            <input ref={studentDescriptionRef} type="text"  key={idx} required name="studentDes" placeholder='Describe your potential student' id="" defaultValue={learn} onChange={(value) => {
+                                                let oldWhatLearn = props.formData.whatLearn
+                                                oldWhatLearn[idx] = value.target.value
+                                                props.setFormData({...props.formData, whatLearn: oldWhatLearn})
+                                            }}/>
                                         )
                                         )
                                 }       
@@ -145,11 +150,13 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                             <div className="">
                                 <label htmlFor="requirements">Requirements</label>
                                 {
-                                    props.formData.requirements.map(requirements => 
+                                    props.formData.requirements.map((requirements, idx) => 
                                         (
-                                            <div className="answer" key={requirements.id}>
-                                                {requirements.description}
-                                            </div>
+                                            <input ref={studentDescriptionRef} type="text"  key={idx} required name="studentDes" placeholder='Describe your potential student' id="" defaultValue={requirements} onChange={(value) => {
+                                                let oldRequirements = props.formData.requirements
+                                                oldRequirements[idx] = value.target.value
+                                                props.setFormData({...props.formData, requirements: oldRequirements})
+                                            }}/>
                                         )
                                         )
                                 }       
