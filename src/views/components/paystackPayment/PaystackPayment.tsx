@@ -41,7 +41,7 @@ const PaystackPayment: React.FC<PaystackPaymentInterface> = ({reference, email, 
 
 
     return ( 
-        <button className="complete-btn checkout-btn" onClick={() => initializePayment(handleSuccess, handleClose)}>Complete Purchase</button>
+        <button className="complete-btn checkout-btn">Complete Purchase</button>
      );
 }
  

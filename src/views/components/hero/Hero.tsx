@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
 
                     <div className="link-sec">
                         <Link to="/signup">Create an account</Link>
-                        <a href="#">Learn More</a>
+                        {/* <a href="#">Learn More</a> */}
                     </div>
                 </TextContent>
 
