@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                     <div className="has-drop">
                     <span onClick={openCategoryMenu} className='categories'>Categories</span>
                    <div className="">
-                   { categoryMenu === true ? <CategoryMenu close={openCategoryMenu}/> : <></>}
+                    <CategoryMenu close={openCategoryMenu} open={categoryMenu}/>
                    </div>
                     </div>
                     <div className="search-wrapper">

@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
         align-items: start;
     }
     .category-menu {
-        width: 200px;
+        width: 210px;
         height: auto;
         background-color: #0D2D53;
         display: flex;
@@ -50,13 +50,26 @@ export const Wrapper = styled.div`
     }
 
     .topic-menu {
-        width: 250px;
+        width: 270px;
         height: auto;
         background-color: #ffffff;
         display: flex;
         flex-direction: column;
         gap: 14px;
         padding: 16px;
+        .view-topics{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 40px;
+            border-radius: 5px;
+            color: ${props => props.theme.primaryColor};
+            padding: 0px 10px;
+            margin: 1rem 0;
+            border: 1px solid ${props => props.theme.primaryColor};
+            background-color: white;
+        }
             .topic{
             display: flex;
             gap: 10px;

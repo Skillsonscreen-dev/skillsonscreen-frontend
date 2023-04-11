@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaAngleRight } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Wrapper } from "./styles";
 const categories = [
@@ -216,33 +216,36 @@ const categories = [
 ]
 
 
-const CategoryMenu: React.FC<{close: any}> = (props) => {
-const [topics, setTopics] = useState<Array<{}>>([])
-const showTopic = (topics: Array<{}>) => {
-    setTopics(topics)
+const CategoryMenu: React.FC<{close: any, open: boolean}> = (props) => {
+const [category, setcategory] = useState<any>({})
+const [showSubMenu, setshowSubMenu] = useState(false)
+const showTopic = (category: any, event: any) => {
+    event.stopPropagation()
+    setcategory(category)
+    setshowSubMenu(true)
 }
 
     return ( 
             <Wrapper>
-               <div className="menu-backdrop">
+               { props.open ? <div onClick={(event) => {event.preventDefault(); props.close()}} className="menu-backdrop">
                 <div className="categories-menu">
                 <div className="category-menu">
                { categories.map((item, index) => {
                return(      
                         <div className="category" key={index}>
                             <Link to={`/categories/${item.name}/skills`}>{item.name}</Link>
-                            <div onClick={() => showTopic(item.topics)}>
-                            <FaAngleRight />
+                            <div onClick={(e) => showTopic(item, e)}>
+                            {item === category && showSubMenu ? <FaAngleLeft /> : <FaAngleRight />}
                             </div>
                         </div>
                )})}
                <Link to="/categories" className="view-categories">View all categories</Link>
                </div>     
                {
-                topics.length ? <div className="topic-menu">
+                category && showSubMenu ? <div className="topic-menu">
                 <h5>Popular topics</h5>
                 {
-                    topics.map((topic: any, index) =>  {
+                    category?.topics.map((topic: any, index: any) =>  {
                         return (
                             <div className="topic" key={index}>
                                 <div className="topic-img">
@@ -256,10 +259,11 @@ const showTopic = (topics: Array<{}>) => {
                         )
                     })
                 }
+                <Link to={`/categories/${category.name}/skills`} className="view-topics"> View all topics</Link>
             </div> 
             : <></> }
                </div>
-                </div>
+                </div>: <></>}
             </Wrapper>
      );
   };
