@@ -97,7 +97,6 @@ export const Container = styled.div`
         font-family: 'Lato', sans-serif;
     }
     
-
     .toggle-menu {
         margin-left: 20px;
         display: block;

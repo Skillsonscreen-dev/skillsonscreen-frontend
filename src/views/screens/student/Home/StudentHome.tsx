@@ -6,6 +6,7 @@ import Hero from '../../../components/student/hero/Hero';
 import Footer from '../../../components/footer/Footer';
 import ContinueSection from '../../../components/student/continueSection/ContinueSection';
 import RecommendSection from '../../../components/student/recommendSection/RecommendSection';
+import { Link } from 'react-router-dom';
 
 const StudentHome: React.FC = () => {
     const HeroAction = (
@@ -221,7 +222,7 @@ const StudentHome: React.FC = () => {
                                     <h3 className="sec-title">Become a Tutor</h3>
                                     <h4 className="sec-sub-title">We have the right tools and skills for you to teach your skills to thousands of students on our platform.</h4>
                                     <div className="action-col">
-                                        <a href="#">Learn more</a>
+                                      <Link to="/become-a-tutor">Learn more</Link>
                                     </div>
                                 </div>
                                 <div className="img-wrapper">

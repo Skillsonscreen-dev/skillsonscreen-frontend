@@ -1,4 +1,4 @@
-import react, { useRef } from 'react'
+import react, { useRef, useState } from 'react'
 import { Container, NavWrapper, Wrapper } from './styles'
 import { TbSearch } from 'react-icons/tb'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { setNavigation } from '../../../slices/navigationSlice'
 import { ProfileSliceInterface } from '../../../slices/profileSlice'
 import { CourseInterface } from '../../../slices/cartSlice'
+import CategoryMenu from './SubMenus/CategoryMenu'
 
 const Header: React.FC = () => {
     const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
@@ -22,6 +23,10 @@ const Header: React.FC = () => {
             dispatch(setNavigation(false));
         }
     }
+    const [categoryMenu, setCategoryMenu ] = useState(false)
+    const openCategoryMenu = () => {
+        setCategoryMenu(!categoryMenu)
+    }
 
     return (
         <Wrapper>
@@ -31,7 +36,12 @@ const Header: React.FC = () => {
                     <img className='icon-image' src="/assets/img/icon.png" alt="" />
                 </Link>
                 <div className="first-nav-sec">
-                    <Link className='categories' to="/categories">Categories</Link>
+                    <div className="has-drop">
+                    <span onClick={openCategoryMenu} className='categories'>Categories</span>
+                   <div className="">
+                   { categoryMenu === true ? <CategoryMenu close={openCategoryMenu}/> : <></>}
+                   </div>
+                    </div>
                     <div className="search-wrapper">
                         <TbSearch />
                         <input type="text" placeholder='Search for a skill' />
