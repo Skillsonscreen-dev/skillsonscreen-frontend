@@ -21,6 +21,7 @@ export interface CourseInterface {
     teacherId:    string;
     title:        string;
     category:     string;
+    categoryName:     string;
     level:        string;
     description:  string;
     about:        string;

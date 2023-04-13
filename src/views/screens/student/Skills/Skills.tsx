@@ -24,8 +24,6 @@ const Skills: React.FC = () => {
 
     const [popularTopics, setPopularTopics] = useState<string[]>([]);
 
-
-
     const fetchCourses = async () => {
         setIsFetchingCourses(true)
         try {

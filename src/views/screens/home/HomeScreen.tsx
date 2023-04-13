@@ -98,7 +98,7 @@ const HomeScreen: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>{item.category}</span>
+                                                <span>{item.categoryName}</span>
                                                 <span>N{item.price}</span>
                                             </div>
                                             <h3>{item.title}</h3>
@@ -162,7 +162,7 @@ const HomeScreen: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>{item.category}</span>
+                                                <span>{item.categoryName}</span>
                                                 <span>N{item.price}</span>
                                             </div>
                                             <h3>{item.title}</h3>
@@ -213,7 +213,7 @@ const HomeScreen: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>{item.category}</span>
+                                                <span>{item.categoryName}</span>
                                                 <span>N{item.price}</span>
                                             </div>
                                             <h3>{item.title}</h3>
