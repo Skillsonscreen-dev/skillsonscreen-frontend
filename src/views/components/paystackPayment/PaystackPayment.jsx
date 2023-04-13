@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { usePaystackPayment } from 'react-paystack';
-import { PaystackProps } from 'react-paystack/dist/types';
 
 // interface PaystackPaymentInterface {
 //     reference: string
