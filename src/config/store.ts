@@ -1,10 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import navigationReducer from '../slices/navigationSlice'
+import profileReducer from '../slices/profileSlice'
+import cartReducer from '../slices/cartSlice'
+import categoryReducer from '../slices/categorySlice'
 
 
 export const store = configureStore({
     reducer: {
-        navigation: navigationReducer
+        navigation: navigationReducer,
+        profile: profileReducer,
+        cart: cartReducer,
+        category: categoryReducer
     }
 });
 

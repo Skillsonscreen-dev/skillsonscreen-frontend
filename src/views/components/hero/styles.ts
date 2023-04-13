@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 `;
 export const Container = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     gap: 20px;
     padding: 20px 4%;
@@ -29,10 +29,10 @@ export const TextContent = styled.div`
         font-size: 40px;
         font-weight: 700;
         color: ${props => props.theme.primaryColor};
+        text-align: center;
 
         @media screen and (min-width: 880px) {
-            font-size: 45px;
-            max-width: 480px;
+            text-align: unset;
         }
     }
 
@@ -43,6 +43,11 @@ export const TextContent = styled.div`
         font-weight: 400;
         margin-top: 20px;
         line-height: 25px;
+        text-align: center;
+
+        @media screen and (min-width: 880px) {
+            text-align: unset;
+        }
     }
 
     .link-sec {
@@ -50,12 +55,14 @@ export const TextContent = styled.div`
         gap: 20px;
         margin-top: 20px;
         flex-direction: column;
+        justify-content: center;
 
         a {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 50px;
+            width: 100%;
             color: #fff;
             padding: 0px 40px;
             font-weight: 500;
@@ -67,12 +74,19 @@ export const TextContent = styled.div`
                 color: ${props => props.theme.primaryColor};
                 background-color: #fff;
             }
+
+            @media screen and (min-width: 880px) {
+                width: unset;
+            }
         }
 
 
         @media screen and (min-width: 480px) {
-                flex-direction: row;
-            }
+            flex-direction: row;
+        }
+        @media screen and (min-width: 880px) {
+            justify-content: start;
+        }
     }
     
 `;

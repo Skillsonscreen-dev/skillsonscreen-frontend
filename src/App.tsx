@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import HomeScreen from './views/screens/home/HomeScreen';
@@ -20,10 +20,19 @@ import FinanceScreen from './views/screens/teacher/finance/financeScreen';
 import HelpScreen from './views/screens/teacher/help/HelpScreen';
 import Course from './views/screens/student/Course/Course';
 import Class from './views/screens/student/Class/Class';
+import AccountSettings from './views/screens/student/AccountSettings/AccountSettings';
+import AddPaymentMethod from './views/screens/student/AccountSettings/AddPaymentMethod';
+import PaymentMethod from './views/screens/student/AccountSettings/PaymentMethod';
+import EditProfile from './views/screens/student/AccountSettings/EditProfile';
+import DeleteAccount from './views/screens/student/AccountSettings/DeleteAccount';
 import PersonalDataScreen from './views/screens/teacher/registration/PersonalDataScreen';
 import CreateCourse from './views/screens/teacher/courses/CreateCourse';
+import CartScreen from './views/screens/student/Cart/Cart';
+import MainLayout from './views/layouts/mainLayout/MainLayout';
 
 function App() {
+
+
   return (
     <Router>
       <ThemeProvider theme={lightTheme}>
@@ -35,8 +44,9 @@ function App() {
 
               {/* Student protected Routes */}
               <Route path="/home" element={<StudentHome />} />
+              <Route path="/cart" element={<MainLayout><CartScreen /></MainLayout>} />
               <Route path="/categories" element={<Category />} />
-              <Route path="/categories/:category/skills" element={<Skills />} />
+              <Route path="/categories/:category" element={<Skills />} />
 
               <Route path="/skills" element={<Skills />} />
               <Route path="/skills/:skill" element={<Skill />} />
@@ -44,9 +54,15 @@ function App() {
               <Route path="/mycourses/:course" element={<Course />} />
               <Route path="/mycourses/:course/class/lessons/:lesson" element={<Class />} />
 
+              <Route path="/myaccount/settings" element={<AccountSettings />} />
+              {/* <Route path="/myaccount/payment" element={<PaymentMethod />} /> */}
+              <Route path="/myaccount/payment/new" element={<AddPaymentMethod />} />
+              <Route path="/myaccount/profile" element={<EditProfile />} />
+              <Route path="/myaccount/delete" element={<DeleteAccount />} />
+
               {/* Teacher protected Routes */}
-              <Route path="/Become-a-Tutor" element={<PersonalDataScreen />} />
-              <Route path="/teacher/" element={<CoursesScreen />} />
+              <Route path="/become-a-tutor" element={<PersonalDataScreen />} />
+              <Route path="/teacher" element={<CoursesScreen />} />
               <Route path="/teacher/performance" element={<PerformanceScreen />} />
               <Route path="/teacher/students" element={<StudentScreen />} />
               <Route path="/teacher/finance" element={<FinanceScreen />} />
@@ -59,4 +75,4 @@ function App() {
 );
 }
 
-export default App;
+export default App

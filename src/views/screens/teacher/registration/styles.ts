@@ -41,6 +41,9 @@ export const Wrapper = styled.div`
         margin: 1.5rem 0;
         .img-wrapper{
             /* width: 100%; */
+            position: relative;
+            width: 200px;
+            height: 200px;
             display: flex;
             align-items: center;
             text-align: center;
@@ -51,7 +54,17 @@ export const Wrapper = styled.div`
             }
         }
         input[type="file"] {
-        display: none;
+            display: none;
+        }
+        .uploading-profile-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            background-color: #0006;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
         }
         .actions{
             margin: 0.5rem 0;
@@ -88,6 +101,7 @@ export const Wrapper = styled.div`
             background: #FFFFFF;
             border: 0.8px solid #898B8D;
             border-radius: 4px;
+            resize: none;
             }
             >div{
                 display: flex;
@@ -172,7 +186,6 @@ export const Wrapper = styled.div`
             width: 100%;
             background: #F2F3F5;
             border-radius: 8px;
-            margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             padding: 0.8rem 0.8rem;
@@ -216,6 +229,7 @@ export const Wrapper = styled.div`
         display: flex;
         gap: 1.5rem;
         flex-direction: column;
+        margin-top: 1rem;
         input{
             padding: 0.8rem  0.5rem;
             background: #FFFFFF;

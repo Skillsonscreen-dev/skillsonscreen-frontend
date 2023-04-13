@@ -400,6 +400,16 @@ export const AddLectureModalContainer = styled.div`
                 margin-top: -2px !important;
                 }
             }
+
+            .duration-input {
+                padding: 0.5rem  0.5rem;
+                background: #FFFFFF;
+                border: 0.8px solid #898B8D;
+                border-radius: 4px;
+                margin-right: 10px;
+                width: 100px;
+                margin-top: 8px !important;
+            }
             
         }
         .editor{
@@ -415,6 +425,7 @@ export const AddLectureModalContainer = styled.div`
                 padding: 0.6rem 0.8rem;
                 border: none;
                 border-radius: 8px;
+                cursor: pointer;
             }
         }
         .img-container{
@@ -427,9 +438,21 @@ export const AddLectureModalContainer = styled.div`
             display: flex;
             align-items: center;
             text-align: center;
+            position: relative;
             
             video{
                 width: 350px;
+            }
+
+
+            .uploading-profile-img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                background-color: #000c;
+                width: 100%;
+                height: 100%;
             }
         }
         .btn-dark{
@@ -456,6 +479,18 @@ export const AddLectureModalContainer = styled.div`
         p{
             font-weight: 400;
             color: #898B8D;
+        }
+
+
+        .video {
+            video {
+                width: 100%;
+                max-width: 400px;
+            }
+            .video-meta {
+                display: flex;
+                flex-direction: column;
+            }
         }
         
     }

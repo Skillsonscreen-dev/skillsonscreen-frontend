@@ -1,5 +1,13 @@
 import { Wrapper } from "../../../screens/teacher/courses/CreateCourse/styles";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Loader from "../../Loader/Loader";
+import AxiosCall from "../../../../utils/axios";
+import UploadUtility from "../../../../utils/axios/UploadUtility";
+import Message from "../../message/Message";
+import useQuery from "../../../../hooks/useQuery";
+import { useLocation, useNavigate } from "react-router";
+import { useAppSelector } from "../../../../hooks/hooks";
+import { CategoryInterface } from "../../../../slices/categorySlice";
 
 type formDataProps = {
     formData: {
@@ -15,10 +23,14 @@ type formDataProps = {
     setPage: Function,
 }
 const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
+    const categoryList: CategoryInterface  = useAppSelector(state => state.category.state);
+    const navigate = useNavigate();
+    const location = useLocation();
     const [courseImage, setcourseImage] = useState('')
     const selectImage = (x: any) => {
         const input = x.target.files;
-        setcourseImage(input[0]) ;
+        setcourseImage(input[0]);
+        uploadCourseImage(input[0])
         if (input && input[0]) {
           const reader = new FileReader();
           reader.onload = (e: any) => {
@@ -32,8 +44,25 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
       const removeImage = () => {
         setcourseImage('')
       }
-      const categories = ["Baking", "Photography", "Sewing", "Makeup"];
-      const levels = ["Beginner", "Intermediate", "Advanced",];
+      const categories = [
+        "fishery",
+        "Baking",
+        "Comestics",
+        "Hair stylist",
+        "Catering",
+        "Poultry",
+        "Pop wall",
+        "Fashion Design",
+        "bead making",
+        "Photography",
+        "Snail framing",
+        "Tye and dye",
+        "Event management ",
+        "Interior Design",
+        "Event decoration",
+        "Videography",
+    ];
+    const levels = ["beginner", "intermediate", "advanced",];
     const handleChange = (evt: any) => {
         const name = evt.target.name;
         const value = 
@@ -43,6 +72,90 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
           [name]: value
         })
       }
+
+
+    let currentUrl = "";
+
+    const setCurrentUrl = () => {
+        currentUrl = window.location.href.replace(window.location.host, '').replace(window.location.protocol + '//', '')
+    }
+
+    useEffect(() => {
+        setCurrentUrl();
+    }, [])
+
+
+      const [courseImg, setCourseImg] = useState<any>(null)
+      const [isUploadingCourseImage, setIsUploadingCourseImage] = useState(false)
+  
+      const uploadCourseImage = async (file: string | Blob) => {
+          try {
+              setIsUploadingCourseImage(true)
+              const res = await UploadUtility(file)
+              setCourseImg(res.data)
+              setIsUploadingCourseImage(false)
+          } catch (error) {
+              setIsUploadingCourseImage(false)
+          }
+      }
+      
+      const query = useQuery()
+      const [isAddingCourseOverview, setIsAddingCourseOverview] = useState(false)
+      const addCourseDescription = async (e: any) => {
+        e.preventDefault();
+        const courseId = query.get("course-id")
+        if (courseImg == null && !props.formData.img) {
+            return Message.error("Please add a course image")
+        }
+        setIsAddingCourseOverview(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "POST",
+                path: courseId == null ? "/teacher/course/add" : "/teacher/course/update/"+courseId,
+                data: {
+                    title: props.formData.title,
+                    category: props.formData.category,
+                    level: props.formData.level.toUpperCase(),
+                    description: props.formData.description,
+                    about: props.formData.about,
+                    courseImg: courseImg ? courseImg.name : courseImg,
+                    isFor: [],
+                    wouldLearn: [],
+                    requirements: [],
+                    price: 0,
+                    status: "active"
+                }
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsAddingCourseOverview(false)
+                Message.success(res.message);
+
+                if (courseId == null || courseId == 'null') {
+                    navigate({
+                        pathname: location.pathname,
+                        search: '?tab=description&course-id='+res.data._id
+                    })
+                } else {
+                    navigate({
+                        pathname: location.pathname,
+                        search: '?tab=description&course-id='+query.get('course-id')
+                    })
+                }
+                props.setPage(props.page + 1)
+            } else {
+                setIsAddingCourseOverview(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsAddingCourseOverview(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+
+    
     return ( 
         <Wrapper>
             <h5>Course Overview</h5>
@@ -51,9 +164,12 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                         <div className="img-container">
                             <div className="img-wrapper">
                                 {
-                                    courseImage ?  <img src={courseImage} alt="courseImage" /> : <img src='/assets/img/courseImage.svg' alt="instructor" /> 
+                                    courseImage ?  <img src={courseImage} alt="courseImage" /> : <img src={props.formData.img ? props.formData.img : "/assets/img/courseImage.svg"} alt="instructor" /> 
                                 }
                                 
+                                {isUploadingCourseImage  && <div className="uploading-profile-img">
+                                    <Loader />
+                                </div>}
                             </div>
                             <div>
                             <label htmlFor="profile">Display Image</label>
@@ -76,16 +192,16 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                                 <label htmlFor="category">Select Category</label>
                                 <select name="category" required id="" value={props.formData.category}
                                         onChange={handleChange}>
-                                {categories.map((option: string, index: number) => (
-                                <option key={index} value={option}>
-                                    {option}
+                                {categoryList.items.map((option, index: number) => (
+                                <option key={index} value={option.categoryId}>
+                                    {option.title}
                                 </option>
                                 ))}
                                 </select>
                             </div>
                             <div className="">
                                 <label htmlFor="level">Level</label>
-                                <select name="level" required id="" value={props.formData.level}
+                                <select style={{textTransform: 'capitalize'}} name="level" required id="" value={props.formData.level}
                                         onChange={handleChange}>
                                 {levels.map((option: string, index: number) => (
                                 <option key={index} value={option}>
@@ -97,16 +213,16 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                            </section>
                             <div className="">
                                 <label htmlFor="title">Course Title</label>
-                                <input type="text" required name="title" placeholder='Making Pastries' id=""  value={props.formData.title}
+                                <input type="text" required name="title" placeholder='Making Pastries' id=""  defaultValue={props.formData.title}
                                 onChange={handleChange} />
                             </div>
                          <div className="">
                                 
                                 <div className="about">
                                 <label htmlFor="description">Brief Description</label>
-                                <span className="about-length">{props.formData.description.length}/50</span>
+                                <span className="about-length">{props.formData.description.length}/200</span>
                                 </div>
-                                <textarea name="description" required id="" rows={2} onChange={handleChange} value={props.formData.description} maxLength={50}>
+                                <textarea name="description" required id="" rows={2} onChange={handleChange} value={props.formData.description} maxLength={200}>
                                     {props.formData.description}
                                 </textarea>
                             </div>
@@ -123,8 +239,8 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                     </div>
 
                     <div className="save">
-                        <button onClick={() => {props.setPage(props.page + 1);}}>
-                        Save and Continue
+                        <button onClick={(e) => {addCourseDescription(e);}}>
+                        {isAddingCourseOverview ? <Loader /> : "Save and Continue"}
                         </button>
                     </div>
                 {/* </form> */}

@@ -1,3 +1,6 @@
+import { useAppSelector } from "../../../../hooks/hooks";
+import { CategoryInterface } from "../../../../slices/categorySlice";
+import Loader from "../../../components/Loader/Loader";
 import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import CategoryCard from "../../../components/student/categoryCard/CategoryCard";
@@ -7,6 +10,7 @@ import Select, { Option } from "../../../components/ui/select/Select";
 import { CategoryContent, Container, FilterContent, Wrapper } from "./styles";
 
 const Category: React.FC = () => {
+    const categories: CategoryInterface  = useAppSelector(state => state.category.state);
     return (
         <Wrapper>
             <Header />
@@ -39,18 +43,17 @@ const Category: React.FC = () => {
             <Container>
                 <CategoryContent>
                     {
-
-                        [1,2,3,4,5,6,7,8,9,10].map((num: number) => (
+                        categories.isLoading ? <Loader center styleTwo /> : categories.items.map((item, index) => (
                             <CategoryCard
-                                key={num}
-                                image={"https://media.istockphoto.com/id/1186345105/photo/female-hairdresser-is-cutting-woman-hair-close-up.jpg?s=612x612&w=0&k=20&c=QnMkLcnuLXt31kGtk9oEVxoKp3GA6VMzmtmFOo0wc5M="} 
-                                title={"Hair Styling"}
-                                courses={50}
-                                students={10000}
+                                key={index}
+                                image={item.img}
+                                slug={item.slug}
+                                title={item.title}
+                                courses={item.courses}
+                                students={item.students}
                             />
-                        ))   
+                        ))
                     }
-                    
                 </CategoryContent>
             </Container>         
             <Footer />

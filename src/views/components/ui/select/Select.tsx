@@ -5,6 +5,8 @@ interface SelectProps {
     title: string;
     br?: number;
     children?: ReactNode;
+    size?: 'sm' | 'md';
+    w?: string;
 }
 
 interface OptionProps {
@@ -24,7 +26,7 @@ export const Option: React.FC<OptionProps> = (props) => {
 
 const Select: React.FC<SelectProps> = (props) => {
     return (
-        <SelectElement br={props.br}>
+        <SelectElement br={props.br} size={props.size} w={props.w}>
             <Option selected disabled>{ props.title }</Option>
             { props.children }
         </SelectElement>

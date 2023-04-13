@@ -1,12 +1,77 @@
-import react from 'react'
+import react, { useEffect, useState } from 'react'
 import Header from '../../components/header/Header'
 import Hero from '../../components/hero/Hero'
 import { BsFillHeartFill, BsFillStarFill, BsStarHalf } from 'react-icons/bs'
 import { BiBadgeCheck } from 'react-icons/bi'
-import { CategoryCard, CategoryCardWrapper, Container, CourseCard, CourseWrapper, ExploreSection, ExploreSectionContainer, MainSection, Section, SectionContainer, TrustItem, TrustItemWrapper, TrustSection, TrustSectionContainer, Wrapper } from './styles'
+import { CategoryCard, CategoryCardWrapper, Container, CourseCard, CourseWrapper, ExploreSection, ExploreSectionContainer, HeroContainer, HeroWrapper, ImageContent, MainSection, ReviewCard, ReviewCardWrapper, ReviewContent, ReviewSection, Section, SectionContainer, TextContent, TrustItem, TrustItemWrapper, TrustSection, TrustSectionContainer, Wrapper } from './styles'
 import Footer from '../../components/footer/Footer'
+import AxiosCall from '../../../utils/axios'
+import Message from '../../components/message/Message'
+import Loader from '../../components/Loader/Loader'
+import { Link } from 'react-router-dom'
+import { CourseInterface, setCart } from '../../../slices/cartSlice'
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
+import { CategoryInterface } from '../../../slices/categorySlice'
 
 const HomeScreen: React.FC = () => {
+    const [isFetchingCourses, setIsFetchingCourses] = useState(false)
+    const [courses, setCourses] = useState<CourseInterface[]>([])
+    const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
+    const categories: CategoryInterface  = useAppSelector(state => state.category.state);
+    const dispatch = useAppDispatch();
+
+    const [cartList, setCartList] = useState<CourseInterface[]>([]);
+
+    useEffect(()=> {
+        setCartList([...cartItems])
+    }, [])
+
+    const addCourseToCart = (course: any) => {
+        const oldCart = [...cartItems]
+        const itemInCart = oldCart.filter(item => item.courseId == course.courseId)
+
+        if (itemInCart.length) {
+            console.log("remove old item");
+            const itemIndex = oldCart.indexOf(itemInCart[0]);
+            oldCart.splice(itemIndex, 1);
+            dispatch(setCart(oldCart))
+            setCartList([...oldCart])
+        } else {
+            console.log("new item");
+            
+            oldCart.push(course)
+            dispatch(setCart(oldCart))
+            setCartList([...oldCart])
+        }
+    }
+
+    const fetchCourses = async () => {
+        setIsFetchingCourses(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/courses/fetch"
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingCourses(false)
+                setCourses(res.data)
+                Message.success("Courses fetched");
+            } else {
+                setIsFetchingCourses(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingCourses(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+
+    useEffect(() => {
+        fetchCourses();
+    }, [])
 
     return (
         <Wrapper>
@@ -21,23 +86,23 @@ const HomeScreen: React.FC = () => {
                                 <h4 className="sec-sub-title">Select from over 300 courses with qulaified and certified tutors from various fields  </h4>
                                 <a href="#">View all categories</a>
                             </div>
-                            <CourseWrapper>
-                                {[1,2,3,4].map((item, index) => {
+                            {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
+                                {courses.map((item, index) => {
                                     return (
-                                        <CourseCard key={index}>
+                                        <CourseCard to={"/skills/"+item.courseId} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
-                                                <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" alt="course image" />
+                                                <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
                                                     <BiBadgeCheck />
-                                                    <span>Beginner</span>
+                                                    <span>{item.level}</span>
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>Carpentry</span>
-                                                <span>N25,000</span>
+                                                <span>{item.category}</span>
+                                                <span>N{item.price}</span>
                                             </div>
-                                            <h3>CPT 101: Introduction to Carpenter</h3>
-                                            <p>Kola Adisa, The Kafinta </p>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.description} </p>
 
                                             <div className="foot-col">
                                                 <div className="stats-col">
@@ -56,13 +121,13 @@ const HomeScreen: React.FC = () => {
                                                     <div className="fav-box">
                                                         <BsFillHeartFill />
                                                     </div>
-                                                    <a href="#">Add to cart</a>
+                                                    {cartList.filter(data => data.courseId == item.courseId).length ? <Link to="/cart">Checkout</Link> : <a href="#" onClick={(e) => {e.preventDefault(); addCourseToCart(item)}}>Add to cart</a>}
                                                 </div>
                                             </div>
                                         </CourseCard>
                                     )
                                 })}
-                            </CourseWrapper>
+                            </CourseWrapper>}
                         </SectionContainer>
                     </Section>
                     <TrustSection>
@@ -84,22 +149,24 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Kickstart your learning</h3>
                             <h4 className="sec-sub-title">Beginner courses to help begining your journey to your desired skill </h4>
                             <CourseWrapper>
-                                {[1,2,3,4].map((item, index) => {
+                                
+                            {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
+                                {courses.map((item, index) => {
                                     return (
-                                        <CourseCard key={index}>
+                                        <CourseCard to={"/skills/"+item.courseId} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
-                                                <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" alt="course image" />
+                                                <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
                                                     <BiBadgeCheck />
-                                                    <span>Beginner</span>
+                                                    <span>{item.level}</span>
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>Carpentry</span>
-                                                <span>N25,000</span>
+                                                <span>{item.category}</span>
+                                                <span>N{item.price}</span>
                                             </div>
-                                            <h3>CPT 101: Introduction to Carpenter</h3>
-                                            <p>Kola Adisa, The Kafinta </p>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.description} </p>
 
                                             <div className="foot-col">
                                                 <div className="stats-col">
@@ -115,12 +182,16 @@ const HomeScreen: React.FC = () => {
                                                 </div>
 
                                                 <div className="action-col">
-                                                    <a href="#">Add to cart</a>
+                                                    <div className="fav-box">
+                                                        <BsFillHeartFill />
+                                                    </div>
+                                                    {cartList.filter(data => data.courseId == item.courseId).length ? <Link to="/cart">Checkout</Link> : <a href="#" onClick={(e) => {e.preventDefault(); addCourseToCart(item)}}>Add to cart</a>}
                                                 </div>
                                             </div>
                                         </CourseCard>
                                     )
                                 })}
+                            </CourseWrapper>}
                             </CourseWrapper>
                         </SectionContainer>
                     </Section>
@@ -129,22 +200,24 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Free Courses just for you</h3>
                             <h4 className="sec-sub-title">Learn different crafts from credible vocational experts for free</h4>
                             <CourseWrapper>
-                                {[1,2,3,4].map((item, index) => {
+                                
+                            {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
+                                {courses.map((item, index) => {
                                     return (
-                                        <CourseCard key={index}>
+                                        <CourseCard to={"/skills/"+item.courseId} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
-                                                <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" alt="course image" />
+                                                <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
                                                     <BiBadgeCheck />
-                                                    <span>Beginner</span>
+                                                    <span>{item.level}</span>
                                                 </div>
                                             </div>
                                             <div className="head-col">
-                                                <span>Carpentry</span>
-                                                <span>N25,000</span>
+                                                <span>{item.category}</span>
+                                                <span>N{item.price}</span>
                                             </div>
-                                            <h3>CPT 101: Introduction to Carpenter</h3>
-                                            <p>Kola Adisa, The Kafinta </p>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.description} </p>
 
                                             <div className="foot-col">
                                                 <div className="stats-col">
@@ -160,12 +233,16 @@ const HomeScreen: React.FC = () => {
                                                 </div>
 
                                                 <div className="action-col">
-                                                    <a href="#">Add to cart</a>
+                                                    <div className="fav-box">
+                                                        <BsFillHeartFill />
+                                                    </div>
+                                                    {cartList.filter(data => data.courseId == item.courseId).length ? <Link to="/cart">Checkout</Link> : <a href="#" onClick={(e) => {e.preventDefault(); addCourseToCart(item)}}>Add to cart</a>}
                                                 </div>
                                             </div>
                                         </CourseCard>
                                     )
                                 })}
+                            </CourseWrapper>}
                             </CourseWrapper>
                         </SectionContainer>
                     </Section>
@@ -174,23 +251,61 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Explore Categories</h3>
 
                             <CategoryCardWrapper>
-                                {[1,2,3,4,5,6,7,8].map((item, index) => {
-                                    return <CategoryCard key={index}>
+                                {categories.isLoading ? <Loader styleTwo /> : categories.items.map((item, index) => {
+                                    return <CategoryCard to={"/categories/" + item.slug} key={index}>
                                     <div className="img-wrapper">
-                                        <img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" alt="category image" />
+                                        <img src={item.img} alt="category image" />
                                     </div>
                                     <div className="content">
                                         <div className="info">
-                                            <span>Hair Styling</span>
-                                            <span>50 courses</span>
+                                            <span>{item.title}</span>
+                                            <span>{item.courses} courses</span>
                                         </div>
-                                        <span className="student-count">1,000 Students</span>
+                                        <span className="student-count">{item.students} Students</span>
                                     </div>
                                 </CategoryCard>
                                 })}
                             </CategoryCardWrapper>
                         </ExploreSectionContainer>
                     </ExploreSection>
+
+                    <ReviewSection>
+                        <ReviewContent>
+                            <h3 className="sec-title">Reviews from our students</h3>
+                            <ReviewCardWrapper>
+                                {[1,2,3,4,5].map((item, index) => {
+                                    return <ReviewCard key={"review-"+index}>
+                                    <div className="img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="review image" />
+                                    </div>
+                                    <div className="content">
+                                        <h4>Tinuke Okon</h4>
+                                        <span>Nigeria</span>
+                                        <p>Skills on Screen have helped me learn alot within a very short period of time, and it's paying off.  Further talks</p>
+                                    </div>
+                                </ReviewCard>
+                                })}
+                            </ReviewCardWrapper>
+                        </ReviewContent>
+                    </ReviewSection>
+
+
+                    <HeroWrapper>
+                        <HeroContainer>
+                            <TextContent>
+                                <h2>Become a Vocational Tutor</h2>
+                                <h6>We have the right tools and skills for you to teach your skills to thousands of students on our platform.</h6>
+
+                                <div className="link-sec">
+                                    <Link to="/signup?user-type=teacher">Start teaching</Link>
+                                </div>
+                            </TextContent>
+
+                            <ImageContent>
+                                <img src="/assets/img/become-tutor-img.png" alt="lady" />
+                            </ImageContent>
+                        </HeroContainer>
+                    </HeroWrapper>
                 </MainSection>
             </Container>
             <Footer />

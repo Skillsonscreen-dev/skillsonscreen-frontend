@@ -45,7 +45,7 @@ const Course: React.FC = () => {
                 <Mb><CourseInfo /></Mb>
                 <Mb><CourseProgress /></Mb>
                 <Mb><CourseContent /></Mb>
-                <Mb><CourseAboutSection /></Mb>
+                <Mb><CourseAboutSection course={null} /></Mb>
                 <CourseInstructor />
             </Container>
             <Footer />

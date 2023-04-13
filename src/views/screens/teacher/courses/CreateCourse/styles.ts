@@ -47,10 +47,23 @@ export const Wrapper = styled.div`
         flex-wrap: wrap;
         gap: 1.5rem;
         margin: 2rem 0;
+
+
+        .uploading-profile-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            background-color: #0006;
+            width: 100%;
+            height: 100%;
+        }
+        
         .img-wrapper{
             display: flex;
             align-items: center;
             text-align: center;
+            position: relative;
             
             img{
                 width: 250px;
@@ -333,6 +346,18 @@ export const Wrapper = styled.div`
     }
     .show{
         display: block;
+    }
+
+    .chpter-action-row {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            cursor: pointer;
+            :first-child {
+                background-color: ${props => props.theme.primaryColor} !important;
+            }
+        }
     }
  
         @media screen and (max-width:1018px){

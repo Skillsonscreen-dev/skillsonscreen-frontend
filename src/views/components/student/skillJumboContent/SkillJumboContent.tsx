@@ -5,21 +5,25 @@ import { TbHeart } from "react-icons/tb"
 import { Link } from "react-router-dom"
 import formatNumber from "../../../../utils/numberFormatter"
 import { Breadcrumb, SubText, SubTitle, Title, Wrapper } from "./style"
+import { CourseInterface } from "../../../../slices/cartSlice"
 
-const SkillJumboContent: React.FC = (props) => {
+interface SkillJumboContentInterface {
+    course: CourseInterface | null
+}
+
+const SkillJumboContent: React.FC<SkillJumboContentInterface> = ({course}) => {
     return (
         <Wrapper>
             <Breadcrumb>
                 <span><Link to={"/categories"}>Explore</Link></span><BiChevronRight />
-                <span><Link to={"/categories/Baking/skills"}>Baking</Link></span><BiChevronRight />
-                <span className="current">Making Pastries</span>
+                <span><Link to={"/categories/Baking/skills"}>{course?.category}</Link></span><BiChevronRight />
+                <span className="current">{course?.title}</span>
             </Breadcrumb>
             <Title>
-                Making Pastries
+                {course?.title}
             </Title>
             <SubTitle>
-                Here is a brief introductory text into the topic itself. Here the turtor gives a two 
-                line pitch to sell the course to the potential student. 
+                {course?.description}
             </SubTitle>
             <SubText>
                 <span>4.5</span>

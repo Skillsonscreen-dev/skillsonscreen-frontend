@@ -33,6 +33,12 @@ export const Container = styled.div`
         }
     }
 
+    .has-drop {
+        span {
+            cursor: pointer;
+        }
+    }
+
     .cart-sec {
         position: relative;
         margin: 8px 10px 0px 20px;
@@ -97,7 +103,6 @@ export const Container = styled.div`
         font-family: 'Lato', sans-serif;
     }
     
-
     .toggle-menu {
         margin-left: 20px;
         display: block;
