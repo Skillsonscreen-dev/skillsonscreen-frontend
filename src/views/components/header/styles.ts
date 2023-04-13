@@ -33,6 +33,12 @@ export const Container = styled.div`
         }
     }
 
+    .has-drop {
+        span {
+            cursor: pointer;
+        }
+    }
+
     .cart-sec {
         position: relative;
         margin: 8px 10px 0px 20px;

@@ -20,7 +20,7 @@ const SkillCard: React.FC<{ featured?: boolean, course?: CourseInterface }> = ({
                 
                 <div>
                     <h3>
-                        <Link to={"/skills/" + 'baking topic'}>
+                        <Link to={"/skills/" + course?.courseId}>
                             {course?.title}
                         </Link>                    
                     </h3>

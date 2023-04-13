@@ -23,7 +23,7 @@ const SkillJumboContent: React.FC<SkillJumboContentInterface> = ({course}) => {
                 {course?.title}
             </Title>
             <SubTitle>
-                {course?.about}
+                {course?.description}
             </SubTitle>
             <SubText>
                 <span>4.5</span>

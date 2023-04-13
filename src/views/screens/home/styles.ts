@@ -269,7 +269,7 @@ export const CategoryCardWrapper = styled.div`
         flex-direction: row;
     }
 `;
-export const CategoryCard = styled.div`
+export const CategoryCard = styled(Link)`
     display: flex;
     width: 100%;
     border-radius: 10px;

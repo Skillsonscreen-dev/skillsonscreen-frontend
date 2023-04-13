@@ -3,7 +3,7 @@ import { Container, NavWrapper, Wrapper } from './styles'
 import { TbSearch } from 'react-icons/tb'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
 import { VscMenu } from 'react-icons/vsc'
-import { Link,  } from 'react-router-dom'
+import { Link, useNavigate,  } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
 import { setNavigation } from '../../../slices/navigationSlice'
 import { ProfileSliceInterface } from '../../../slices/profileSlice'
@@ -19,6 +19,8 @@ const Header: React.FC = () => {
 
     const sidebarRef = useRef(null)
 
+    const navigate = useNavigate()
+
     const closeMenu = (e: { target: any }) => {
         if (e.target === sidebarRef.current) {
             dispatch(setNavigation(false));
@@ -26,6 +28,7 @@ const Header: React.FC = () => {
     }
     const [categoryMenu, setCategoryMenu ] = useState(false)
     const openCategoryMenu = () => {
+        return navigate("/categories")
         setCategoryMenu(!categoryMenu)
     }
 
@@ -43,10 +46,10 @@ const Header: React.FC = () => {
                 </Link>
                 <div className="first-nav-sec">
                     <div className="has-drop">
-                    <span onClick={openCategoryMenu} className='categories'>Categories</span>
-                   <div className="">
-                    <CategoryMenu close={openCategoryMenu} open={categoryMenu}/>
-                   </div>
+                        <span onClick={openCategoryMenu} className='categories'>Categories</span>
+                        <div className="">
+                            <CategoryMenu close={openCategoryMenu} open={categoryMenu}/>
+                        </div>
                     </div>
                     <div className="search-wrapper">
                         <TbSearch />

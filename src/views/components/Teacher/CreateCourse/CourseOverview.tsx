@@ -6,6 +6,8 @@ import UploadUtility from "../../../../utils/axios/UploadUtility";
 import Message from "../../message/Message";
 import useQuery from "../../../../hooks/useQuery";
 import { useLocation, useNavigate } from "react-router";
+import { useAppSelector } from "../../../../hooks/hooks";
+import { CategoryInterface } from "../../../../slices/categorySlice";
 
 type formDataProps = {
     formData: {
@@ -21,6 +23,7 @@ type formDataProps = {
     setPage: Function,
 }
 const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
+    const categoryList: CategoryInterface  = useAppSelector(state => state.category.state);
     const navigate = useNavigate();
     const location = useLocation();
     const [courseImage, setcourseImage] = useState('')
@@ -189,9 +192,9 @@ const CourseOverview:React.FC<formDataProps> = (props: formDataProps) => {
                                 <label htmlFor="category">Select Category</label>
                                 <select name="category" required id="" value={props.formData.category}
                                         onChange={handleChange}>
-                                {categories.map((option: string, index: number) => (
-                                <option key={index} value={option}>
-                                    {option}
+                                {categoryList.items.map((option, index: number) => (
+                                <option key={index} value={option.categoryId}>
+                                    {option.title}
                                 </option>
                                 ))}
                                 </select>

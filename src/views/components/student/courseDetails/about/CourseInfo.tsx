@@ -9,7 +9,7 @@ const CourseAboutSection: React.FC<CourseAboutSectionInterface> = ({course}) => 
     return (
         <Wrapper>
             <h3>About this course</h3>
-            <div className="content" dangerouslySetInnerHTML={{__html: course?.description ?? ""}}>
+            <div className="content" dangerouslySetInnerHTML={{__html: course?.about ?? ""}}>
             </div>
         </Wrapper>
     )

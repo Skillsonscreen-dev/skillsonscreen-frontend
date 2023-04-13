@@ -251,8 +251,8 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Explore Categories</h3>
 
                             <CategoryCardWrapper>
-                                {categories.isLoading ? <Loader styleTwo /> : categories.items.map((item: any, index) => {
-                                    return <CategoryCard key={index}>
+                                {categories.isLoading ? <Loader styleTwo /> : categories.items.map((item, index) => {
+                                    return <CategoryCard to={"/categories/" + item.slug} key={index}>
                                     <div className="img-wrapper">
                                         <img src={item.img} alt="category image" />
                                     </div>
@@ -297,7 +297,7 @@ const HomeScreen: React.FC = () => {
                                 <h6>We have the right tools and skills for you to teach your skills to thousands of students on our platform.</h6>
 
                                 <div className="link-sec">
-                                    <Link to="/become-a-tutor">Start teaching</Link>
+                                    <Link to="/signup?user-type=teacher">Start teaching</Link>
                                 </div>
                             </TextContent>
 
