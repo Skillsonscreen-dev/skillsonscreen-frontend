@@ -11,11 +11,13 @@ import Loader from '../../components/Loader/Loader'
 import { Link } from 'react-router-dom'
 import { CourseInterface, setCart } from '../../../slices/cartSlice'
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks'
+import { CategoryInterface } from '../../../slices/categorySlice'
 
 const HomeScreen: React.FC = () => {
     const [isFetchingCourses, setIsFetchingCourses] = useState(false)
     const [courses, setCourses] = useState<CourseInterface[]>([])
     const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
+    const categories: CategoryInterface  = useAppSelector(state => state.category.state);
     const dispatch = useAppDispatch();
 
     const [cartList, setCartList] = useState<CourseInterface[]>([]);
@@ -26,9 +28,6 @@ const HomeScreen: React.FC = () => {
 
     const addCourseToCart = (course: any) => {
         const oldCart = [...cartItems]
-        console.log('====================================');
-        console.log("cartItems: ", oldCart);
-        console.log('====================================');
         const itemInCart = oldCart.filter(item => item.courseId == course.courseId)
 
         if (itemInCart.length) {
@@ -69,6 +68,7 @@ const HomeScreen: React.FC = () => {
         }
     }
 
+
     useEffect(() => {
         fetchCourses();
     }, [])
@@ -87,9 +87,9 @@ const HomeScreen: React.FC = () => {
                                 <a href="#">View all categories</a>
                             </div>
                             {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
-                                {courses.map((item: any, index) => {
+                                {courses.map((item, index) => {
                                     return (
-                                        <CourseCard to={"/skills/baking topic"} state={{ course: item }} key={index}>
+                                        <CourseCard to={"/skills/"+item.courseId} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
                                                 <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
@@ -151,9 +151,9 @@ const HomeScreen: React.FC = () => {
                             <CourseWrapper>
                                 
                             {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
-                                {courses.map((item: any, index) => {
+                                {courses.map((item, index) => {
                                     return (
-                                        <CourseCard to={"/skills/baking topic"} state={{ course: item }} key={index}>
+                                        <CourseCard to={"/skills/"+item.courseId} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
                                                 <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
@@ -202,9 +202,9 @@ const HomeScreen: React.FC = () => {
                             <CourseWrapper>
                                 
                             {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
-                                {courses.map((item: any, index) => {
+                                {courses.map((item, index) => {
                                     return (
-                                        <CourseCard to={"/skills/baking topic"} state={{ course: item }} key={index}>
+                                        <CourseCard to={"/skills/"+item.courseId} state={{ course: item }} key={index}>
                                             <div className="img-wrapper">
                                                 <img src={item.courseImg} alt="course image" />
                                                 <div className="label">
@@ -251,17 +251,17 @@ const HomeScreen: React.FC = () => {
                             <h3 className="sec-title">Explore Categories</h3>
 
                             <CategoryCardWrapper>
-                                {[1,2,3,4,5,6,7,8].map((item, index) => {
+                                {categories.isLoading ? <Loader styleTwo /> : categories.items.map((item: any, index) => {
                                     return <CategoryCard key={index}>
                                     <div className="img-wrapper">
-                                        <img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" alt="category image" />
+                                        <img src={item.img} alt="category image" />
                                     </div>
                                     <div className="content">
                                         <div className="info">
-                                            <span>Hair Styling</span>
-                                            <span>50 courses</span>
+                                            <span>{item.title}</span>
+                                            <span>{item.courses} courses</span>
                                         </div>
-                                        <span className="student-count">1,000 Students</span>
+                                        <span className="student-count">{item.students} Students</span>
                                     </div>
                                 </CategoryCard>
                                 })}

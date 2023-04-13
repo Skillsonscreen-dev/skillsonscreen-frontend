@@ -8,7 +8,7 @@ import { Breadcrumb, SubText, SubTitle, Title, Wrapper } from "./style"
 import { CourseInterface } from "../../../../slices/cartSlice"
 
 interface SkillJumboContentInterface {
-    course: CourseInterface
+    course: CourseInterface | null
 }
 
 const SkillJumboContent: React.FC<SkillJumboContentInterface> = ({course}) => {
@@ -16,14 +16,14 @@ const SkillJumboContent: React.FC<SkillJumboContentInterface> = ({course}) => {
         <Wrapper>
             <Breadcrumb>
                 <span><Link to={"/categories"}>Explore</Link></span><BiChevronRight />
-                <span><Link to={"/categories/Baking/skills"}>{course.category}</Link></span><BiChevronRight />
-                <span className="current">{course.title}</span>
+                <span><Link to={"/categories/Baking/skills"}>{course?.category}</Link></span><BiChevronRight />
+                <span className="current">{course?.title}</span>
             </Breadcrumb>
             <Title>
-                {course.title}
+                {course?.title}
             </Title>
             <SubTitle>
-                {course.about}
+                {course?.about}
             </SubTitle>
             <SubText>
                 <span>4.5</span>

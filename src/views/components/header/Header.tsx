@@ -1,4 +1,4 @@
-import react, { useRef, useState } from 'react'
+import react, { useEffect, useRef, useState } from 'react'
 import { Container, NavWrapper, Wrapper } from './styles'
 import { TbSearch } from 'react-icons/tb'
 import { HiOutlineShoppingCart } from 'react-icons/hi'
@@ -9,6 +9,7 @@ import { setNavigation } from '../../../slices/navigationSlice'
 import { ProfileSliceInterface } from '../../../slices/profileSlice'
 import { CourseInterface } from '../../../slices/cartSlice'
 import CategoryMenu from './SubMenus/CategoryMenu'
+import { fetchCategories } from '../../../actions/profileAction'
 
 const Header: React.FC = () => {
     const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
@@ -27,6 +28,11 @@ const Header: React.FC = () => {
     const openCategoryMenu = () => {
         setCategoryMenu(!categoryMenu)
     }
+
+
+  useEffect(() => {
+    fetchCategories(dispatch);
+  }, [])
 
     return (
         <Wrapper>

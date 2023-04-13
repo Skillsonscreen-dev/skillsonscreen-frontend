@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div<{sideColor?: string, topColor?: string, topPadding?: string, bottomPadding?: string}>`
+export const Wrapper = styled.div<{center: boolean, sideColor?: string, topColor?: string, topPadding?: string, bottomPadding?: string}>`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: ${props => props.center ? "100%" : "unset"};
     margin-top: ${props => props.topPadding ? props.topPadding : "0px"};
     margin-bottom: ${props => props.bottomPadding ? props.bottomPadding : "0px"};
     ::after {

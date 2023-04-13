@@ -9,19 +9,84 @@ import Button from "../../../components/ui/button/Button";
 import Jumbotron from "../../../components/ui/jumbotron/Jumbotron";
 import Select, { Option } from "../../../components/ui/select/Select";
 import { SkillsContent, Container, Wrapper, PopularContent, FilterContent } from "./styles";
+import { CourseInterface } from "../../../../slices/cartSlice";
+import AxiosCall from "../../../../utils/axios";
+import Message from "../../../components/message/Message";
+import Loader from "../../../components/Loader/Loader";
 
 const Skills: React.FC = () => {
+    const [isFetchingCourses, setIsFetchingCourses] = useState(false)
+    const [courses, setCourses] = useState<CourseInterface[]>([])
+    const [isFetchingFeaturedCourses, setIsFetchingFeaturedCourses] = useState(false)
+    const [feturedCourses, setFearuredCourses] = useState<CourseInterface[]>([])
+    const [categoryName, setCategoryName] = useState<string>("")
     const { category } = useParams();
+
     const [popularTopics, setPopularTopics] = useState<string[]>([]);
+
+
+
+    const fetchCourses = async () => {
+        setIsFetchingCourses(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/course/category/fetch/slug/"+category
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingCourses(false)
+                setCourses(res.data.courses)
+                setCategoryName(res.data.category)
+                Message.success("Courses fetched");
+            } else {
+                setIsFetchingCourses(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingCourses(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+
+    const fetchFeaturedCourses = async () => {
+        setIsFetchingFeaturedCourses(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/courses/fetch"
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingFeaturedCourses(false)
+                setFearuredCourses(res.data)
+                Message.success("Courses fetched");
+            } else {
+                setIsFetchingFeaturedCourses(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingFeaturedCourses(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
     useEffect(() => {
+        fetchCourses()
+        fetchFeaturedCourses()
         setPopularTopics([
             'cakes', 'pie', 'baking equipment', 'kitchen safety', 'vagan pastries'
         ]);
-    });
+    }, []);
+
+    
     return (
         <Wrapper>
             <Header />
-            <Jumbotron title={category || 'Skills'} />
+            <Jumbotron title={categoryName || 'Skills'} />
 
             <Container>
                 <h4>Popular topics</h4>
@@ -62,8 +127,8 @@ const Skills: React.FC = () => {
                 <SkillsContent>
                     {
 
-                        [1,2,3,4,5,6,7,8,9,10].map((num: number) => (
-                            <SkillCard key={num} />
+                        isFetchingCourses ? <Loader center styleTwo /> : courses.map((item, idx) => (
+                            <SkillCard key={idx} />
                         ))   
                     }
                     
@@ -72,8 +137,8 @@ const Skills: React.FC = () => {
                 <h4>Featured courses</h4>
                 <SkillsContent nowrap>
                     {
-                        [1,2].map((num: number) => (
-                            <SkillCard key={num} featured />
+                        isFetchingFeaturedCourses ? <Loader center styleTwo /> : feturedCourses.map((item, idx) => (
+                            <SkillCard key={idx} course={item} featured />
                         ))   
                     }
                     

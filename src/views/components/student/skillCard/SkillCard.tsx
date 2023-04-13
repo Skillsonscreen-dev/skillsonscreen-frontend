@@ -4,23 +4,24 @@ import { BsFillHeartFill, BsFillStarFill, BsHeartFill, BsStarHalf } from "react-
 import { TbHeart } from "react-icons/tb"
 import { Link } from "react-router-dom"
 import { SkillCardItem } from "./style"
+import { CourseInterface } from "../../../../slices/cartSlice"
 
-const SkillCard: React.FC<{ featured?: boolean }> = (props) => {
+const SkillCard: React.FC<{ featured?: boolean, course?: CourseInterface }> = ({course = null, featured = false}) => {
     return (
-        <SkillCardItem featured={!!props.featured}>
+        <SkillCardItem featured={featured}>
             <div className="img-wrapper">
-                <img src="https://media.istockphoto.com/id/157641166/photo/carpenter-measuring-a-wooden-plank.jpg?s=612x612&w=0&k=20&c=XQ2zMfWcgXb-KruXW9j00HEvxma5zBCGhjhkejeiVCw=" alt="course image" />
+                <img src={course?.courseImg} alt="course image" />
             </div>
             <div className="content">
                 <div className="head-col">
-                    <span>Carpentry</span>
-                    <span>N25,000</span>
+                    <span>{course?.category}</span>
+                    <span>N{course?.price}</span>
                 </div>
                 
                 <div>
                     <h3>
                         <Link to={"/skills/" + 'baking topic'}>
-                            Baking topic
+                            {course?.title}
                         </Link>                    
                     </h3>
                     <p>Cindy Coker</p>
@@ -39,7 +40,7 @@ const SkillCard: React.FC<{ featured?: boolean }> = (props) => {
                             <span className='students'>(10,000 Students)</span>
                         </div>
                     </div>
-                    <div className={"action-col" + (props.featured? ' featured': '')}>
+                    <div className={"action-col" + (featured? ' featured': '')}>
                         <div className="fav-box">
                             <img src="/assets/icons/wishlist.svg" alt="" />
                         </div>

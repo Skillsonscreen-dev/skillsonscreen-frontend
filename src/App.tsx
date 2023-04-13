@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import HomeScreen from './views/screens/home/HomeScreen';
@@ -31,6 +31,8 @@ import CartScreen from './views/screens/student/Cart/Cart';
 import MainLayout from './views/layouts/mainLayout/MainLayout';
 
 function App() {
+
+
   return (
     <Router>
       <ThemeProvider theme={lightTheme}>
@@ -44,7 +46,7 @@ function App() {
               <Route path="/home" element={<StudentHome />} />
               <Route path="/cart" element={<MainLayout><CartScreen /></MainLayout>} />
               <Route path="/categories" element={<Category />} />
-              <Route path="/categories/:category/skills" element={<Skills />} />
+              <Route path="/categories/:category" element={<Skills />} />
 
               <Route path="/skills" element={<Skills />} />
               <Route path="/skills/:skill" element={<Skill />} />
@@ -73,4 +75,4 @@ function App() {
 );
 }
 
-export default App;
+export default App

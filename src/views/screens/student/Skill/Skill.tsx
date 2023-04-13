@@ -19,14 +19,46 @@ import { SkillsContent } from "../Skills/styles";
 import SkillCard from "../../../components/student/skillCard/SkillCard";
 import { useLocation } from "react-router-dom";
 import { CourseInterface } from "../../../../slices/cartSlice";
+import { useEffect, useState } from "react";
+import Message from "../../../components/message/Message";
+import AxiosCall from "../../../../utils/axios";
+import { useParams } from "react-router";
 
 const Skill: React.FC = () => {
+    const [isFetchingCourse, setIsFetchingCourse] = useState(false)
+    const [course, setCourse] = useState<CourseInterface | null>(null)
     const location: any = useLocation();
-    const course: CourseInterface = location.state.course
-    const getCourse = () => {
+    const { skill } = useParams();
 
+    
+
+    const fetchCourses = async () => {
+        setIsFetchingCourse(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/course/fetch/"+skill
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingCourse(false)
+                setCourse(res.data)
+                Message.success("Course fetched");
+            } else {
+                setIsFetchingCourse(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingCourse(false)
+            Message.error(err?.response.data.message)
+        }
     }
 
+
+    useEffect(() => {
+        fetchCourses();
+    }, [])
     
 
     return (
@@ -34,7 +66,7 @@ const Skill: React.FC = () => {
             <Header />
             <Jumbotron
                 content={ <SkillJumboContent course={course} /> }
-                image={course.courseImg}
+                image={course?.courseImg}
             />
 
             <Banner>

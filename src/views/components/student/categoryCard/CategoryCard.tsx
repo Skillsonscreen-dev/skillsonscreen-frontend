@@ -3,6 +3,7 @@ import formatNumber from '../../../../utils/numberFormatter';
 import { CategoryCardItem } from './styles';
 
 interface CategoryCardProps {
+    slug: string;
     title: string;
     courses: number;
     students: number;
@@ -12,7 +13,7 @@ interface CategoryCardProps {
 const CategoryCard: React.FC<CategoryCardProps> = (props) => {
     return (
         <CategoryCardItem>
-            <Link to={'/categories/' + props.title + '/skills'} className='category-link'>
+            <Link to={'/categories/' + props.slug} className='category-link'>
                     <div className="img-wrapper">
                         <img src={props.image} alt="category image" />
                     </div>
