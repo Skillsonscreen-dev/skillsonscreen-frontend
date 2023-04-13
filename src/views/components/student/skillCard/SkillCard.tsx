@@ -14,7 +14,7 @@ const SkillCard: React.FC<{ featured?: boolean, course?: CourseInterface }> = ({
             </div>
             <div className="content">
                 <div className="head-col">
-                    <span>{course?.categoryName}</span>
+                    <span>{course?.category}</span>
                     <span>N{course?.price}</span>
                 </div>
                 
