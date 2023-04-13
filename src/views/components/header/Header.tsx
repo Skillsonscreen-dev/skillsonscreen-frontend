@@ -28,7 +28,7 @@ const Header: React.FC = () => {
     }
     const [categoryMenu, setCategoryMenu ] = useState(false)
     const openCategoryMenu = () => {
-        return navigate("/categories")
+        // return navigate("/categories")
         setCategoryMenu(!categoryMenu)
     }
 
