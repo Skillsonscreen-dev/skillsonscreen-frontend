@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react';
 import { usePaystackPayment } from 'react-paystack';
 import { PaystackProps } from 'react-paystack/dist/types';
 
-interface PaystackPaymentInterface {
-    reference: string
-    email: string
-    amount: number
-    orderId: string
-}
+// interface PaystackPaymentInterface {
+//     reference: string
+//     email: string
+//     amount: number
+//     orderId: string
+// }
 
-const PaystackPayment: React.FC<PaystackPaymentInterface> = ({reference, email, amount, orderId}) => {
+const PaystackPayment = ({reference, email, amount, orderId}) => {
     const [count, setCount] = useState(0)
 
 
     // you can call this function anything
-    const handleSuccess = (reference: any) => {
+    const handleSuccess = (reference) => {
       // Implementation for whatever you want to do with reference and after success call.
       console.log("lofty res: ", reference);
     };
@@ -25,7 +25,7 @@ const PaystackPayment: React.FC<PaystackPaymentInterface> = ({reference, email, 
       console.log('closed')
     }
 
-    const config: PaystackProps = {
+    const config = {
         reference: reference,
         email: email,
         amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
@@ -41,7 +41,7 @@ const PaystackPayment: React.FC<PaystackPaymentInterface> = ({reference, email, 
 
 
     return ( 
-        <button className="complete-btn checkout-btn">Complete Purchase</button>
+        <button onClick={() => initializePayment(handleSuccess, handleClose)} className="complete-btn checkout-btn">Complete Purchase</button>
      );
 }
  
