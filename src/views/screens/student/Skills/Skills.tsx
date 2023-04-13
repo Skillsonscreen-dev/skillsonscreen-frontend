@@ -128,7 +128,7 @@ const Skills: React.FC = () => {
                     {
 
                         isFetchingCourses ? <Loader center styleTwo /> : courses.map((item, idx) => (
-                            <SkillCard key={idx} />
+                            <SkillCard course={item} key={idx} />
                         ))   
                     }
                     
