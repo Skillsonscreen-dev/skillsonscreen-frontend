@@ -22,18 +22,16 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
 
 
       const [studentDescription, setstudentDescription] = useState('')
+      const [courseIsFor, setCourseIsFor] = useState('')
       const [studentLearn, setstudentLearn] = useState('')
       const [requirements, setrequirements] = useState('')
 
       const studentDescriptionRef = useRef<HTMLInputElement>(null)
 
       const addDescription = () => {
-       if(studentDescriptionRef.current!.value!.length) {
-        let whoCourse = props.formData.whoCourse
-        whoCourse.push(studentDescriptionRef?.current?.value)
-        studentDescriptionRef!.current!.value = "";
-
-         props.setFormData({...props.formData, whoCourse: whoCourse})
+       setCourseIsFor('')
+       if(courseIsFor.length) {
+        props.formData.whoCourse.push(courseIsFor)
        }
       }
 
@@ -119,11 +117,11 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                                                 oldWhoCourse[idx] = value.target.value
                                                 props.setFormData({...props.formData, whoCourse: oldWhoCourse})
                                             }}/>
-                                         
+
                                         )
                                         )
                                 }
-                                <input ref={studentDescriptionRef} type="text" required name="studentDes" placeholder='Describe your potential student' id="" />
+                                <input ref={studentDescriptionRef} type="text" required name="studentDes" placeholder='Describe your potential student' id="" onChange={e => setCourseIsFor(e.target.value)} />
                                 <button type="button" className="add" onClick={addDescription}>
                                    <AiOutlinePlusCircle /> Add
                                 </button>
