@@ -121,7 +121,7 @@ const CourseDescription:React.FC<formDataProps> = (props: formDataProps) => {
                                         )
                                         )
                                 }
-                                <input ref={studentDescriptionRef} type="text" required name="studentDes" placeholder='Describe your potential student' id="" onChange={e => setCourseIsFor(e.target.value)} />
+                                <input ref={studentDescriptionRef} type="text" required name="studentDes" placeholder='Describe your potential student' id="" onChange={e => setCourseIsFor(e.target.value)} value={courseIsFor} />
                                 <button type="button" className="add" onClick={addDescription}>
                                    <AiOutlinePlusCircle /> Add
                                 </button>
