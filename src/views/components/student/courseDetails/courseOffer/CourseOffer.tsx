@@ -23,6 +23,7 @@ const CourseOffer: React.FC = () => {
             icon: '/assets/icons/clock.svg'
         }
     ]
+
     return (
         <Wrapper>
             <Container>

@@ -1,9 +1,10 @@
 import { Wrapper } from "../../screens/teacher/registration/styles";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Message from "../message/Message";
 import AxiosCall from "../../../utils/axios";
 import Loader from "../Loader/Loader";
 import UploadUtility from "../../../utils/axios/UploadUtility";
+import { TutorProfileInterface } from "../student/courseDetails/courseInstructor/CourseInstructor";
 type gender = {
     male: string,
     female: string,
@@ -15,7 +16,7 @@ type formDataProps = {
         lastname: string,
         img: string,
         dob: any,
-        gender: gender,
+        gender: string,
         location: string,
         skill: string,
         about: string,
@@ -27,6 +28,50 @@ type formDataProps = {
 }
 const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
     const [instructor, setinstructor] = useState('')
+    const [isFetchingProfile, setIsFetchingProfile] = useState(false)
+    const [tutorProfile, setTutorProfile] = useState<TutorProfileInterface>()
+
+    const fetchTutorProfile = async () => {
+        setIsFetchingProfile(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/user/profile"
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingProfile(false)
+                setTutorProfile(res.data)
+
+                    props.setFormData({
+                        ...props.formData,
+                        ["firstname"]: res.data?.firstName,
+                        ["lastname"]: res.data?.lastName,
+                        ["img"]: res.data?.profileImg,
+                        ["dob"]: res.data.teacher.dateOfBirth,
+                        ["gender"]: res.data.teacher.gender,
+                        ["location"]: res.data.teacher.location,
+                        ["skill"]: res.data.teacher.skill,
+                        ["about"]: res.data.teacher.about,
+                        ["headline"]: res.data.teacher.headline,
+                    })
+                setinstructor(res.data?.profileImg)
+                Message.success("Tutor profile fetched");
+            } else {
+                setIsFetchingProfile(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingProfile(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+    useEffect(() => {
+        fetchTutorProfile()
+    }, []) 
+
     const selectImage = (x: any) => {
         const input = x.target.files;
         setinstructor(input[0]) ;
@@ -72,7 +117,7 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
     const [isSavingProfile, setIsSavingProfile] = useState<boolean>(false);
     const saveProfile = async (e: any) => {
         e.preventDefault();
-        if (profileImg == null) {
+        if (profileImg == null && props.formData.img == "") {
             console.log('====================================');
             console.log(profileImg);
             console.log('====================================');
@@ -92,7 +137,7 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
                     lastName: props.formData.lastname,
                     location: props.formData.location,
                     headline: props.formData.headline,
-                    profileImg: profileImg.name
+                    profileImg: profileImg ? profileImg.name : null
                 }
             });
 
@@ -106,8 +151,11 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
                 Message.error(res.message)
             }
         } catch (err: any) {
+            console.log('====================================');
+            console.log(err);
+            console.log('====================================');
             setIsSavingProfile(false)
-            Message.error(err?.response.data.message)
+            Message.error(err?.response?.data?.message)
         }
     }
     return ( 
@@ -162,15 +210,15 @@ const TeacherPersonalData:React.FC<formDataProps> = (props: formDataProps) => {
                                </span>
                                 <div className="gender">
                                     <span>
-                                    <input type="radio" name="gender" id="" value="male"
+                                    <input checked={props.formData.gender == "male" ? true : false} type="radio" name="gender" id="" value="male"
                                         onChange={handleChange} /> Male
                                     </span>
                                     <span>
-                                    <input type="radio" name="gender" id="" value="female"
+                                    <input checked={props.formData.gender == "female" ? true : false} type="radio" name="gender" id="" value="female"
                                         onChange={handleChange} /> Female
                                     </span>
                                     <span>
-                                    <input type="radio" name="gender" id="" value="unknown"
+                                    <input checked={props.formData.gender == "unknown" ? true : false} type="radio" name="gender" id="" value="unknown"
                                         onChange={handleChange} /> I'd rather not say 
                                     </span>
                                 </div>

@@ -4,19 +4,45 @@ import { CartTable, Checkout, Container, CourseCard, CourseWrapper, SectionConta
 import { BsFillHeartFill, BsFillStarFill, BsStarHalf } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import { BiBadgeCheck } from "react-icons/bi";
-import { CourseInterface } from "../../../../slices/cartSlice";
-import { useAppSelector } from "../../../../hooks/hooks";
+import { CourseInterface, setCart } from "../../../../slices/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 import AxiosCall from "../../../../utils/axios";
 import Message from "../../../components/message/Message";
 import PaystackPayment from "../../../components/paystackPayment/PaystackPayment";
 import { ProfileSliceInterface } from "../../../../slices/profileSlice";
 import Loader from "../../../components/Loader/Loader";
+import { Link } from "react-router-dom";
 const CartScreen: React.FC = () => {
+    const [isFetchingCourses, setIsFetchingCourses] = useState(false)
+    const [courses, setCourses] = useState<CourseInterface[]>([])
     const userProfile: ProfileSliceInterface = useAppSelector(state => state.profile.state);
     const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
     const [showModal, setshowModal] = useState(false)
-    const openModal = () => {
-        setshowModal(true)
+    const dispatch = useAppDispatch();
+
+    const [cartList, setCartList] = useState<CourseInterface[]>([]);
+
+    useEffect(()=> {
+        setCartList([...cartItems])
+    }, [cartItems.length])
+
+    const addCourseToCart = (course: any) => {
+        const oldCart = [...cartItems]
+        const itemInCart = oldCart.filter(item => item.courseId == course.courseId)
+
+        if (itemInCart.length) {
+            console.log("remove old item");
+            const itemIndex = oldCart.indexOf(itemInCart[0]);
+            oldCart.splice(itemIndex, 1);
+            dispatch(setCart(oldCart))
+            setCartList([...oldCart])
+        } else {
+            console.log("new item");
+            
+            oldCart.push(course)
+            dispatch(setCart(oldCart))
+            setCartList([...oldCart])
+        }
     }
 
     const [totalCost, setTotalCost] = useState(0)
@@ -33,7 +59,7 @@ const CartScreen: React.FC = () => {
 
     useEffect(() => {
         getTotalCost()
-    }, [])
+    }, [cartItems.length])
 
     const [isCheckingOut, setIsCheckingOut] = useState(false);
     const [checkoutData, setCheckoutData] = useState({
@@ -84,6 +110,35 @@ const CartScreen: React.FC = () => {
             Message.error(err?.response.data.message)
         }
     }
+
+
+    const fetchCourses = async () => {
+        setIsFetchingCourses(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/courses/fetch"
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingCourses(false)
+                setCourses(res.data)
+                Message.success("Courses fetched");
+            } else {
+                setIsFetchingCourses(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingCourses(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+
+    useEffect(() => {
+        fetchCourses();
+    }, [])
 
     return ( 
         <Wrapper>
@@ -169,48 +224,48 @@ const CartScreen: React.FC = () => {
                 </div>
                 <SectionContainer>
                     <h3 className="">Courses you might like</h3>
-                    <CourseWrapper>
-                        {[1,2,3,4].map((item, index) => {
-                            return (
-                                <CourseCard key={index}>
-                                    <div className="img-wrapper">
-                                        <img src="https://media.istockphoto.com/photos/shot-of-a-young-woman-using-a-laptop-and-having-coffee-while-working-picture-id1353356088?k=20&m=1353356088&s=612x612&w=0&h=-qG52wPo67pC7bcMAUKiYgl3BTbYdGNEfAsSmTl4tN8=" alt="course image" />
-                                        <div className="label">
-                                            <BiBadgeCheck />
-                                            <span>Beginner</span>
-                                        </div>
-                                    </div>
-                                    <div className="head-col">
-                                        <span>Carpentry</span>
-                                        <span>N25,000</span>
-                                    </div>
-                                    <h3>CPT 101: Introduction to Carpenter</h3>
-                                    <p>Kola Adisa, The Kafinta </p>
-
-                                    <div className="foot-col">
-                                        <div className="stats-col">
-                                            <div className="rat-sec">
-                                                <span>4.5</span>
-                                                <BsFillStarFill />
-                                                <BsFillStarFill />
-                                                <BsFillStarFill />
-                                                <BsFillStarFill />
-                                                <BsStarHalf />
+                    {isFetchingCourses ? <Loader styleTwo /> : <CourseWrapper>
+                                {courses.map((item, index) => {
+                                    return (
+                                        <CourseCard to={"/skills/"+item.courseId} state={{ course: item }} key={index}>
+                                            <div className="img-wrapper">
+                                                <img src={item.courseImg} alt="course image" />
+                                                <div className="label">
+                                                    <BiBadgeCheck />
+                                                    <span>{item.level}</span>
+                                                </div>
                                             </div>
-                                            <span className='stutents'>(10,000 Students)</span>
-                                        </div>
-
-                                        <div className="action-col">
-                                            <div className="fav-box">
-                                                <BsFillHeartFill />
+                                            <div className="head-col">
+                                                <span>{item.category}</span>
+                                                <span>N{item.price}</span>
                                             </div>
-                                            <a href="#">Add to cart</a>
-                                        </div>
-                                    </div>
-                                </CourseCard>
-                            )
-                        })}
-                    </CourseWrapper>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.description} </p>
+
+                                            <div className="foot-col">
+                                                <div className="stats-col">
+                                                    <div className="rat-sec">
+                                                        <span>4.5</span>
+                                                        <BsFillStarFill />
+                                                        <BsFillStarFill />
+                                                        <BsFillStarFill />
+                                                        <BsFillStarFill />
+                                                        <BsStarHalf />
+                                                    </div>
+                                                    <span className='stutents'>(10,000 Students)</span>
+                                                </div>
+
+                                                <div className="action-col">
+                                                    <div className="fav-box">
+                                                        <BsFillHeartFill />
+                                                    </div>
+                                                    {cartList.filter(data => data.courseId == item.courseId).length ? <Link to="/cart">Checkout</Link> : <a href="#" onClick={(e) => {e.preventDefault(); addCourseToCart(item)}}>Add to cart</a>}
+                                                </div>
+                                            </div>
+                                        </CourseCard>
+                                    )
+                                })}
+                        </CourseWrapper>}
                 </SectionContainer>
             </Container>
         </Wrapper>

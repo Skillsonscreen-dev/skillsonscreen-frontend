@@ -2,20 +2,58 @@ import { BiMessageAdd, BiPlayCircle } from 'react-icons/bi';
 import { BsFillStarFill, BsPeople } from 'react-icons/bs';
 import Button from '../../../ui/button/Button';
 import { Content, Wrapper } from './styles';
+import Loader from '../../../Loader/Loader';
 
-const CourseInstructor: React.FC = () => {
+export interface TutorProfileInterface {
+    userId:     string;
+    email:      string;
+    firstName:  string;
+    lastName:   string;
+    phone:      string;
+    profileImg: string;
+    userType:   string;
+    isVerified: boolean;
+    teacher:    Teacher;
+}
+
+export interface Teacher {
+    rating:        number;
+    totalRating:   number;
+    numRates:      number;
+    _id:           string;
+    dateOfBirth:   string;
+    skill:         string;
+    userId:        string;
+    about:         string;
+    gender:        string;
+    location:      string;
+    headline:      string;
+    degree:        string;
+    occupation:    string;
+    institution:   string;
+    experience:    string;
+    bank:          string;
+    accountNumber: string;
+    accountName:   string;
+    createdAt:     Date;
+    updatedAt:     Date;
+    __v:           number;
+}
+
+
+const CourseInstructor: React.FC<{isLoading: boolean, tutor?: TutorProfileInterface}> = ({isLoading= true, tutor}) => {
     return (
         <Wrapper>
             <h3>Instructor</h3>
-            <Content>
+            {isLoading ? <Loader styleTwo center /> : <Content>
                 <div className="header">
                     <div className="image">
-                        <img src="https://media.istockphoto.com/id/1127816715/photo/portrait-of-cheerful-young-businessman.jpg?s=612x612&w=0&k=20&c=7rIw06LoLpUVqQpoQkc2IiQZ4Edahfkqt3elc_KOPN8=" alt="instructor image" />
+                        <img src={tutor?.profileImg} alt="instructor image" />
                     </div>
                     <div className="title">
                         <div className="title-lead">
-                            <h3>Rowan Atkinson</h3>
-                            <span>Baker</span>
+                            <h3 style={{textTransform: 'capitalize'}}>{tutor?.firstName} {tutor?.lastName}</h3>
+                            <span>{tutor?.teacher.skill}</span>
                         </div>
                         <div className="title-foot">
                             <span><BsFillStarFill color='#FDB813' />4.8  <div className="hide">Instructor Rating</div></span>
@@ -25,13 +63,10 @@ const CourseInstructor: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="body">
-                    Sharing is who I am, and teaching is where I am at my best, because I've been on both sides of that equation, and getting to deliver useful training is my meaningful way to be a part of the creative community.
-                    I've spent a long time watching others learn, and teach, to refine how I work with you to be efficient, useful and, most importantly, memorable. I want you to carry what I've shown you into a bright future.
-                </div>
+                <div className="body">{tutor?.teacher.about}</div>
                 <div className="footer">
                     <Button br={4} size={'md'}>
-                        View instructor’s profile
+                        View instructor's profile
                     </Button>
                     <div className="social">
                         <img src="/assets/icons/Instagram.svg" />
@@ -42,7 +77,7 @@ const CourseInstructor: React.FC = () => {
                         <img src="/assets/icons/Twitter.svg" />
                     </div>
                 </div>
-            </Content>
+            </Content>}
         </Wrapper>
     )
 }

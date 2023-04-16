@@ -9,10 +9,11 @@ import Button from "../../../components/ui/button/Button";
 import Jumbotron from "../../../components/ui/jumbotron/Jumbotron";
 import Select, { Option } from "../../../components/ui/select/Select";
 import { SkillsContent, Container, Wrapper, PopularContent, FilterContent } from "./styles";
-import { CourseInterface } from "../../../../slices/cartSlice";
+import { CourseInterface, setCart } from "../../../../slices/cartSlice";
 import AxiosCall from "../../../../utils/axios";
 import Message from "../../../components/message/Message";
 import Loader from "../../../components/Loader/Loader";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
 
 const Skills: React.FC = () => {
     const [isFetchingCourses, setIsFetchingCourses] = useState(false)

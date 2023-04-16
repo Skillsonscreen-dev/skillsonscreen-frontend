@@ -7,7 +7,7 @@ import CourseFor from "../../../components/student/courseDetails/courseFor/Cours
 import CourseInfo from "../../../components/student/courseDetails/courseInfo/CourseInfo";
 import CourseRating from "../../../components/student/courseDetails/courseRating/CourseRating";
 import CourseWhat from "../../../components/student/courseDetails/courseWhat/CourseWhat";
-import CourseInstructor from "../../../components/student/courseDetails/courseInstructor/CourseInstructor";
+import CourseInstructor, { TutorProfileInterface } from "../../../components/student/courseDetails/courseInstructor/CourseInstructor";
 import Requirements from "../../../components/student/courseDetails/requirements/Requirements";
 import SkillJumboContent from "../../../components/student/skillJumboContent/SkillJumboContent";
 import Button from "../../../components/ui/button/Button";
@@ -17,22 +17,53 @@ import { Banner, Container, Grid, Mb, Wrapper } from "./styles";
 import CourseOffer from "../../../components/student/courseDetails/courseOffer/CourseOffer";
 import { SkillsContent } from "../Skills/styles";
 import SkillCard from "../../../components/student/skillCard/SkillCard";
-import { useLocation } from "react-router-dom";
-import { CourseInterface } from "../../../../slices/cartSlice";
+import { Link, useLocation } from "react-router-dom";
+import { CourseInterface, setCart } from "../../../../slices/cartSlice";
 import { useEffect, useState } from "react";
 import Message from "../../../components/message/Message";
 import AxiosCall from "../../../../utils/axios";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/hooks";
+import Loader from "../../../components/Loader/Loader";
 
 const Skill: React.FC = () => {
     const [isFetchingCourse, setIsFetchingCourse] = useState(false)
+    const [isFetchingProfile, setIsFetchingProfile] = useState(false)
+    const [tutorProfile, setTutorProfile] = useState<TutorProfileInterface>()
     const [course, setCourse] = useState<CourseInterface | null>(null)
     const location: any = useLocation();
     const { skill } = useParams();
+    const dispatch = useAppDispatch();
+
+    const cartItems: CourseInterface[]  = useAppSelector(state => state.cart.state);
+    const [cartList, setCartList] = useState<CourseInterface[]>([]);
+
+    useEffect(()=> {
+        setCartList([...cartItems])
+    }, [])
+
+    const addCourseToCart = (course: any) => {
+        const oldCart = [...cartItems]
+        const itemInCart = oldCart.filter(item => item.courseId == course.courseId)
+
+        if (itemInCart.length) {
+            console.log("remove old item");
+            // const itemIndex = oldCart.indexOf(itemInCart[0]);
+            // oldCart.splice(itemIndex, 1);
+            // dispatch(setCart(oldCart))
+            // setCartList([...oldCart])
+        } else {
+            console.log("new item");
+            
+            oldCart.push(course)
+            dispatch(setCart(oldCart))
+            setCartList([...oldCart])
+        }
+    }
 
     
 
-    const fetchCourses = async () => {
+    const fetchCourse = async () => {
         setIsFetchingCourse(true)
         try {
             const res: any = await AxiosCall({
@@ -44,6 +75,7 @@ const Skill: React.FC = () => {
             if (res.status == 1) {
                 setIsFetchingCourse(false)
                 setCourse(res.data)
+                fetchTutorProfile(res.data.teacherId)
                 Message.success("Course fetched");
             } else {
                 setIsFetchingCourse(false)
@@ -56,9 +88,35 @@ const Skill: React.FC = () => {
     }
 
 
+    const fetchTutorProfile = async (tutorId: string) => {
+        setIsFetchingProfile(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/tutor/profile/fetch/"+tutorId
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingProfile(false)
+                setTutorProfile(res.data)
+                Message.success("Tutor profile fetched");
+            } else {
+                setIsFetchingProfile(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingProfile(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+
     useEffect(() => {
-        fetchCourses();
+        fetchCourse();
     }, [])
+
+    const navigate = useNavigate();
     
 
     return (
@@ -69,11 +127,11 @@ const Skill: React.FC = () => {
                 image={course?.courseImg}
             />
 
-            <Banner>
+            {isFetchingCourse == false && <Banner>
                 <div className="banner-content">
                     <div className="action">
-                        <Button color="white" size="md" br={4} variant="filled">Buy course now</Button>
-                        <Button color="white" size="md" br={4} variant="outline">Add to cart</Button>
+                        <Button color="white" size="md" br={4} variant="filled" onClick={(e) => {e.preventDefault(); addCourseToCart(course); navigate("/cart")}}>Buy course now</Button>
+                        {cartList.filter(data => data.courseId == course?.courseId).length ? <Button color="white" size="md" br={4} variant="outline" onClick={(e) => {e.preventDefault(); navigate("/cart")}}>Checkout</Button> : <Button color="white" size="md" br={4} variant="outline" onClick={(e) => {e.preventDefault(); addCourseToCart(course)}}>Add to cart</Button>}
                         <div className="fav-box">
                             <img src="/assets/icons/wishlist-white.svg" alt="" />
                         </div>
@@ -83,9 +141,9 @@ const Skill: React.FC = () => {
                         <span>Instructor: <strong>Rowan Atkinson</strong></span>
                     </div>
                 </div>
-            </Banner>
+            </Banner>}
             
-            <Container>
+            {isFetchingCourse ? <Loader center styleTwo topPadding="20px" bottomPadding="20px" /> : <Container>
                 <Mb><CourseInfo /></Mb>
                 <Mb><CourseAboutSection course={course} /></Mb>
                 <Mb><CourseFor course={course} /></Mb>  
@@ -97,8 +155,8 @@ const Skill: React.FC = () => {
                 </Mb>
                 <Mb><CourseContent /></Mb>
                 <Mb><CourseRating /></Mb>
-                <CourseInstructor />
-            </Container>
+                <CourseInstructor isLoading={isFetchingProfile} tutor={tutorProfile} />
+            </Container>}
 
             <CourseOffer />
             <Container>

@@ -51,7 +51,7 @@ function App() {
               <Route path="/skills" element={<Skills />} />
               <Route path="/skills/:skill" element={<Skill />} />
 
-              <Route path="/mycourses/:course" element={<Course />} />
+              <Route path="/mycourses/:courseId" element={<Course />} />
               <Route path="/mycourses/:course/class/lessons/:lesson" element={<Class />} />
 
               <Route path="/myaccount/settings" element={<AccountSettings />} />

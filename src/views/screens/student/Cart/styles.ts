@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -66,11 +67,15 @@ export const CartTable = styled.div `
             }
         }
         .img-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 200px;
         }
         img {
             width: 100%;
             height: 120px;
+            object-fit: cover;
         }
         .rat-sec {
                 display: flex;
@@ -204,7 +209,10 @@ export const CourseWrapper = styled.div`
         display: none;
     }
 `;
-export const CourseCard = styled.div`
+
+
+export const CourseCard = styled(Link)`
+    display: block;
     flex: 0;
     width: 100%;
     min-width: 320px;
@@ -220,6 +228,7 @@ export const CourseCard = styled.div`
         img {
             object-fit: cover;
             min-height: 100%;
+            min-width: 100%;
         }
 
         .label {
@@ -334,6 +343,5 @@ export const CourseCard = styled.div`
         }
     }
 `;
-
 
 
