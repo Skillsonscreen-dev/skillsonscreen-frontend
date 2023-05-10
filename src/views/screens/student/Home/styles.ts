@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -52,7 +53,8 @@ export const CourseWrapper = styled.div`
         display: none;
     }
 `;
-export const CourseCard = styled.div`
+export const CourseCard = styled(Link)`
+    display: block;
     flex: 0;
     width: 100%;
     min-width: 320px;
@@ -68,6 +70,7 @@ export const CourseCard = styled.div`
         img {
             object-fit: cover;
             min-height: 100%;
+            min-width: 100%;
         }
 
         .label {

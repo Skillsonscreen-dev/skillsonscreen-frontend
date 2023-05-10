@@ -273,10 +273,9 @@ const HomeScreen: React.FC = () => {
                         <ReviewContent>
                             <h3 className="sec-title">Reviews from our students</h3>
                             <ReviewCardWrapper>
-                                {[1,2,3,4,5].map((item, index) => {
-                                    return <ReviewCard key={"review-"+index}>
+                                <ReviewCard>
                                     <div className="img-wrapper">
-                                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="review image" />
+                                        <img src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80" alt="review image" />
                                     </div>
                                     <div className="content">
                                         <h4>Tinuke Okon</h4>
@@ -284,7 +283,26 @@ const HomeScreen: React.FC = () => {
                                         <p>Skills on Screen have helped me learn alot within a very short period of time, and it's paying off.  Further talks</p>
                                     </div>
                                 </ReviewCard>
-                                })}
+                                <ReviewCard>
+                                    <div className="img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="review image" />
+                                    </div>
+                                    <div className="content">
+                                        <h4>Han David</h4>
+                                        <span>United States</span>
+                                        <p>Skills on Screen have helped me learn alot within a very short period of time, and it's paying off.  Further talks</p>
+                                    </div>
+                                </ReviewCard>
+                                <ReviewCard>
+                                    <div className="img-wrapper">
+                                        <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="review image" />
+                                    </div>
+                                    <div className="content">
+                                        <h4>Tinuke Okon</h4>
+                                        <span>United States</span>
+                                        <p>Skills on Screen have helped me learn alot within a very short period of time, and it's paying off.  Further talks</p>
+                                    </div>
+                                </ReviewCard>
                             </ReviewCardWrapper>
                         </ReviewContent>
                     </ReviewSection>

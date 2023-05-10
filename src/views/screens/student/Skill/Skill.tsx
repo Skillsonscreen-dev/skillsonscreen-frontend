@@ -114,9 +114,40 @@ const Skill: React.FC = () => {
 
     useEffect(() => {
         fetchCourse();
-    }, [])
+    }, [skill])
 
     const navigate = useNavigate();
+
+
+    const [isFetchingCourses, setIsFetchingCourses] = useState(false)
+    const [courses, setCourses] = useState<CourseInterface[]>([])
+    const fetchCourses = async () => {
+        setIsFetchingCourses(true)
+        try {
+            const res: any = await AxiosCall({
+                method: "GET",
+                path: "/courses/fetch"
+            });
+
+            console.log("response:",res);
+            if (res.status == 1) {
+                setIsFetchingCourses(false)
+                setCourses(res.data)
+                Message.success("Courses fetched");
+            } else {
+                setIsFetchingCourses(false)
+                Message.error(res.message)
+            }
+        } catch (err: any) {
+            setIsFetchingCourses(false)
+            Message.error(err?.response.data.message)
+        }
+    }
+
+
+    useEffect(() => {
+        fetchCourses();
+    }, [])
     
 
     return (
@@ -162,12 +193,12 @@ const Skill: React.FC = () => {
             <Container>
                 <h3>More courses like this</h3>
                 <SkillsContent style={{ marginBottom: '0' }}>
-                    {
+                    {isFetchingCourses ? <Loader styleTwo center /> : <>{
 
-                        [1,2,3,4].map((num: number) => (
-                            <SkillCard key={num} />
+                        courses.map((item, num: number) => (
+                            <SkillCard key={num} course={item} />
                         ))   
-                    }
+                    }</>}
                     
                 </SkillsContent>
             </Container>
