@@ -1,5 +1,3 @@
-import Header from "../../../components/header/Header";
-import Footer from '../../../components/footer/Footer';
 import { CartTable, Checkout, Container, CourseCard, CourseWrapper, SectionContainer, Wrapper } from './styles';
 import { BsFillHeartFill, BsFillStarFill, BsStarHalf } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
